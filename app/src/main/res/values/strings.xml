@@ -2,4 +2,13 @@
     <string name="app_name">NamllahProvider</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="skip">SKIP</string>
+    <string name="next">Next</string>
+    <string name="get_started">Get started</string>
+    <string name="contact_with_the_customer">Contact with the customer</string>
+    <string name="contact_the_customer_and_inform_him_about_your_services">Contact the customer and inform him about your services.</string>
+    <string name="get_a_return">Get a Return</string>
+    <string name="you_can_get_paid_for_the_tasks_you_do">You can get paid for the tasks you do.</string>
+    <string name="find_your_work">Find your work</string>
+    <string name="we_provide_you_the_best_service_providers_and_technicians">We provide you the best service providers and technicians.</string>
 </resources>
