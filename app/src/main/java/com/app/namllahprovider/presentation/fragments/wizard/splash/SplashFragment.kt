@@ -36,7 +36,7 @@ class SplashFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Timber.tag(TAG).d("onViewCreated : printInLaunch")
         GlobalScope.launch(context = Dispatchers.Main) {
-            delay(2000)
+            delay(1000)
             moveToNextUI()
         }
 

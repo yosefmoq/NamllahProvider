@@ -5,24 +5,34 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager
 import com.app.namllahprovider.R
 import com.app.namllahprovider.databinding.FragmentOnBoardingBinding
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
-
+@AndroidEntryPoint
 class OnBoardingFragment : Fragment(), View.OnClickListener {
 
     private var fragmentOnBoardingBinding: FragmentOnBoardingBinding? = null
+    private val onBoardingViewModel: OnBoardingViewModel by viewModels()
+
     private val lastIndex = 2
     private var currentIndex = 0
+    var screen1: View? = null
+    var screen2: View? = null
+    var screen3: View? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         fragmentOnBoardingBinding = FragmentOnBoardingBinding.inflate(inflater, container, false)
+
+
         return fragmentOnBoardingBinding?.apply {
             actionOnClick = this@OnBoardingFragment
         }?.root
@@ -30,7 +40,14 @@ class OnBoardingFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initScreens()
         initViews()
+    }
+
+    private fun initScreens() {
+        screen1 = LayoutInflater.from(context).inflate(R.layout.view_on_boarding_1, null)
+        screen2 = LayoutInflater.from(context).inflate(R.layout.view_on_boarding_2, null)
+        screen3 = LayoutInflater.from(context).inflate(R.layout.view_on_boarding_3, null)
     }
 
     private fun initViews() {
@@ -40,7 +57,7 @@ class OnBoardingFragment : Fragment(), View.OnClickListener {
         }
         fragmentOnBoardingBinding?.viewPager?.let {
             val adapter = OnBoardingAdapter()
-            adapter.data = createPageList()
+            adapter.data = listOf(screen1!!, screen2!!, screen3!!)
             it.adapter = adapter
             it.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
                 override fun onPageScrolled(
@@ -73,17 +90,6 @@ class OnBoardingFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    private fun createPageList(): List<View> {
-        val pageList: MutableList<View> = ArrayList()
-        val screen1 = LayoutInflater.from(context).inflate(R.layout.view_on_boarding_1, null)
-        val screen2 = LayoutInflater.from(context).inflate(R.layout.view_on_boarding_2, null)
-        val screen3 = LayoutInflater.from(context).inflate(R.layout.view_on_boarding_3, null)
-        pageList.add(screen1)
-        pageList.add(screen2)
-        pageList.add(screen3)
-        return pageList
-    }
-
     companion object {
         private const val TAG = "OnBoardingFragment"
     }
@@ -93,7 +99,8 @@ class OnBoardingFragment : Fragment(), View.OnClickListener {
             fragmentOnBoardingBinding?.tvNext -> {
                 fragmentOnBoardingBinding?.viewPager?.currentItem = currentIndex + 1
             }
-            fragmentOnBoardingBinding?.tvSkip ,  fragmentOnBoardingBinding?.btnGetStarted-> {
+            fragmentOnBoardingBinding?.tvSkip, fragmentOnBoardingBinding?.btnGetStarted -> {
+//                onBoardingViewModel.changeOnBoardingStatus(true)
                 findNavController().navigate(R.id.action_onBoardingFragment_to_signUpFragment)
             }
         }

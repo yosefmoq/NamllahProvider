@@ -13,7 +13,18 @@
     <color name="google_yellow">#edc855</color>
     <color name="google_green">#5cb171</color>
 
+    <color name="primary_color">#0080C6</color>
+    <color name="primary_color_dark">#005F93</color>
+    <color name="accent_color">#fb9335</color>
+    <color name="gray_color">#ababab</color>
     <color name="button_color">#FAA74A</color>
     <color name="active_dot_color">#006FBB</color>
     <color name="inactive_dot_color">#F2F2F2</color>
+
+    <color name="colorDanger">#B00020</color>
+    <color name="colorSuccess">#409D02</color>
+    <color name="colorDisable">#DCDCDC</color>
+    <color name="colorWarning">#F0AD4E</color>
+    <color name="colorInfo">#5BC0DE</color>
+
 </resources>

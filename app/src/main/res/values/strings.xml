@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">NamllahProvider</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="app_name">Namllah Provider</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="skip">SKIP</string>
     <string name="next">Next</string>
@@ -11,4 +10,19 @@
     <string name="you_can_get_paid_for_the_tasks_you_do">You can get paid for the tasks you do.</string>
     <string name="find_your_work">Find your work</string>
     <string name="we_provide_you_the_best_service_providers_and_technicians">We provide you the best service providers and technicians.</string>
+    <string name="create_new_account">Create New Account</string>
+    <string name="login_to_your_account">Login to your  account</string>
+    <string name="username">Username</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="accept_the_terms_amp_conditions"><![CDATA[Accept the terms & conditions]]></string>
+    <string name="sign_up">Sign up</string>
+    <string name="or">or</string>
+    <string name="sign_in">Sign in</string>
+    <string name="already_have_account">Already have account?</string>
+    <string name="forget_password">Forget Password?</string>
+    <string name="new_user">New User?</string>
+    <string name="sign_in_with">Sign in with</string>
+
 </resources>

@@ -51,5 +51,12 @@
         <action
             android:id="@+id/action_signUpFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_signUpFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.app.namllahprovider.presentation.fragments.main.home.HomeFragment"
+        android:label="HomeFragment" />
 </navigation>

@@ -14,6 +14,7 @@ internal class OnBoardingAdapter : PagerAdapter() {
     }
 
     override fun destroyItem(collection: ViewGroup, position: Int, view: Any) {
+
         collection.removeView(view as View)
     }
 
