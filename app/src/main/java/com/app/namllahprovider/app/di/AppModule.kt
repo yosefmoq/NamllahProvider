@@ -1,11 +1,12 @@
 package com.app.namllahprovider.app.di
 
 import android.content.Context
+import com.app.namllahprovider.data.networkhelper.LoggingInterceptor
 import com.app.namllahprovider.data.networkhelper.NetworkConnectionInterceptor
 import com.app.namllahprovider.data.repository.ConfigRepositoryImpl
-import com.app.namllahprovider.domain.repository.ConfigRepository
 import com.app.namllahprovider.data.sharedvariables.SharedVariables
 import com.app.namllahprovider.domain.Constants
+import com.app.namllahprovider.domain.repository.ConfigRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,13 +27,15 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun okHttpClient(): OkHttpClient =
+    fun okHttpClient(sharedVariables: SharedVariables): OkHttpClient =
         OkHttpClient.Builder()
             .callTimeout(10, TimeUnit.MINUTES)
             .connectTimeout(10, TimeUnit.MINUTES)
             .readTimeout(10, TimeUnit.MINUTES)
             .writeTimeout(10, TimeUnit.MINUTES)
-            .addInterceptor(NetworkConnectionInterceptor()).build()
+            .addInterceptor(LoggingInterceptor(sharedVariables))
+//            .addInterceptor(NetworkConnectionInterceptor())
+            .build()
 
     @Singleton
     @Provides

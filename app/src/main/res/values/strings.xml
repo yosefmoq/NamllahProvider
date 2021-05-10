@@ -12,6 +12,8 @@
     <string name="we_provide_you_the_best_service_providers_and_technicians">We provide you the best service providers and technicians.</string>
     <string name="create_new_account">Create New Account</string>
     <string name="login_to_your_account">Login to your  account</string>
+    <string name="verification_code">Verification code</string>
+    <string name="forget_password">Forget password</string>
     <string name="username">Username</string>
     <string name="phone_number">Phone Number</string>
     <string name="password">Password</string>
@@ -21,8 +23,19 @@
     <string name="or">or</string>
     <string name="sign_in">Sign in</string>
     <string name="already_have_account">Already have account?</string>
-    <string name="forget_password">Forget Password?</string>
+    <string name="user_forget_password">Forget Password?</string>
     <string name="new_user">New User?</string>
     <string name="sign_in_with">Sign in with</string>
+    <string name="verify">Verify</string>
+    <string name="otp_message">Please enter the 4 - digital verification code that was sent to the number:</string>
+    <string name="otp_hint">****</string>
+    <string name="resend_it">Resend it</string>
+    <string name="not_received">Not Received?</string>
+    <string name="fake_mobile_number">(+970) 599 123 456</string>
+    <string name="enter_your_phone_number_to_reset_the_password_and_then_click_send">Enter your phone number to reset the password and then click send.</string>
+    <string name="send_code">Send Code</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_new_password">Confirm New Password</string>
+    <string name="reset_password">Reset Password</string>
 
 </resources>

@@ -6,21 +6,22 @@ import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 import com.app.namllahprovider.domain.Constants
 import com.app.namllahprovider.domain.SharedValueFlags
-
+import com.google.gson.Gson
 import java.util.concurrent.Semaphore
 import javax.inject.Inject
 
+
 class SharedVariables @Inject constructor(mContext: Context) {
 
-    private var mSharedPreference: SharedPreferences? = null
+    var mSharedPreference: SharedPreferences? = null
 
     init {
         mSharedPreference = PreferenceManager.getDefaultSharedPreferences(mContext)
     }
 
-    private val mSharedPreferenceEditor: SharedPreferences.Editor
+    val mSharedPreferenceEditor: SharedPreferences.Editor
 
-    private val mSemaphore: Semaphore
+    val mSemaphore: Semaphore
 
     fun setStringSharedVariable(flag: SharedValueFlags?, value: String?) {
         try {
@@ -38,8 +39,8 @@ class SharedVariables @Inject constructor(mContext: Context) {
         try {
             mSemaphore.acquire()
             returnValue = mSharedPreference!!.getString(
-                    java.lang.String.valueOf(flag),
-                    SPF_STRING_NO_VALUE_FOUND
+                java.lang.String.valueOf(flag),
+                SPF_STRING_NO_VALUE_FOUND
             )
             mSemaphore.release()
         } catch (e: InterruptedException) {
@@ -64,8 +65,8 @@ class SharedVariables @Inject constructor(mContext: Context) {
         try {
             mSemaphore.acquire()
             returnValue = mSharedPreference!!.getStringSet(
-                    java.lang.String.valueOf(flag),
-                    SPF_STRING_LIST_NO_VALUE_FOUND.toSet()
+                java.lang.String.valueOf(flag),
+                SPF_STRING_LIST_NO_VALUE_FOUND.toSet()
             )?.toList()
             mSemaphore.release()
         } catch (e: InterruptedException) {
@@ -90,8 +91,8 @@ class SharedVariables @Inject constructor(mContext: Context) {
         try {
             mSemaphore.acquire()
             returnValue = mSharedPreference!!.getInt(
-                    java.lang.String.valueOf(flag),
-                    SPF_INT_NO_VALUE_FOUND
+                java.lang.String.valueOf(flag),
+                SPF_INT_NO_VALUE_FOUND
             )
             mSemaphore.release()
         } catch (e: InterruptedException) {
@@ -105,8 +106,8 @@ class SharedVariables @Inject constructor(mContext: Context) {
         try {
             mSemaphore.acquire()
             returnValue = mSharedPreference!!.getLong(
-                    java.lang.String.valueOf(flag),
-                    SPF_LONG_NO_VALUE_FOUND
+                java.lang.String.valueOf(flag),
+                SPF_LONG_NO_VALUE_FOUND
             )
             mSemaphore.release()
         } catch (e: InterruptedException) {
@@ -131,8 +132,8 @@ class SharedVariables @Inject constructor(mContext: Context) {
         try {
             mSemaphore.acquire()
             returnValue = mSharedPreference!!.getFloat(
-                    java.lang.String.valueOf(flag),
-                    SPF_FLOAT_NO_VALUE_FOUND.toFloat()
+                java.lang.String.valueOf(flag),
+                SPF_FLOAT_NO_VALUE_FOUND.toFloat()
             )
             mSemaphore.release()
         } catch (e: InterruptedException) {
@@ -168,9 +169,40 @@ class SharedVariables @Inject constructor(mContext: Context) {
         try {
             mSemaphore.acquire()
             returnValue = mSharedPreference!!.getBoolean(
-                    java.lang.String.valueOf(flag),
-                    SPF_BOOLEAN_NO_VALUE_FOUND
+                java.lang.String.valueOf(flag),
+                SPF_BOOLEAN_NO_VALUE_FOUND
             )
+            mSemaphore.release()
+        } catch (e: InterruptedException) {
+            e.printStackTrace()
+        }
+        return returnValue
+    }
+
+
+    fun setObjectInSharedVariable(flag: SharedValueFlags, value: Any) {
+        try {
+            val gson = Gson()
+            val stringValue = gson.toJson(value)
+            mSemaphore.acquire()
+            mSharedPreferenceEditor.putString(java.lang.String.valueOf(flag), stringValue)
+            mSharedPreferenceEditor.commit()
+            mSemaphore.release()
+        } catch (e: InterruptedException) {
+            e.printStackTrace()
+        }
+    }
+
+    inline fun <reified T> getObjectFromSharedVariable(flag: SharedValueFlags): T? {
+        var returnValue: T? = null
+        try {
+            val gson = Gson()
+            mSemaphore.acquire()
+            val stringValue = mSharedPreference!!.getString(
+                java.lang.String.valueOf(flag),
+                SPF_STRING_NO_VALUE_FOUND
+            )
+            returnValue = gson.fromJson(stringValue, T::class.java)
             mSemaphore.release()
         } catch (e: InterruptedException) {
             e.printStackTrace()
@@ -192,8 +224,8 @@ class SharedVariables @Inject constructor(mContext: Context) {
         @SuppressLint("CommitPrefEdits")
         mSharedPreferenceEditor = mSharedPreference!!.edit()
         mSemaphore = Semaphore(
-                Constants.MAX_PROCESS_AVAILABLE,
-                true
+            Constants.MAX_PROCESS_AVAILABLE,
+            true
         )
     }
 }

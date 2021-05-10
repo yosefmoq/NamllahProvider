@@ -1,21 +1,50 @@
 package com.app.namllahprovider.presentation.base
 
-import androidx.lifecycle.ViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-/*
-@HiltViewModel
-open class BaseViewModel @Inject constructor() : ViewModel(), CoroutineScope {
+
+abstract class BaseViewModel constructor(application: Application) : AndroidViewModel(application),
+    CoroutineScope {
 
     val disposable = CompositeDisposable()
+
+    val dialogLiveData = MutableLiveData<DialogData?>()
+    val errorLiveData = MutableLiveData<Throwable>()
+    val loadingLiveData = MutableLiveData<Boolean>()
+
     private var job = Job()
     override val coroutineContext: CoroutineContext
-        get() = job + Dispatchers.IO
+        get() = job + Dispatchers.Main
 
-}*/
+    val ioScheduler = Schedulers.io()
+    val newThreadScheduler = Schedulers.newThread()
+    val computationScheduler = Schedulers.computation()
+
+
+    override fun onCleared() {
+        super.onCleared()
+        job.cancel()
+        disposable.dispose()
+    }
+
+    fun changeLoadingStatus(newStatus: Boolean) {
+        loadingLiveData.postValue(newStatus)
+    }
+
+    fun changeErrorMessage(throwable: Throwable) {
+        errorLiveData.postValue(throwable)
+    }
+
+    fun changeDialogLiveData(dialogData: DialogData) {
+        dialogLiveData.postValue(dialogData)
+    }
+
+}
