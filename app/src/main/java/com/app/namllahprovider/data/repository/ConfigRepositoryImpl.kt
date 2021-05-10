@@ -1,6 +1,7 @@
 package com.app.namllahprovider.data.repository
 
 import android.content.Context
+import com.app.namllahprovider.data.model.User
 import com.app.namllahprovider.data.sharedvariables.SharedVariables
 import com.app.namllahprovider.domain.SharedValueFlags
 import com.app.namllahprovider.domain.repository.ConfigRepository
@@ -28,4 +29,13 @@ class ConfigRepositoryImpl @Inject constructor(
             isSeenOnBoarding
         )
     }
+
+    override fun setLoggedUser(user: User) {
+        sharedVariables.setObjectInSharedVariable(
+            SharedValueFlags.USER,
+            user
+        )
+    }
+
+    override fun getLoggedUser(): User? = ConfigRepositoryObj.getLoggedUser(context)
 }

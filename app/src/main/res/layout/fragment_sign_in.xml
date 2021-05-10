@@ -28,6 +28,7 @@
             android:layout_marginTop="@dimen/_16sdp"
             android:layout_marginEnd="@dimen/_16sdp"
             android:hint="@string/phone_number"
+            app:errorEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
@@ -47,6 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
             android:hint="@string/password"
+            app:errorEnabled="true"
             app:endIconMode="password_toggle"
             app:layout_constraintEnd_toEndOf="@+id/til_phoneNumber"
             app:layout_constraintStart_toStartOf="@+id/til_phoneNumber"
@@ -65,7 +67,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_16sdp"
-            android:text="@string/forget_password"
+            android:onClick="@{(view)->actionOnClick.onClick(view)}"
+            android:text="@string/user_forget_password"
             android:textColor="@color/accent_color"
             android:textSize="@dimen/_10ssp"
             app:layout_constraintEnd_toEndOf="@+id/til_password"
@@ -140,20 +143,21 @@
                 android:id="@+id/ib_signWithGoogle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{(view)->actionOnClick.onClick(view)}"
                 android:layout_marginHorizontal="@dimen/_8sdp"
                 android:background="@null"
+                android:onClick="@{(view)->actionOnClick.onClick(view)}"
                 android:src="@drawable/ic_google_circle" />
 
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{(view)->actionOnClick.onClick(view)}"
                 android:layout_marginHorizontal="@dimen/_8sdp"
                 android:background="@null"
+                android:onClick="@{(view)->actionOnClick.onClick(view)}"
                 android:src="@drawable/ic_apple_circle" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -172,10 +176,10 @@
 
             <TextView
                 android:id="@+id/tv_signUp"
-                android:onClick="@{(view)->actionOnClick.onClick(view)}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_4sdp"
+                android:onClick="@{(view)->actionOnClick.onClick(view)}"
                 android:text="@string/sign_up"
                 android:textColor="@color/accent_color"
                 android:textSize="@dimen/_12ssp" />
