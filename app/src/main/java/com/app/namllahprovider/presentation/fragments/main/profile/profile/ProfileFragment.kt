@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.app.namllahprovider.R
+import com.app.namllahprovider.presentation.fragments.main.notifiactions.NotificationFragment
 
 class ProfileFragment : Fragment() {
 
@@ -19,5 +20,7 @@ class ProfileFragment : Fragment() {
 
     companion object {
         private const val TAG = "ProfileFragment"
+        fun getInstance() = ProfileFragment()
+
     }
 }

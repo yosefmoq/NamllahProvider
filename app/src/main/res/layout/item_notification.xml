@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="notification"
+            type="com.app.namllahprovider.data.model.Notification" />
+
+        <variable
+            name="onNotificationListener"
+            type="com.app.namllahprovider.presentation.fragments.main.notifiactions.OnNotificationListener" />
+
+        <variable
+            name="position"
+            type="Integer" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_4sdp"
+        android:elevation="@dimen/_4sdp"
+        android:onClick="@{(view)->onNotificationListener.onClickNotification(position)}"
+        app:cardCornerRadius="@dimen/_8sdp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_notificationText"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:ellipsize="end"
+                android:padding="@dimen/_2sdp"
+                android:text="@string/lorem_text"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintBottom_toBottomOf="@+id/order_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/order_image"
+                app:layout_constraintTop_toTopOf="@+id/order_image" />
+
+
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/order_image"
+                imageUrl="@{notification.imageUrl}"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_70sdp"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_marginHorizontal="@dimen/_6sdp"
+                app:civ_border_color="@color/white"
+                app:civ_border_width="1dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>
