@@ -11,7 +11,8 @@
     <string name="find_your_work">Find your work</string>
     <string name="we_provide_you_the_best_service_providers_and_technicians">We provide you the best service providers and technicians.</string>
     <string name="create_new_account">Create New Account</string>
-    <string name="login_to_your_account">Login to your  account</string>
+    <string name="login_to_your_account">Login to your account</string>
+    <string name="order_details">Order details</string>
     <string name="verification_code">Verification code</string>
     <string name="forget_password">Forget password</string>
     <string name="username">Username</string>
@@ -37,5 +38,14 @@
     <string name="new_password">New Password</string>
     <string name="confirm_new_password">Confirm New Password</string>
     <string name="reset_password">Reset Password</string>
+    <string name="notification">Notification</string>
+    <string name="profile">Profile</string>
+    <string name="home">Home</string>
+    <string name="order_photo">Order Photo</string>
+    <string name="see_more">See More</string>
+    <string name="problem_description">Problem Description</string>
+    <string name="location_details">Location Details</string>
+    <string name="lorem_text">Enter your phone number to reset the password and then click send. Enter your phone number to reset the password and then click send. Enter your phone number to reset the password and then click send. Enter your phone number to reset the password and then click send. Enter your phone number to reset the password and then click send.</string>
+    <string name="accept">Accept</string>
 
 </resources>
