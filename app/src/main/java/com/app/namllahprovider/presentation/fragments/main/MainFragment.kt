@@ -13,7 +13,6 @@ import com.app.namllahprovider.databinding.FragmentMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
 class MainFragment : Fragment(), BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -33,17 +32,6 @@ class MainFragment : Fragment(), BottomNavigationView.OnNavigationItemSelectedLi
         fragmentMainBinding?.navigation?.setOnNavigationItemSelectedListener(this)
     }
 
-    private fun loadFragment(fragment: Fragment) {
-        // load fragment
-        //        loadFragment(HomeFragment.newInstance())
-
-        val transaction: FragmentTransaction =
-            requireActivity().supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.frame_container, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
-    }
-
     private fun loadFragmentByNavigation(bottomNavType: BottomNavType) {
         val destination = when (bottomNavType) {
             BottomNavType.HOME -> R.id.action_global_homeFragment
@@ -56,7 +44,6 @@ class MainFragment : Fragment(), BottomNavigationView.OnNavigationItemSelectedLi
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-
             R.id.mi_home -> loadFragmentByNavigation(BottomNavType.HOME)
             R.id.mi_notification -> loadFragmentByNavigation(BottomNavType.NOTIFICATION)
             R.id.mi_profile -> loadFragmentByNavigation(BottomNavType.PROFILE)

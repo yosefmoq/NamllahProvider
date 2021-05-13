@@ -1,5 +1,6 @@
 package com.app.namllahprovider.presentation.fragments.main.home
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,17 +22,20 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Timber.tag(TAG).d("onCreateView : ")
         fragmentHomeBinding = FragmentHomeBinding.inflate(inflater, container, false)
         return fragmentHomeBinding?.apply { }?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Timber.tag(TAG).d("onViewCreated : ")
         super.onViewCreated(view, savedInstanceState)
-        setupViewPager(fragmentHomeBinding?.vpHomeViewPager ?: return)
         fragmentHomeBinding?.tlHomeTabLayout?.setupWithViewPager(
             fragmentHomeBinding?.vpHomeViewPager ?: return
         )
+        setupViewPager(fragmentHomeBinding?.vpHomeViewPager ?: return)
     }
+
 
     private fun setupViewPager(viewPager: ViewPager) {
         val adapter = ViewPagerAdapter(childFragmentManager)

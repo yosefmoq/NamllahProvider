@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.app.namllahprovider.data.api.auth.sign_in.SignInResponse
-import com.app.namllahprovider.data.model.User
+import com.app.namllahprovider.data.model.UserDto
 import com.app.namllahprovider.domain.repository.AuthRepository
 import com.app.namllahprovider.domain.repository.ConfigRepository
 import com.app.namllahprovider.presentation.base.BaseViewModel
@@ -44,8 +44,8 @@ class SignInViewModel @Inject constructor(
         }
     }
 
-    fun saveUserDataLocal(user: User) = launch {
-        configRepository.setLoggedUser(user)
+    fun saveUserDataLocal(userDto: UserDto) = launch {
+        configRepository.setLoggedUser(userDto)
     }
 
     fun changeLoginStatus(newLoginStatus: Boolean) = launch {

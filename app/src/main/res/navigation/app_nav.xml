@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/app_nav"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/splashFragment">
 
     <fragment
         android:id="@+id/splashFragment"
@@ -107,5 +107,10 @@
             app:popUpTo="@+id/main_nav_graph"
             app:popUpToInclusive="true" />
     </fragment>
-    <include app:graph="@navigation/main_nav" />
+    <action
+        android:id="@+id/action_global_signInFragment"
+        app:destination="@id/signInFragment"
+        app:launchSingleTop="true" />
+
+
 </navigation>

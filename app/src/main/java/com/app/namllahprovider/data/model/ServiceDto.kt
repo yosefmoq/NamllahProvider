@@ -2,10 +2,12 @@ package com.app.namllahprovider.data.model
 
 import com.google.gson.Gson
 
-data class Errors(
-    val mobile: List<String>? = null,
-    val password: List<String>? = null
-) {
+data class ServiceDto (
+    val id: Long,
+    val serviceImage: ServiceImage,
+    val title: String,
+    val description: String
+){
     override fun toString(): String {
         return Gson().toJson(this)
     }

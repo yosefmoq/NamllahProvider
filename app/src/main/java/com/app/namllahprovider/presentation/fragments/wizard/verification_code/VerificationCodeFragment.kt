@@ -69,10 +69,10 @@ class VerificationCodeFragment : Fragment(), View.OnClickListener {
     }
 
     private fun handleVerifyCodeResponse(verificationCodeResponse: VerificationCodeResponse) {
-        if (verificationCodeResponse.user != null) {
+        if (verificationCodeResponse.userDto != null) {
             //Success Login
             //Save User data in SP
-            verificationCodeViewModel.saveUserDataLocal(verificationCodeResponse.user!!)
+            verificationCodeViewModel.saveUserDataLocal(verificationCodeResponse.userDto!!)
             verificationCodeViewModel.changeLoginStatus(true)
             findNavController().navigate(VerificationCodeFragmentDirections.actionVerificationCodeFragmentToMainFragment())
         } else {

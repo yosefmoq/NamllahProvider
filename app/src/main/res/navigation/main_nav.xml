@@ -39,9 +39,19 @@
         tools:layout="@layout/fragment_notification" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.app.namllahprovider.presentation.fragments.main.profile.profile.ProfileFragment"
+        android:name="com.app.namllahprovider.presentation.fragments.main.profile.profile.UserProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_user_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_userEditProfileFragment"
+            app:destination="@id/userEditProfileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_userSettingFragment"
+            app:destination="@id/userSettingFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_userServiceFragment"
+            app:destination="@id/userServiceFragment" />
+    </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.app.namllahprovider.presentation.fragments.main.home.HomeFragment"
@@ -62,4 +72,16 @@
         android:id="@+id/action_global_profileFragment"
         app:destination="@id/profileFragment"
         app:launchSingleTop="true" />
+    <fragment
+        android:id="@+id/userEditProfileFragment"
+        android:name="com.app.namllahprovider.presentation.fragments.main.profile.edit_profile.UserEditProfileFragment"
+        android:label="UserEditProfileFragment" />
+    <fragment
+        android:id="@+id/userSettingFragment"
+        android:name="com.app.namllahprovider.presentation.fragments.main.profile.settings.UserSettingFragment"
+        android:label="UserSettingFragment" />
+    <fragment
+        android:id="@+id/userServiceFragment"
+        android:name="com.app.namllahprovider.presentation.fragments.main.profile.services.UserServiceFragment"
+        android:label="UserServiceFragment" />
 </navigation>

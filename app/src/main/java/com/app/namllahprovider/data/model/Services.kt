@@ -1,11 +1,12 @@
 package com.app.namllahprovider.data.model
 
 import com.google.gson.Gson
+import com.google.gson.annotations.SerializedName
 
-data class Errors(
-    val mobile: List<String>? = null,
-    val password: List<String>? = null
-) {
+data class Services (
+    @SerializedName("data")
+    val servicesList: List<ServiceDto>
+){
     override fun toString(): String {
         return Gson().toJson(this)
     }

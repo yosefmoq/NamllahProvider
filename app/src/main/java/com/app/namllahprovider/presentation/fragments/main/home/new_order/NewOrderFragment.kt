@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.namllahprovider.data.model.Order
 import com.app.namllahprovider.databinding.FragmentNewOrderBinding
-import com.app.namllahprovider.presentation.fragments.main.home.HomeFragment
+import com.app.namllahprovider.presentation.fragments.main.MainFragmentDirections
 import com.app.namllahprovider.presentation.fragments.main.home.HomeFragmentDirections
 import timber.log.Timber
 
