@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.app.namllahprovider.R
 import com.app.namllahprovider.data.api.auth.sign_in.SignInResponse
@@ -74,10 +75,10 @@ class SignInFragment : Fragment(), View.OnClickListener {
             Timber.tag(TAG).d("observeLiveData : Loading Status $it")
         })
 
-        signInViewModel.errorLiveData.observe(viewLifecycleOwner, {
+        signInViewModel.errorLiveData.observe(viewLifecycleOwner) {
             Timber.tag(TAG).e("observeLiveData : Error Message ${it.message}")
             it.printStackTrace()
-        })
+        }
 
         signInViewModel.signInLiveData.observe(viewLifecycleOwner, {
             it?.let {
@@ -89,10 +90,10 @@ class SignInFragment : Fragment(), View.OnClickListener {
     }
 
     private fun handleSignInResponse(signInResponse: SignInResponse) {
-        if (signInResponse.user != null) {
+        if (signInResponse.userDto != null) {
             //Success Login
             //Save User data in SP
-            signInViewModel.saveUserDataLocal(signInResponse.user!!)
+            signInViewModel.saveUserDataLocal(signInResponse.userDto!!)
             signInViewModel.changeLoginStatus(true)
             findNavController().navigate(R.id.action_signInFragment_to_mainFragment)
         } else {

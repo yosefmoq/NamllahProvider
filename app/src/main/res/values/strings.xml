@@ -47,5 +47,36 @@
     <string name="location_details">Location Details</string>
     <string name="lorem_text">Enter your phone number to reset the password and then click send. Enter your phone number to reset the password and then click send. Enter your phone number to reset the password and then click send. Enter your phone number to reset the password and then click send. Enter your phone number to reset the password and then click send.</string>
     <string name="accept">Accept</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="fake_address">Gaza, Palestine</string>
+    <string name="fake_name">Ismail A. Amassi</string>
+    <string name="fake_nationality">Palestinian</string>
+    <string name="my_services">My Services</string>
+    <string name="language">Language</string>
+    <string name="logout">Logout</string>
+    <string name="settings">Settings</string>
+    <string name="address">Address</string>
+    <string name="nationality">Nationality</string>
+
+    <string name="change_phone_number_title">Change Phone Number</string>
+    <string name="change_phone_number_message">We will sent a code to your new mobile number</string>
+
+    <string name="change_username_title">Change Username</string>
+    <string name="change_username_message">Enter New Name</string>
+
+    <string name="change_password_title">Change Password</string>
+    <string name="change_password_message">Enter New Password</string>
+
+    <string name="change_address_title">Change Address</string>
+    <string name="change_address_message">Enter New Address</string>
+
+
+    <string name="change_language_title">Change Language</string>
+    <string name="change_language_message">Choose New Language</string>
+
+    <string name="current_password">Current Password</string>
+    <string name="save">Save</string>
+    <string name="arabic">Arabic</string>
+    <string name="english">English</string>
 
 </resources>

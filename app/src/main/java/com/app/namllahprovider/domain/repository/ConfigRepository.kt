@@ -1,6 +1,6 @@
 package com.app.namllahprovider.domain.repository
 
-import com.app.namllahprovider.data.model.User
+import com.app.namllahprovider.data.model.UserDto
 
 
 interface ConfigRepository {
@@ -13,8 +13,8 @@ interface ConfigRepository {
 
     fun setSeenOnBoarding(isSeenOnBoarding: Boolean)
 
-    fun setLoggedUser(user: User)
+    fun setLoggedUser(userDto: UserDto)
 
-    fun getLoggedUser(): User?
+    fun getLoggedUser(): UserDto?
 
 }

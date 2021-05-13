@@ -15,7 +15,7 @@ import timber.log.Timber
 class OrderDetailsFragment : Fragment(), View.OnClickListener {
 
     private var fragmentOrderDetailsBinding: FragmentOrderDetailsBinding? = null
-    var orderId: Int = -1
+    private var orderId: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
