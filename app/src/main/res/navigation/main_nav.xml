@@ -41,7 +41,7 @@
         android:id="@+id/profileFragment"
         android:name="com.app.namllahprovider.presentation.fragments.main.profile.profile.UserProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_user_profile" >
+        tools:layout="@layout/fragment_user_profile">
         <action
             android:id="@+id/action_profileFragment_to_userEditProfileFragment"
             app:destination="@id/userEditProfileFragment" />
@@ -75,13 +75,61 @@
     <fragment
         android:id="@+id/userEditProfileFragment"
         android:name="com.app.namllahprovider.presentation.fragments.main.profile.edit_profile.UserEditProfileFragment"
-        android:label="UserEditProfileFragment" />
+        android:label="UserEditProfileFragment">
+        <action
+            android:id="@+id/action_userEditProfileFragment_to_userEditBottomSheetFragment"
+            app:destination="@id/userEditBottomSheetFragment" />
+        <action
+            android:id="@+id/action_userEditProfileFragment_to_userEditPasswordFragment"
+            app:destination="@id/userEditPasswordFragment" />
+    </fragment>
     <fragment
         android:id="@+id/userSettingFragment"
         android:name="com.app.namllahprovider.presentation.fragments.main.profile.settings.UserSettingFragment"
-        android:label="UserSettingFragment" />
+        android:label="UserSettingFragment" >
+        <action
+            android:id="@+id/action_userSettingFragment_to_languageListBottomSheetFragment"
+            app:destination="@id/languageListBottomSheetFragment" />
+    </fragment>
     <fragment
         android:id="@+id/userServiceFragment"
         android:name="com.app.namllahprovider.presentation.fragments.main.profile.services.UserServiceFragment"
         android:label="UserServiceFragment" />
+    <dialog
+        android:id="@+id/userEditBottomSheetFragment"
+        android:name="com.app.namllahprovider.presentation.fragments.main.profile.edit_profile.dialogs.UserEditBottomSheetFragment"
+        android:label="UserEditBottomSheetFragment">
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="message"
+            app:argType="string" />
+        <argument
+            android:name="hint"
+            app:argType="string" />
+
+        <argument
+            android:name="currentValue"
+            app:argType="string" />
+        <argument
+            android:name="inputType"
+            app:argType="com.app.namllahprovider.presentation.base.BottomSheetInputType"
+            android:defaultValue="NAME" />
+
+    </dialog>
+    <dialog
+        android:id="@+id/userEditPasswordFragment"
+        android:name="com.app.namllahprovider.presentation.fragments.main.profile.edit_profile.dialogs.UserEditPasswordFragment"
+        android:label="UserEditPasswordFragment" />
+    <dialog
+        android:id="@+id/languageListBottomSheetFragment"
+        android:name="com.app.namllahprovider.presentation.fragments.main.profile.settings.LanguageListBottomSheetFragment"
+        android:label="LanguageListBottomSheetFragment">
+
+        <argument
+            android:name="currentLanguage"
+            app:argType="integer" />
+    </dialog>
+
 </navigation>

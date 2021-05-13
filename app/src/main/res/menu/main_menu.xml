@@ -7,7 +7,7 @@
 
     <item
         android:id="@+id/mi_notification"
-        android:icon="@drawable/ic_notiffication"
+        android:icon="@drawable/ic_notification"
         android:title="@string/notification" />
 
     <item

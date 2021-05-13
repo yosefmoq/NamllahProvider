@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <variable
+            name="actionOnClick"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="notificationStatus"
+            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,5 +22,46 @@
         <include
             android:id="@+id/toolbar"
             layout="@layout/toolbar" />
+
+
+        <TextView
+            android:id="@+id/tv_editLanguage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:background="@drawable/bg_round_edge_gray"
+            android:drawablePadding="@dimen/_8sdp"
+            android:gravity="center_vertical"
+            android:onClick="@{(view)->actionOnClick.onClick(view)}"
+            android:paddingHorizontal="@dimen/_12sdp"
+            android:paddingVertical="@dimen/_12sdp"
+            android:text="@string/language"
+            android:textSize="@dimen/_12ssp"
+            app:drawableEndCompat="@drawable/ic_baseline_arrow_forward_ios_24"
+            app:drawableStartCompat="@drawable/ic_baseline_language_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_userNotification"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="@drawable/bg_round_edge_gray"
+            android:checked="@{notificationStatus}"
+            android:drawablePadding="@dimen/_8sdp"
+            android:paddingHorizontal="@dimen/_12sdp"
+            android:paddingVertical="@dimen/_12sdp"
+            android:text="@string/notification"
+            android:textSize="@dimen/_12ssp"
+            app:drawableStartCompat="@drawable/ic_notification"
+            app:drawableTint="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/tv_editLanguage"
+            app:layout_constraintStart_toStartOf="@+id/tv_editLanguage"
+            app:layout_constraintTop_toBottomOf="@+id/tv_editLanguage" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

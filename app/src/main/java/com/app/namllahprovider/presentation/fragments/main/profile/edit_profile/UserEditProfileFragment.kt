@@ -9,7 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.app.namllahprovider.R
+import com.app.namllahprovider.data.model.UserDto
 import com.app.namllahprovider.databinding.FragmentUserEditProfileBinding
+import com.app.namllahprovider.presentation.base.BottomSheetInputType
 import com.app.namllahprovider.presentation.fragments.main.profile.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -19,6 +21,8 @@ class UserEditProfileFragment : Fragment(), View.OnClickListener {
 
     private var fragmentUserEditProfileBinding: FragmentUserEditProfileBinding? = null
     private val profileViewModel: ProfileViewModel by viewModels()
+
+    private var userDto: UserDto? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +39,19 @@ class UserEditProfileFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initToolbar()
+        getLoggedProfile()
+    }
+
+    private fun getLoggedProfile() {
+        profileViewModel.getLoggedUser()
+        profileViewModel.loggedUserLiveData.observe(viewLifecycleOwner, {
+            it?.let {
+                Timber.tag(TAG).d("getLoggedProfile : it $it")
+                userDto = it
+                fragmentUserEditProfileBinding?.userDto = userDto
+                profileViewModel.loggedUserLiveData.postValue(null)
+            }
+        })
     }
 
     private fun initToolbar() {
@@ -65,19 +82,45 @@ class UserEditProfileFragment : Fragment(), View.OnClickListener {
     }
 
     private fun onClickEditUsername() {
-        Timber.tag(TAG).d("onClickEditUsername   : ")
+        findNavController().navigate(
+            UserEditProfileFragmentDirections.actionUserEditProfileFragmentToUserEditBottomSheetFragment(
+                title = getString(R.string.change_username_title),
+                message = getString(R.string.change_username_message),
+                hint = getString(R.string.username),
+                currentValue = userDto?.name ?: "",
+                inputType = BottomSheetInputType.NAME
+            )
+        )
     }
 
     private fun onClickEditPhoneNumber() {
-        Timber.tag(TAG).d("onClickEditPhoneNumber    : ")
+        findNavController().navigate(
+            UserEditProfileFragmentDirections.actionUserEditProfileFragmentToUserEditBottomSheetFragment(
+                title = getString(R.string.change_phone_number_title),
+                message = getString(R.string.change_phone_number_message),
+                hint = getString(R.string.phone_number),
+                currentValue = userDto?.mobile ?: "",
+                inputType = BottomSheetInputType.PHONE
+            )
+        )
     }
 
     private fun onClickEditPassword() {
-        Timber.tag(TAG).d("onClickEditPassword   : ")
+        findNavController().navigate(
+            UserEditProfileFragmentDirections.actionUserEditProfileFragmentToUserEditPasswordFragment()
+        )
     }
 
     private fun onClickEditAddress() {
-        Timber.tag(TAG).d("onClickEditAddress    : ")
+        findNavController().navigate(
+            UserEditProfileFragmentDirections.actionUserEditProfileFragmentToUserEditBottomSheetFragment(
+                title = getString(R.string.change_address_title),
+                message = getString(R.string.change_address_message),
+                hint = getString(R.string.address),
+                currentValue = userDto?.type ?: "",
+                inputType = BottomSheetInputType.ADDRESS
+            )
+        )
     }
 
     private fun onClickEditNationality() {

@@ -6,6 +6,7 @@ import com.google.android.material.navigation.NavigationView
 import android.view.MenuItem
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
+import androidx.navigation.findNavController
 import com.app.namllahprovider.R
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,5 +24,9 @@ class MainActivity : AppCompatActivity(),
         arguments: Bundle?
     ) {
 
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }
