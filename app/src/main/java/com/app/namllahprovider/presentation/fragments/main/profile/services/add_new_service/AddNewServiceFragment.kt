@@ -18,6 +18,52 @@ import dagger.hilt.android.AndroidEntryPoint
 class AddNewServiceFragment : Fragment(), View.OnClickListener {
 
     private var fragmentAddNewServiceBinding: FragmentAddNewServiceBinding? = null
+    val servicesList = arrayOf(
+        "Service Name 01",
+        "Service Name 02",
+        "Service Name 03",
+        "Service Name 03",
+        "Service Name 04",
+        "Service Name 05",
+        "Service Name 06",
+        "Service Name 07",
+        "Service Name 08",
+        "Service Name 09",
+        "Service Name 11",
+        "Service Name 12",
+        "Service Name 13",
+        "Service Name 13",
+        "Service Name 14",
+        "Service Name 15",
+        "Service Name 16",
+        "Service Name 17",
+        "Service Name 18",
+        "Service Name 19",
+    )
+    val areasList = arrayOf(
+        "Service Area 01",
+        "Service Area 02",
+        "Service Area 03",
+        "Service Area 04",
+        "Service Area 05",
+        "Service Area 06",
+        "Service Area 07",
+        "Service Area 08",
+        "Service Area 09",
+        "Service Area 10",
+        "Service Area 11",
+        "Service Area 12",
+        "Service Area 13",
+        "Service Area 13",
+        "Service Area 14",
+        "Service Area 15",
+        "Service Area 16",
+        "Service Area 17",
+        "Service Area 18",
+        "Service Area 19",
+        "Service Area 20",
+    )
+    var selectedAreasPositionList = intArrayOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,28 +104,6 @@ class AddNewServiceFragment : Fragment(), View.OnClickListener {
 
 
     private fun onClickServiceName() {
-        val servicesList = arrayOf(
-            "Service Name 01",
-            "Service Name 02",
-            "Service Name 03",
-            "Service Name 03",
-            "Service Name 04",
-            "Service Name 05",
-            "Service Name 06",
-            "Service Name 07",
-            "Service Name 08",
-            "Service Name 09",
-            "Service Name 11",
-            "Service Name 12",
-            "Service Name 13",
-            "Service Name 13",
-            "Service Name 14",
-            "Service Name 15",
-            "Service Name 16",
-            "Service Name 17",
-            "Service Name 18",
-            "Service Name 19",
-        )
         findNavController().navigate(
             UserServiceFragmentDirections.actionGlobalSingleListBottomSheetFragment(
                 title = "Select Service",
@@ -93,41 +117,21 @@ class AddNewServiceFragment : Fragment(), View.OnClickListener {
             )
         )
     }
-
     private fun onClickServiceAreas() {
-        val areasList = arrayOf(
-            "Service Area 01",
-            "Service Area 02",
-            "Service Area 03",
-            "Service Area 04",
-            "Service Area 05",
-            "Service Area 06",
-            "Service Area 07",
-            "Service Area 08",
-            "Service Area 09",
-            "Service Area 10",
-            "Service Area 11",
-            "Service Area 12",
-            "Service Area 13",
-            "Service Area 13",
-            "Service Area 14",
-            "Service Area 15",
-            "Service Area 16",
-            "Service Area 17",
-            "Service Area 18",
-            "Service Area 19",
-            "Service Area 20",
-        )
-        var intArray = intArrayOf(1, 2, 5, 10)
         findNavController().navigate(
             UserServiceFragmentDirections.actionGlobalRadioListBottomSheetFragment(
                 title = "Select Area",
                 message = "Select Area You Cover it",
                 hint = "",
                 textArray = areasList,
-                selectedPositionArray = intArray,
+                selectedPositionArray = selectedAreasPositionList,
                 radioListSelectionItem = RadioListSelectionItem {
-                    intArray = it
+                    selectedAreasPositionList = it
+                    if (selectedAreasPositionList.isEmpty()) {
+                        fragmentAddNewServiceBinding?.tvServiceAreas?.text =
+                            getString(R.string.click_here_to_select_areas_from_list)
+                        return@RadioListSelectionItem
+                    }
                     val stringBuilder = StringBuilder()
                     it.forEach { position ->
                         stringBuilder.append("   ${areasList[position]}")

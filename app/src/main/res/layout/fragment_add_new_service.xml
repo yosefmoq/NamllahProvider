@@ -62,7 +62,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/tv_serviceName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_serviceNameLabel"
-                app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
+                app:srcCompat="@drawable/ic_baseline_keyboard_arrow_down_24" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -110,7 +110,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/tv_serviceAreas"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_serviceAreasLabel"
-                app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
+                app:srcCompat="@drawable/ic_baseline_keyboard_arrow_down_24" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

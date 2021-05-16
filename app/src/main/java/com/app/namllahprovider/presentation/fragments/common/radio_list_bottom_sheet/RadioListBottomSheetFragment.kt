@@ -1,13 +1,18 @@
 package com.app.namllahprovider.presentation.fragments.common.radio_list_bottom_sheet
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.namllahprovider.databinding.FragmentRadioListBottomSheetBinding
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+
 
 class RadioListBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickListener {
 
@@ -23,6 +28,18 @@ class RadioListBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickLi
     private var radioListSelectionItem: RadioListSelectionItem? = null
 
     private var radioListBottomSheetAdapter = RadioListBottomSheetAdapter(radioList)
+
+/*    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
+
+        dialog.setOnShowListener {
+            val d = it as BottomSheetDialog
+            val bottomSheet =
+                d.findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)!!
+            BottomSheetBehavior.from(bottomSheet).setState(BottomSheetBehavior.STATE_EXPANDED);
+        }
+        return super.onCreateDialog(savedInstanceState)
+    }*/
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,6 +76,7 @@ class RadioListBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickLi
             radioList.add(Pair(selectedPositionList.contains(position), textList[position]))
         }
         radioListBottomSheetAdapter.updateData(radioList)
+
     }
 
 

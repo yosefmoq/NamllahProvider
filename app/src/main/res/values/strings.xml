@@ -91,5 +91,6 @@
     <string name="select_service_you_provide">Select Service You Provide</string>
     <string name="select_areas_you_cover">Select Areas You Cover</string>
     <string name="add">ADD</string>
+    <string name="click_here_to_select_areas_from_list">Click here to select areas from list</string>
 
 </resources>
