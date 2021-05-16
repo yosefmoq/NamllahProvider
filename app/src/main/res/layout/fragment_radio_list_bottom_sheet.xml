@@ -20,7 +20,7 @@
             type="String" />
 
         <variable
-            name="hint"
+            name="hintSearch"
             type="String" />
 
         <variable
@@ -28,8 +28,12 @@
             type="String" />
 
         <variable
-            name="inputType"
-            type="Integer" />
+            name="radioBottomSheetAdapter"
+            type="com.app.namllahprovider.presentation.fragments.common.radio_list_bottom_sheet.RadioListBottomSheetAdapter" />
+
+        <variable
+            name="layoutManger"
+            type="androidx.recyclerview.widget.RecyclerView.LayoutManager" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -37,7 +41,7 @@
         android:layout_height="match_parent"
         android:paddingBottom="8dp"
         app:cardCornerRadius="@dimen/_8sdp"
-        tools:context=".presentation.fragments.main.profile.edit_profile.dialogs.UserEditBottomSheetFragment">
+        tools:context=".presentation.fragments.common.EditTextBottomSheetFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -68,28 +72,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_16sdp"
-                android:layout_marginTop="8dp"
-                android:hint="@{hint}"
-                app:boxStrokeColor="@color/primary_color"
-                app:hintTextColor="@color/primary_color"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView16">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_bottomSheet"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType='@{inputType == 1 ? (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_POSTAL_ADDRESS) :inputType == 2 ? InputType.TYPE_CLASS_PHONE:inputType == 3 ?InputType.TYPE_TEXT_VARIATION_PASSWORD:InputType.TYPE_TEXT_FLAG_MULTI_LINE}'
-                    android:text="@{currentValue??``}" />
-            </com.google.android.material.textfield.TextInputLayout>
-
             <TextView
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
@@ -114,6 +96,30 @@
                 app:layout_constraintStart_toStartOf="@+id/ib_close"
                 app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_200sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                app:layoutManager="@{layoutManger}"
+                app:layout_constraintEnd_toEndOf="@+id/textView16"
+                app:layout_constraintStart_toStartOf="@+id/textView16"
+                app:layout_constraintTop_toBottomOf="@+id/textView16"
+                app:setAdapter="@{radioBottomSheetAdapter}"
+                tools:listitem="@layout/item_radio_list_bottom_sheet" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_save"
+                style="@style/AppButton.AccentButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:onClick="@{(view)->actionOnClick.onClick(view)}"
+                android:text="@string/save"
+                app:layout_constraintEnd_toEndOf="@+id/recyclerView"
+                app:layout_constraintStart_toStartOf="@+id/recyclerView"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+
             <View
                 android:id="@+id/view"
                 android:layout_width="1dp"
@@ -123,16 +129,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_save" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_save"
-                style="@style/AppButton.AccentButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_64sdp"
-                android:text="Save"
-                app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
-                app:layout_constraintStart_toStartOf="@+id/textInputLayout"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

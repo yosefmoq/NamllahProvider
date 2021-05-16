@@ -1,16 +1,16 @@
-package com.app.namllahprovider.presentation.fragments.main.profile.edit_profile.dialogs
+package com.app.namllahprovider.presentation.fragments.common
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.app.namllahprovider.databinding.FragmentUserEditBottomSheetBinding
+import com.app.namllahprovider.databinding.FragmentEditTextBottomSheetBinding
 import com.app.namllahprovider.presentation.base.BottomSheetInputType
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class UserEditBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickListener {
+class EditTextBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickListener {
 
-    private var fragmentUserEditBottomSheetBinding: FragmentUserEditBottomSheetBinding? = null
+    private var fragmentUserEditBottomSheetBinding: FragmentEditTextBottomSheetBinding? = null
 
     private var title: String = ""
     private var message: String = ""
@@ -24,14 +24,14 @@ class UserEditBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickLis
     ): View? {
         // Inflate the layout for this fragment
         fragmentUserEditBottomSheetBinding =
-            FragmentUserEditBottomSheetBinding.inflate(inflater, container, false)
+            FragmentEditTextBottomSheetBinding.inflate(inflater, container, false)
         return fragmentUserEditBottomSheetBinding?.apply {
-            actionOnClick = this@UserEditBottomSheetFragment
-            title = this@UserEditBottomSheetFragment.title
-            message = this@UserEditBottomSheetFragment.message
-            hint = this@UserEditBottomSheetFragment.hint
-            currentValue = this@UserEditBottomSheetFragment.currentValue
-            inputType = this@UserEditBottomSheetFragment.bottomSheetInputType.idKey
+            actionOnClick = this@EditTextBottomSheetFragment
+            title = this@EditTextBottomSheetFragment.title
+            message = this@EditTextBottomSheetFragment.message
+            hint = this@EditTextBottomSheetFragment.hint
+            currentValue = this@EditTextBottomSheetFragment.currentValue
+            inputType = this@EditTextBottomSheetFragment.bottomSheetInputType.idKey
         }?.root
     }
 
@@ -39,11 +39,11 @@ class UserEditBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickLis
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            title = UserEditBottomSheetFragmentArgs.fromBundle(it).title
-            message = UserEditBottomSheetFragmentArgs.fromBundle(it).message
-            hint = UserEditBottomSheetFragmentArgs.fromBundle(it).hint
-            currentValue = UserEditBottomSheetFragmentArgs.fromBundle(it).currentValue
-            bottomSheetInputType = UserEditBottomSheetFragmentArgs.fromBundle(it).inputType
+            title = EditTextBottomSheetFragmentArgs.fromBundle(it).title
+            message = EditTextBottomSheetFragmentArgs.fromBundle(it).message
+            hint = EditTextBottomSheetFragmentArgs.fromBundle(it).hint
+            currentValue = EditTextBottomSheetFragmentArgs.fromBundle(it).currentValue
+            bottomSheetInputType = EditTextBottomSheetFragmentArgs.fromBundle(it).inputType
         }
     }
 
@@ -60,7 +60,7 @@ class UserEditBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickLis
     }
 
     private fun onClickSave() {
-        val newValue = fragmentUserEditBottomSheetBinding?.etBottomSheet?.text?.toString()
+        val newValue = fragmentUserEditBottomSheetBinding?.etUserEditField?.text?.toString()
         newValue?.let {
             when (bottomSheetInputType) {
                 BottomSheetInputType.NAME -> onClickSaveName(newValue)

@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_orderDetailsFragment_to_orderBottomSheetFragment"
             app:destination="@id/orderBottomSheetFragment" />
+        <action
+            android:id="@+id/action_orderDetailsFragment_to_workItemBottomSheetFragment"
+            app:destination="@id/workItemBottomSheetFragment" />
     </fragment>
     <dialog
         android:id="@+id/orderBottomSheetFragment"
@@ -86,7 +89,7 @@
     <fragment
         android:id="@+id/userSettingFragment"
         android:name="com.app.namllahprovider.presentation.fragments.main.profile.settings.UserSettingFragment"
-        android:label="UserSettingFragment" >
+        android:label="UserSettingFragment">
         <action
             android:id="@+id/action_userSettingFragment_to_languageListBottomSheetFragment"
             app:destination="@id/languageListBottomSheetFragment" />
@@ -94,10 +97,14 @@
     <fragment
         android:id="@+id/userServiceFragment"
         android:name="com.app.namllahprovider.presentation.fragments.main.profile.services.UserServiceFragment"
-        android:label="UserServiceFragment" />
+        android:label="UserServiceFragment" >
+        <action
+            android:id="@+id/action_userServiceFragment_to_addNewServiceFragment"
+            app:destination="@id/addNewServiceFragment" />
+    </fragment>
     <dialog
         android:id="@+id/userEditBottomSheetFragment"
-        android:name="com.app.namllahprovider.presentation.fragments.main.profile.edit_profile.dialogs.UserEditBottomSheetFragment"
+        android:name="com.app.namllahprovider.presentation.fragments.common.EditTextBottomSheetFragment"
         android:label="UserEditBottomSheetFragment">
         <argument
             android:name="title"
@@ -114,8 +121,8 @@
             app:argType="string" />
         <argument
             android:name="inputType"
-            app:argType="com.app.namllahprovider.presentation.base.BottomSheetInputType"
-            android:defaultValue="NAME" />
+            android:defaultValue="NAME"
+            app:argType="com.app.namllahprovider.presentation.base.BottomSheetInputType" />
 
     </dialog>
     <dialog
@@ -131,5 +138,76 @@
             android:name="currentLanguage"
             app:argType="integer" />
     </dialog>
+    <fragment
+        android:id="@+id/workFragment"
+        android:name="com.app.namllahprovider.presentation.fragments.main.home.work.WorkFragment"
+        android:label="WorkFragment" />
+    <dialog
+        android:id="@+id/workItemBottomSheetFragment"
+        android:name="com.app.namllahprovider.presentation.fragments.main.home.work.WorkItemBottomSheetFragment"
+        android:label="WorkItemBottomSheetFragment" />
+    <dialog
+        android:id="@+id/singleListBottomSheetFragment"
+        android:name="com.app.namllahprovider.presentation.fragments.common.single_list_bottom_sheet.SingleListBottomSheetFragment"
+        android:label="SingleListBottomSheetFragment">
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="message"
+            app:argType="string" />
+        <argument
+            android:name="hint"
+            app:argType="string" />
+
+        <argument
+            android:name="currentValue"
+            android:defaultValue="-1"
+            app:argType="string" />
+        <argument
+            android:name="textArray"
+            app:argType="string[]" />
+        <argument
+            android:name="singleListSelectionItem"
+            app:argType="com.app.namllahprovider.presentation.fragments.common.single_list_bottom_sheet.SingleListSelectionItem" />
+    </dialog>
+
+
+    <action
+        android:id="@+id/action_global_singleListBottomSheetFragment"
+        app:destination="@id/singleListBottomSheetFragment" />
+
+    <dialog
+        android:id="@+id/radioListBottomSheetFragment"
+        android:name="com.app.namllahprovider.presentation.fragments.common.radio_list_bottom_sheet.RadioListBottomSheetFragment"
+        android:label="RadioListBottomSheetFragment">
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="message"
+            app:argType="string" />
+        <argument
+            android:name="hint"
+            app:argType="string" />
+        <argument
+            android:name="textArray"
+            app:argType="string[]" />
+
+        <argument
+            android:name="selectedPositionArray"
+            app:argType="integer[]" />
+        <argument
+            android:name="radioListSelectionItem"
+            app:argType="com.app.namllahprovider.presentation.fragments.common.radio_list_bottom_sheet.RadioListSelectionItem" />
+    </dialog>
+    <action
+        android:id="@+id/action_global_radioListBottomSheetFragment"
+        app:destination="@id/radioListBottomSheetFragment" />
+    <fragment
+        android:id="@+id/addNewServiceFragment"
+        android:name="com.app.namllahprovider.presentation.fragments.main.profile.services.add_new_service.AddNewServiceFragment"
+        android:label="AddNewServiceFragment" />
+
 
 </navigation>

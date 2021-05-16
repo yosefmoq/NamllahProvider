@@ -5,14 +5,35 @@
 
     <data>
 
+        <import type="android.text.InputType" />
+
         <variable
             name="actionOnClick"
             type="android.view.View.OnClickListener" />
 
         <variable
-            name="currentLanguage"
-            type="Integer" />
+            name="title"
+            type="String" />
 
+        <variable
+            name="message"
+            type="String" />
+
+        <variable
+            name="hintSearch"
+            type="String" />
+
+        <variable
+            name="currentValue"
+            type="String" />
+
+        <variable
+            name="listBottomSheetAdapter"
+            type="com.app.namllahprovider.presentation.fragments.common.single_list_bottom_sheet.SingleListBottomSheetAdapter" />
+
+        <variable
+            name="layoutManger"
+            type="androidx.recyclerview.widget.RecyclerView.LayoutManager" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -51,13 +72,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
-
             <TextView
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/change_language_title"
+                android:text="@{title}"
                 android:textSize="@dimen/_16ssp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/imageView3"
@@ -70,11 +90,35 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:layout_marginEnd="@dimen/_16sdp"
-                android:text="@string/change_language_message"
+                android:text="@{message}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/ib_close"
                 app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_200sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                app:layoutManager="@{layoutManger}"
+                tools:listitem="@layout/item_single_list_bottom_sheet"
+                app:layout_constraintEnd_toEndOf="@+id/textView16"
+                app:layout_constraintStart_toStartOf="@+id/textView16"
+                app:layout_constraintTop_toBottomOf="@+id/textView16"
+                app:setAdapter="@{listBottomSheetAdapter}" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_save"
+                style="@style/AppButton.AccentButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:text="@string/save"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/recyclerView"
+                app:layout_constraintStart_toStartOf="@+id/recyclerView"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
 
             <View
                 android:id="@+id/view"
@@ -85,43 +129,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_save" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_save"
-                style="@style/AppButton.AccentButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_64sdp"
-                android:text="Save"
-                app:layout_constraintEnd_toEndOf="@+id/til_workItemName"
-                app:layout_constraintStart_toStartOf="@+id/til_workItemName"
-                app:layout_constraintTop_toBottomOf="@+id/til_workItemName" />
-
-            <RadioGroup
-                android:id="@+id/til_workItemName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="36dp"
-                android:checkedButton="@{currentLanguage == 1 ? @id/rb_englishLanguage :@id/rb_arabicLanguage }"
-                app:layout_constraintEnd_toEndOf="@+id/textView16"
-                app:layout_constraintStart_toStartOf="@+id/textView16"
-                app:layout_constraintTop_toBottomOf="@+id/textView16">
-
-                <RadioButton
-                    android:id="@+id/rb_arabicLanguage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_4sdp"
-                    android:textSize="@dimen/_14ssp"
-                    android:text="@string/arabic" />
-
-                <RadioButton
-                    android:id="@+id/rb_englishLanguage"
-                    android:layout_margin="@dimen/_4sdp"
-                    android:textSize="@dimen/_14ssp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/english" />
-            </RadioGroup>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
