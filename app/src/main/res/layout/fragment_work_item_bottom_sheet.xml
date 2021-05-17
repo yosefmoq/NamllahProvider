@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="actionOnClick"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/_8sdp"
+        app:cardCornerRadius="@dimen/_8sdp"
+        tools:context=".presentation.fragments.main.home.work.WorkItemBottomSheetFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:src="@drawable/ic_home_indicator"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/ib_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:background="@android:color/transparent"
+                android:onClick="@{(view)->actionOnClick.onClick(view)}"
+                android:padding="@dimen/_4sdp"
+                android:src="@drawable/ic_close_24px"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_workItemName"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                app:boxStrokeColor="@color/primary_color"
+                app:hintTextColor="@color/primary_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:hint="@string/item_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ib_close">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_workItemName"
+                    android:layout_width="match_parent"
+                    android:inputType="textPersonName"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_workItemPrice"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                app:boxStrokeColor="@color/primary_color"
+                app:hintTextColor="@color/primary_color"
+                android:hint="@string/item_price"
+                app:layout_constraintEnd_toEndOf="@+id/til_workItemName"
+                app:layout_constraintStart_toStartOf="@+id/til_workItemName"
+                app:layout_constraintTop_toBottomOf="@+id/til_workItemName">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_workItemPrice"
+                    android:layout_width="match_parent"
+                    android:inputType="numberDecimal"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:text="@string/was_it_with_you_or_arrived_at_delivery"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/til_workItemPrice"
+                app:layout_constraintTop_toBottomOf="@+id/til_workItemPrice" />
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_withMe"
+                style="@style/AppButton.AccentButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:text="@string/with_me"
+                app:layout_constraintEnd_toStartOf="@+id/btn_delivery"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_delivery"
+                style="@style/AppButton.AccentButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:text="@string/delivery"
+                app:layout_constraintBaseline_toBaselineOf="@+id/btn_withMe"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/btn_withMe" />
+
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="1dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/_32sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_delivery" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</layout>

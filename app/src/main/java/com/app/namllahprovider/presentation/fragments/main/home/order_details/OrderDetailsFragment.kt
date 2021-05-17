@@ -75,12 +75,15 @@ class OrderDetailsFragment : Fragment(), View.OnClickListener {
     }
 
     private fun onClickAcceptOrder() {
-        findNavController().navigate(
+        /*findNavController().navigate(
             OrderDetailsFragmentDirections.actionOrderDetailsFragmentToOrderBottomSheetFragment(
                 name = "Ismail Amassi",
                 phoneNumber = "+970 598 123 456 45",
                 imageUrl = "https://i.picsum.photos/id/168/200/300.jpg?hmac=ILU5dddz6ohoQEq3_1fmoy2wEFfM1V1JfjLX_JsbOz0"
             )
+        )*/
+        findNavController().navigate(
+            OrderDetailsFragmentDirections.actionOrderDetailsFragmentToWorkItemBottomSheetFragment()
         )
         /*requireActivity().supportFragmentManager.let {
             OrderBottomSheetFragment.newInstance(
