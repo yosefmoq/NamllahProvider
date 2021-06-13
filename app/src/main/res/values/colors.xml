@@ -27,4 +27,11 @@
     <color name="colorWarning">#F0AD4E</color>
     <color name="colorInfo">#5BC0DE</color>
 
+    <color name="red">#f55252</color>
+    <color name="colorRed">#EF0606</color>
+    <color name="green_light">#33ce48</color>
+
+    <color name="view_unselected">#E6E6E6</color>
+    <color name="view_selected">#0080C6</color>
+
 </resources>

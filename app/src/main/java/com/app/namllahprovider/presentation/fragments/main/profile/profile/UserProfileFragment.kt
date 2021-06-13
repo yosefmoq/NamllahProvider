@@ -6,9 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.app.namllahprovider.R
 import com.app.namllahprovider.databinding.FragmentUserProfileBinding
@@ -42,11 +40,11 @@ class UserProfileFragment : Fragment(), View.OnClickListener {
 
     private fun getLoggedProfile() {
         profileViewModel.getLoggedUser()
-        profileViewModel.loggedUserLiveData.observe(viewLifecycleOwner, {
+        profileViewModel.getLoggedUserLiveData.observe(viewLifecycleOwner, {
             it?.let {
                 Timber.tag(TAG).d("getLoggedProfile : it $it")
                 fragmentUserProfileBinding?.userDto = it
-                profileViewModel.loggedUserLiveData.postValue(null)
+                profileViewModel.getLoggedUserLiveData.postValue(null)
             }
         })
     }
@@ -73,23 +71,21 @@ class UserProfileFragment : Fragment(), View.OnClickListener {
     }
 
     private fun onClickEditProfile() {
-        findNavController().navigate(UserProfileFragmentDirections.actionProfileFragmentToUserEditProfileFragment())
+        findNavController().navigate(MainFragmentDirections.actionProfileFragmentToUserEditProfileFragment())
     }
 
     private fun onClickUserServices() {
-        findNavController().navigate(UserProfileFragmentDirections.actionProfileFragmentToUserServiceFragment())
+        findNavController().navigate(MainFragmentDirections.actionProfileFragmentToUserServiceFragment())
     }
 
     private fun onClickUserSettings() {
-        findNavController().navigate(UserProfileFragmentDirections.actionProfileFragmentToUserSettingFragment())
+        findNavController().navigate(MainFragmentDirections.actionProfileFragmentToUserSettingFragment())
     }
 
     private fun onClickLogout() {
-        val navHostFragment =
-            requireActivity().supportFragmentManager.findFragmentById(R.id.app_nav) as NavHostFragment
-        navHostFragment.navController.navigate(MainFragmentDirections.actionGlobalSignInFragment())
-
         //Send Request To API
+
+        //
 
         //Delete Logged User From SP
     }

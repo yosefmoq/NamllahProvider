@@ -3,13 +3,18 @@ package com.app.namllahprovider.presentation.fragments.main.home.in_progress_ord
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.app.namllahprovider.data.model.Order
+import com.app.namllahprovider.data.model.OrderDto
 import com.app.namllahprovider.databinding.ItemInProgressOrderBinding
 
 class InProgressOrderAdapter(
-    private val newOrderList: List<Order>,
+    private var newOrderList: List<OrderDto>,
     private val onInProgressOrderListener: OnInProgressOrderListener
 ) : RecyclerView.Adapter<InProgressOrderAdapter.NewOrderViewHolder>() {
+
+    fun updateData(newOrderList: List<OrderDto>){
+        this.newOrderList = newOrderList
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewOrderViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -25,7 +30,7 @@ class InProgressOrderAdapter(
     override fun getItemCount(): Int = newOrderList.size
 
     class NewOrderViewHolder(val view: ItemInProgressOrderBinding) : RecyclerView.ViewHolder(view.root) {
-        fun bindView(position: Int, order: Order, onInProgressOrderListener: OnInProgressOrderListener) {
+        fun bindView(position: Int, order: OrderDto, onInProgressOrderListener: OnInProgressOrderListener) {
             view.position = position
             view.order = order
             view.onInProgressOrderListener = onInProgressOrderListener

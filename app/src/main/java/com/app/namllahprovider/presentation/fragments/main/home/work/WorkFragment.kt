@@ -9,7 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.app.namllahprovider.R
 import com.app.namllahprovider.databinding.FragmentWorkBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class WorkFragment : Fragment(), View.OnClickListener {
 
     private var fragmentWorkBinding: FragmentWorkBinding? = null

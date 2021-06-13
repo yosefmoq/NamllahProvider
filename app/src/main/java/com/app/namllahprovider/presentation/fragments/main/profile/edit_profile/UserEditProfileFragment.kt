@@ -44,12 +44,12 @@ class UserEditProfileFragment : Fragment(), View.OnClickListener {
 
     private fun getLoggedProfile() {
         profileViewModel.getLoggedUser()
-        profileViewModel.loggedUserLiveData.observe(viewLifecycleOwner, {
+        profileViewModel.getLoggedUserLiveData.observe(viewLifecycleOwner, {
             it?.let {
                 Timber.tag(TAG).d("getLoggedProfile : it $it")
                 userDto = it
                 fragmentUserEditProfileBinding?.userDto = userDto
-                profileViewModel.loggedUserLiveData.postValue(null)
+                profileViewModel.getLoggedUserLiveData.postValue(null)
             }
         })
     }

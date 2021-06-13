@@ -24,7 +24,7 @@
             layout="@layout/toolbar" />
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/order_image"
+            android:id="@+id/service_image"
             android:layout_width="@dimen/_60sdp"
             android:layout_height="@dimen/_60sdp"
             android:layout_marginHorizontal="@dimen/_6sdp"
@@ -43,8 +43,8 @@
             android:textSize="@dimen/_14ssp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/tv_userAddress"
-            app:layout_constraintStart_toEndOf="@+id/order_image"
-            app:layout_constraintTop_toTopOf="@+id/order_image" />
+            app:layout_constraintStart_toEndOf="@+id/service_image"
+            app:layout_constraintTop_toTopOf="@+id/service_image" />
 
         <TextView
             android:id="@+id/tv_userAddress"
@@ -55,7 +55,7 @@
             android:textSize="@dimen/_12ssp"
             app:drawableEndCompat="@drawable/ic_baseline_place_24"
             app:drawableTint="@color/primary_color"
-            app:layout_constraintBottom_toBottomOf="@+id/order_image"
+            app:layout_constraintBottom_toBottomOf="@+id/service_image"
             app:layout_constraintStart_toStartOf="@+id/tv_username"
             app:layout_constraintTop_toBottomOf="@+id/tv_username" />
 
@@ -69,7 +69,7 @@
             android:background="@color/gray_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/order_image" />
+            app:layout_constraintTop_toBottomOf="@+id/service_image" />
 
         <TextView
             android:id="@+id/tv_editProfile"
@@ -90,7 +90,8 @@
             app:drawableStartCompat="@drawable/ic_edit"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider2" />
+            app:layout_constraintTop_toBottomOf="@+id/divider2"
+             />
 
         <TextView
             android:id="@+id/tv_userServices"

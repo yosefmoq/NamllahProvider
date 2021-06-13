@@ -12,9 +12,11 @@ class LoggingInterceptor(var sharedVariables: SharedVariables) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         var request = chain.request()
-
+        val token =
+            sharedVariables.getStringSharedVariable(SharedValueFlags.USER_TOKEN) ?: ""
         request = request.newBuilder()
             .header("Accept", "application/json")
+            .header("Authorization", token)
             .method(request.method, request.body).build()
 
         Timber.tag(TAG).d("intercept: url ${request.url}")

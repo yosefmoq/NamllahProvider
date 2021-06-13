@@ -25,7 +25,7 @@
 
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/order_image"
+            android:id="@+id/service_image"
             imageUrl="@{userDto.images}"
             android:layout_width="@dimen/_70sdp"
             android:layout_height="@dimen/_70sdp"
@@ -49,7 +49,7 @@
             android:padding="@dimen/_4sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/order_image">
+            app:layout_constraintTop_toBottomOf="@+id/service_image">
 
             <TextView
                 android:id="@+id/tv_userNameLabel"
@@ -285,10 +285,10 @@
             android:src="@drawable/ic_camera"
             app:fabSize="mini"
             app:backgroundTint="@color/primary_color"
-            app:layout_constraintBottom_toBottomOf="@+id/order_image"
-            app:layout_constraintEnd_toEndOf="@+id/order_image"
-            app:layout_constraintStart_toEndOf="@+id/order_image"
-            app:layout_constraintTop_toTopOf="@+id/order_image"
+            app:layout_constraintBottom_toBottomOf="@+id/service_image"
+            app:layout_constraintEnd_toEndOf="@+id/service_image"
+            app:layout_constraintStart_toEndOf="@+id/service_image"
+            app:layout_constraintTop_toTopOf="@+id/service_image"
             app:layout_constraintVertical_bias="1.0"
             app:tint="@color/white" />
     </androidx.constraintlayout.widget.ConstraintLayout>

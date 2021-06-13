@@ -37,21 +37,18 @@
                 android:layout_marginEnd="@dimen/_8sdp"
                 android:ellipsize="end"
                 android:padding="@dimen/_2sdp"
-                android:text="@string/lorem_text"
                 android:textSize="@dimen/_12ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/order_image"
+                app:layout_constraintBottom_toBottomOf="@+id/service_image"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/order_image"
-                app:layout_constraintTop_toTopOf="@+id/order_image" />
-
-
+                app:layout_constraintStart_toEndOf="@+id/service_image"
+                app:layout_constraintTop_toTopOf="@+id/service_image" />
 
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/order_image"
-                imageUrl="@{notification.imageUrl}"
-                android:layout_width="@dimen/_70sdp"
-                android:layout_height="@dimen/_70sdp"
+                android:id="@+id/service_image"
+                imageUrl="@{notification.data.type}"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
                 android:layout_margin="@dimen/_4sdp"
                 android:layout_marginHorizontal="@dimen/_6sdp"
                 app:civ_border_color="@color/white"

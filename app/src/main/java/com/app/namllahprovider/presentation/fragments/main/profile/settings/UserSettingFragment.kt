@@ -43,13 +43,13 @@ class UserSettingFragment : Fragment(), View.OnClickListener {
 
     private fun getLoggedProfile() {
         profileViewModel.getLoggedUser()
-        profileViewModel.loggedUserLiveData.observe(viewLifecycleOwner, {
+        profileViewModel.getLoggedUserLiveData.observe(viewLifecycleOwner, {
             it?.let {
                 Timber.tag(TAG).d("getLoggedProfile : it $it")
                 userDto = it
                 fragmentUserSettingBinding?.notificationStatus =
                     userDto?.settings?.notification ?: "0" == "1"
-                profileViewModel.loggedUserLiveData.postValue(null)
+                profileViewModel.getLoggedUserLiveData.postValue(null)
             }
         })
     }

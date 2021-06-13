@@ -1,0 +1,107 @@
+package com.app.namllahprovider.presentation.fragments.main.home
+
+import android.app.Application
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
+import com.app.namllahprovider.data.api.order.list_order.ListOrderRequest
+import com.app.namllahprovider.data.api.user.change_available.ChangeAvailableResponse
+import com.app.namllahprovider.data.model.OrderDto
+import com.app.namllahprovider.data.model.UserDto
+import com.app.namllahprovider.domain.repository.ConfigRepository
+import com.app.namllahprovider.domain.repository.OrderRepository
+import com.app.namllahprovider.domain.repository.UserRepository
+import com.app.namllahprovider.domain.utils.OrderType
+import com.app.namllahprovider.presentation.base.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import timber.log.Timber
+import javax.inject.Inject
+
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    application: Application,
+    private val savedStateHandle: SavedStateHandle,
+    private val configRepository: ConfigRepository,
+    private val orderRepository: OrderRepository,
+    private val userRepository: UserRepository
+) : BaseViewModel(application) {
+
+    val getListOrderLiveData = MutableLiveData<List<OrderDto>?>()
+    val getLoggedUserLiveData = MutableLiveData<UserDto?>()
+    val changeAvailableLiveData = MutableLiveData<ChangeAvailableResponse?>()
+
+    fun getListOrderRequest(orderType: OrderType) {
+        launch {
+            changeLoadingStatus(true)
+            disposable.add(
+                orderRepository.getListOrder(ListOrderRequest(orderType))
+                    .subscribeOn(ioScheduler)
+                    .observeOn(ioScheduler)
+                    .subscribe({
+                        changeLoadingStatus(false)
+                        getListOrderLiveData.postValue(it)
+                    }, {
+                        getListOrderLiveData.postValue(null)
+                        changeLoadingStatus(false)
+                        changeErrorMessage(it)
+                    }, {
+                        getListOrderLiveData.postValue(null)
+                        changeLoadingStatus(false)
+                    })
+            )
+        }
+    }
+
+    fun getLoggedUser() = launch {
+        Timber.tag(TAG).d("getLoggedUser : ttt")
+        disposable.add(
+            userRepository
+                .getUserProfile()
+                .subscribeOn(ioScheduler)
+                .observeOn(ioScheduler)
+                .subscribe({
+                    Timber.tag(TAG).d("getLoggedUser : ttt $it")
+                    getLoggedUserLiveData.postValue(it)
+                    changeLoadingStatus(false)
+                }, {
+                    getLoggedUserLiveData.postValue(null)
+                    changeErrorMessage(it)
+                    changeLoadingStatus(false)
+                }, {
+                    getLoggedUserLiveData.postValue(null)
+                    changeLoadingStatus(false)
+                })
+        )
+    }
+
+    fun changeUserAvailable(newStatus: Boolean) = launch {
+        Timber.tag(TAG).d("changeUserAvailable : ttt")
+        changeLoadingStatus(true)
+        disposable.add(
+            userRepository
+                .changeAvailable(status = newStatus)
+                .subscribeOn(ioScheduler)
+                .observeOn(ioScheduler)
+                .subscribe({
+                    Timber.tag(TAG).d("changeUserAvailable : ttt ${it}")
+                    getLoggedUser()
+                    changeAvailableLiveData.postValue(it)
+                }, {
+                    changeAvailableLiveData.postValue(null)
+                    changeErrorMessage(it)
+                    changeLoadingStatus(false)
+                }, {
+                    changeAvailableLiveData.postValue(null)
+                    changeLoadingStatus(false)
+                })
+        )
+    }
+
+
+    companion object {
+        private const val TAG = "HomeViewModel"
+    }
+
+}

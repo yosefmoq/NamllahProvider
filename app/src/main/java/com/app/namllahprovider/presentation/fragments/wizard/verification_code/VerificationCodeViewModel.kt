@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.app.namllahprovider.data.api.auth.verification_code.VerificationCodeResponse
-import com.app.namllahprovider.data.model.UserDto
 import com.app.namllahprovider.domain.repository.AuthRepository
 import com.app.namllahprovider.domain.repository.ConfigRepository
 import com.app.namllahprovider.presentation.base.BaseViewModel
@@ -43,8 +42,12 @@ class VerificationCodeViewModel @Inject constructor(
                     })
             )
         }
-    fun saveUserDataLocal(userDto: UserDto) = launch {
-        configRepository.setLoggedUser(userDto)
+
+    //    fun saveUserDataLocal(userDto: UserDto) = launch {
+//        configRepository.setLoggedUser(userDto)
+//    }
+    fun saveUserTokenLocal(userToken: String) = launch {
+        configRepository.setUserToken(userToken)
     }
 
     fun changeLoginStatus(newLoginStatus: Boolean) = launch {

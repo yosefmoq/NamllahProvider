@@ -1,21 +1,20 @@
 package com.app.namllahprovider.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.google.android.material.navigation.NavigationView
-import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
-import androidx.navigation.findNavController
-import com.app.namllahprovider.R
+import com.app.namllahprovider.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(),
-    NavController.OnDestinationChangedListener {
+class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedListener {
+
+    private var activityMainBinding: ActivityMainBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(activityMainBinding?.root)
     }
 
     override fun onDestinationChanged(
@@ -29,4 +28,5 @@ class MainActivity : AppCompatActivity(),
     override fun onBackPressed() {
         super.onBackPressed()
     }
+
 }

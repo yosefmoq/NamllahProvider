@@ -5,38 +5,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.app.namllahprovider.data.model.Order
+import com.app.namllahprovider.data.model.OrderDto
 import com.app.namllahprovider.databinding.FragmentInProgressOrderBinding
+import com.app.namllahprovider.domain.utils.OrderType
+import com.app.namllahprovider.presentation.fragments.main.home.HomeViewModel
+import com.app.namllahprovider.presentation.fragments.wizard.sign_up.SignUpFragment
+import com.app.namllahprovider.presentation.utils.SweetAlert
+import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
-
+@AndroidEntryPoint
 class InProgressOrderFragment : Fragment(), OnInProgressOrderListener {
+
+    private val homeViewModel: HomeViewModel by viewModels()
 
     private var fragmentInProgressOrderBinding: FragmentInProgressOrderBinding? = null
 
-    private val inProgressOrderList = listOf(
-        Order(1, "In Progress Order #01"),
-        Order(2, "In Progress Order #02"),
-        Order(3, "In Progress Order #03"),
-        Order(4, "In Progress Order #04"),
-        Order(5, "In Progress Order #05"),
-        Order(6, "In Progress Order #06"),
-        Order(7, "In Progress Order #07"),
-        Order(8, "In Progress Order #08"),
-        Order(9, "In Progress Order #09"),
-        Order(10, "In Progress Order #10"),
-        Order(11, "In Progress Order #11"),
-        Order(12, "In Progress Order #12"),
-        Order(13, "In Progress Order #13"),
-        Order(14, "In Progress Order #14"),
-        Order(15, "In Progress Order #15"),
-        Order(16, "In Progress Order #16"),
-        Order(17, "In Progress Order #17"),
-        Order(18, "In Progress Order #18"),
-        Order(19, "In Progress Order #19"),
-        Order(20, "In Progress Order #20"),
-    )
+    private var inProgressOrderList  = listOf<OrderDto>()
 
     private val inProgressOrderAdapter = InProgressOrderAdapter(inProgressOrderList, this)
 
@@ -52,6 +40,40 @@ class InProgressOrderFragment : Fragment(), OnInProgressOrderListener {
             inProgressOrderLayoutManger =
                 LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         }?.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        observeLiveData()
+
+        fetchInProgressOrders()
+    }
+
+    private fun observeLiveData() {
+        homeViewModel.loadingLiveData.observe(viewLifecycleOwner, {
+            Timber.tag(TAG).d("observeLiveData : Loading Status $it")
+        })
+
+        homeViewModel.errorLiveData.observe(viewLifecycleOwner) {
+            it?.let{
+                Timber.tag(TAG).e("observeLiveData : Error Message ${it.message}")
+                SweetAlert.instance.showFailAlert(activity = requireActivity(), throwable = it)
+                it.printStackTrace()
+            }
+        }
+    }
+
+    private fun fetchInProgressOrders() {
+        Timber.tag(TAG).d("fetchInProgressOrders : ")
+        homeViewModel.getListOrderRequest(OrderType.IN_PROGRESS)
+        homeViewModel.getListOrderLiveData.observe(viewLifecycleOwner, {
+            Timber.tag(TAG).d("fetchInProgressOrders : it $it")
+            it?.let {
+                inProgressOrderList = it
+                inProgressOrderAdapter.updateData(inProgressOrderList)
+                homeViewModel.getListOrderLiveData.postValue(null)
+            }
+        })
     }
 
     override fun onClickOrder(position: Int) {

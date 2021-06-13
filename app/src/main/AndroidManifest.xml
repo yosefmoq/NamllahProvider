@@ -3,25 +3,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.app.namllahprovider">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
+        android:name=".app.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:name=".app.App"
-        tools:replace = "android:icon"
         android:theme="@style/Theme.NamllahProvider"
+        android:usesCleartextTraffic="true"
+        tools:replace="android:icon"
         tools:targetApi="m">
-        <activity android:name=".presentation.MainActivity">
+        <activity android:name=".presentation.WizardActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".presentation.MainActivity"/>
     </application>
 
 </manifest>

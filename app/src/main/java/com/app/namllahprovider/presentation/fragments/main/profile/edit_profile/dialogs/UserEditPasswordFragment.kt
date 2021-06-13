@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.app.namllahprovider.databinding.FragmentUserEditPasswordBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class UserEditPasswordFragment : BottomSheetDialogFragment(), View.OnClickListener {
 
     private var fragmentUserEditPasswordBinding: FragmentUserEditPasswordBinding? = null

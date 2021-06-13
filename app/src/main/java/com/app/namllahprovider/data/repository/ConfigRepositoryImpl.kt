@@ -3,6 +3,7 @@ package com.app.namllahprovider.data.repository
 import android.content.Context
 import com.app.namllahprovider.data.model.UserDto
 import com.app.namllahprovider.data.sharedvariables.SharedVariables
+import com.app.namllahprovider.domain.Constants
 import com.app.namllahprovider.domain.SharedValueFlags
 import com.app.namllahprovider.domain.repository.ConfigRepository
 
@@ -30,12 +31,21 @@ class ConfigRepositoryImpl @Inject constructor(
         )
     }
 
-    override fun setLoggedUser(userDto: UserDto) {
+/*    override fun setLoggedUser(userDto: UserDto) {
         sharedVariables.setObjectInSharedVariable(
             SharedValueFlags.USER,
             userDto
         )
     }
 
-    override fun getLoggedUser(): UserDto? = ConfigRepositoryObj.getLoggedUser(context)
+    override fun getLoggedUser(): UserDto? = ConfigRepositoryObj.getLoggedUser(context)*/
+
+    override fun setUserToken(userToken: String) {
+        sharedVariables.setStringSharedVariable(
+            SharedValueFlags.USER_TOKEN,
+            Constants.BEARER_TOKEN + userToken
+        )
+    }
+
+    override fun getUserToken(): String =  ConfigRepositoryObj.getUserToken(context)
 }

@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.app.namllahprovider.R
-import com.app.namllahprovider.data.model.Order
+import com.app.namllahprovider.data.model.OrderDto
 import com.app.namllahprovider.databinding.FragmentOrderDetailsBinding
 import timber.log.Timber
 
@@ -23,8 +23,8 @@ class OrderDetailsFragment : Fragment(), View.OnClickListener {
             orderId = OrderDetailsFragmentArgs.fromBundle(it).orderId
             if (orderId != -1) {
                 //Request order details by order id from server
-                fragmentOrderDetailsBinding?.selectedOrder =
-                    Order(orderId, "Fake Title for order $orderId")
+//                fragmentOrderDetailsBinding?.selectedOrder =
+//                    OrderDto(id = orderId.toLong(), checkAt = "Fake Title for order $orderId")
             } else {
                 Timber.tag(TAG).d("onViewCreated : Can't find order details")
             }

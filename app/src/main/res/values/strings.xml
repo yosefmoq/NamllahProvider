@@ -26,13 +26,14 @@
     <string name="already_have_account">Already have account?</string>
     <string name="user_forget_password">Forget Password?</string>
     <string name="new_user">New User?</string>
-    <string name="sign_in_with">Sign in w*ith</string>
+    <string name="sign_in_with">Sign in with</string>
     <string name="verify">Verify</string>
     <string name="otp_message">Please enter the 4 - digital verification code that was sent to the number:</string>
     <string name="otp_hint">****</string>
     <string name="resend_it">Resend it</string>
     <string name="not_received">Not Received?</string>
     <string name="fake_mobile_number">(+970) 599 123 456</string>
+    <string name="fake_image">https://i.picsum.photos/id/1049/200/300.jpg?hmac=IwgFpI60m03JoXBvIB_0oA12YR8cNaSel6lUvKhQvF0</string>
     <string name="enter_your_phone_number_to_reset_the_password_and_then_click_send">Enter your phone number to reset the password and then click send.</string>
     <string name="send_code">Send Code</string>
     <string name="new_password">New Password</string>

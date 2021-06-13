@@ -5,9 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
 
@@ -17,8 +15,8 @@ abstract class BaseViewModel constructor(application: Application) : AndroidView
     val disposable = CompositeDisposable()
 
     val dialogLiveData = MutableLiveData<DialogData?>()
-    val errorLiveData = MutableLiveData<Throwable>()
-    val loadingLiveData = MutableLiveData<Boolean>()
+    val errorLiveData = MutableLiveData<Throwable?>()
+    val loadingLiveData = MutableLiveData<Boolean?>()
 
     private var job = Job()
     override val coroutineContext: CoroutineContext
@@ -41,6 +39,10 @@ abstract class BaseViewModel constructor(application: Application) : AndroidView
 
     fun changeErrorMessage(throwable: Throwable) {
         errorLiveData.postValue(throwable)
+        CoroutineScope(Dispatchers.IO).launch {
+            delay(1000)
+            errorLiveData.postValue(null)
+        }
     }
 
     fun changeDialogLiveData(dialogData: DialogData) {

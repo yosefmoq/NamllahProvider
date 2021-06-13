@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.NamllahProvider" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
@@ -16,13 +16,11 @@
     </style>
 
 
-    <style name="AppBottomSheetDialogTheme"
-        parent="Theme.Design.Light.BottomSheetDialog">
+    <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/AppModalStyle</item>
     </style>
 
-    <style name="AppModalStyle"
-        parent="Widget.Design.BottomSheet.Modal">
+    <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/bg_bottom_sheet</item>
     </style>
 
@@ -34,8 +32,18 @@
         <item name="android:textColor">@drawable/selector_accent_color</item>
     </style>
 
+    <style name="AppButton.AccentRoundButton">
+        <item name="android:background">@drawable/selector_accent_round_bg</item>
+        <item name="android:textColor">@drawable/selector_accent_round_color</item>
+    </style>
+
     <style name="AppButton.Primary">
         <item name="android:background">@drawable/selector_primary_bg</item>
         <item name="android:textColor">@drawable/selector_primary_color</item>
+    </style>
+
+    <style name="AppButton.PrimaryRoundButton">
+        <item name="android:background">@drawable/selector_primary_round_bg</item>
+        <item name="android:textColor">@drawable/selector_primary_round_color</item>
     </style>
 </resources>

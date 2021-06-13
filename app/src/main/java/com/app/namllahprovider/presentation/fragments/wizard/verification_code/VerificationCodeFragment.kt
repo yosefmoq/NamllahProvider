@@ -1,5 +1,6 @@
 package com.app.namllahprovider.presentation.fragments.wizard.verification_code
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,10 @@ import androidx.navigation.fragment.findNavController
 import com.app.namllahprovider.R
 import com.app.namllahprovider.data.api.auth.verification_code.VerificationCodeResponse
 import com.app.namllahprovider.databinding.FragmentVerificationCodeBinding
+import com.app.namllahprovider.presentation.MainActivity
 import com.app.namllahprovider.presentation.base.DialogData
+import com.app.namllahprovider.presentation.utils.SweetAlert
+import com.app.namllahprovider.presentation.utils.SweetAlertType
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -51,8 +55,11 @@ class VerificationCodeFragment : Fragment(), View.OnClickListener {
         })
 
         verificationCodeViewModel.errorLiveData.observe(viewLifecycleOwner, {
-            Timber.tag(TAG).e("observeLiveData : Error Message ${it.message}")
-            it.printStackTrace()
+            it?.let {
+                Timber.tag(TAG).e("observeLiveData : Error Message ${it.message}")
+                SweetAlert.instance.showFailAlert(activity = requireActivity(), throwable = it)
+                it.printStackTrace()
+            }
         })
 
         verificationCodeViewModel.dialogLiveData.observe(viewLifecycleOwner, {
@@ -72,16 +79,22 @@ class VerificationCodeFragment : Fragment(), View.OnClickListener {
         if (verificationCodeResponse.userDto != null) {
             //Success Login
             //Save User data in SP
-            verificationCodeViewModel.saveUserDataLocal(verificationCodeResponse.userDto!!)
+//            verificationCodeViewModel.saveUserDataLocal(verificationCodeResponse.userDto!!)
+//            verificationCodeViewModel.saveUserTokenLocal(verificationCodeResponse.userDto!!.token ?: "")
             verificationCodeViewModel.changeLoginStatus(true)
-            findNavController().navigate(VerificationCodeFragmentDirections.actionVerificationCodeFragmentToMainFragment())
+            startActivity(Intent(context, MainActivity::class.java))
+            requireActivity().finish()
         } else {
             if (verificationCodeResponse.status!!) {
                 //Account already active go to Login Page
-                verificationCodeViewModel.changeDialogLiveData(DialogData(title = "", message = ""))
+                SweetAlert.instance.showSuccessAlert(requireActivity(),message = "Your account already active, Go to login")
+                findNavController().navigate(VerificationCodeFragmentDirections.actionGlobalSignInFragment())
             } else {
                 //OTP Code is error
-                verificationCodeViewModel.changeDialogLiveData(DialogData(title = "", message = ""))
+                SweetAlert.instance.showFailAlert(
+                    activity = requireActivity(),
+                    message = verificationCodeResponse.msg ?: ""
+                )
             }
         }
     }
@@ -90,7 +103,6 @@ class VerificationCodeFragment : Fragment(), View.OnClickListener {
         val toolbar = fragmentVerificationCodeBinding?.toolbar
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar?.root)
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
-//        toolbar?.root?.title = ""
 
         val toolBarTitleView = toolbar?.toolbarTitle
         toolBarTitleView?.text = getString(R.string.verification_code)
@@ -114,6 +126,22 @@ class VerificationCodeFragment : Fragment(), View.OnClickListener {
 
     private fun onClickBack() {
         //Show Alert dialog
+        SweetAlert.instance.showAlertDialog(
+            context = requireContext(),
+            alertType = SweetAlertType.WARNING_TYPE,
+            title = "Are you sure?",
+            message = "You cannot login when you exit without active your account.",
+            confirmText = "Stay",
+            confirmListener = {
+                SweetAlert.instance.dismissAlertDialog()
+            },
+            cancelText = "Exit",
+            cancelListener = {
+                findNavController().popBackStack()
+                Timber.tag(TAG).d("onClickBack : ")
+            },
+            cancelable = true,
+        )
     }
 
     private fun onClickVerifyOTPCode() {

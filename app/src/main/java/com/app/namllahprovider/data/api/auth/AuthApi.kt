@@ -19,7 +19,7 @@ interface AuthApi {
         @Body signInRequest: SignInRequest
     ): Call<ResponseBody>
 
-    @POST("auth/register")
+    @POST("auth/register-provider")
     fun signUp(
 //        @Header("Authorization") token: String,
         @Body signUpRequest: SignUpRequest

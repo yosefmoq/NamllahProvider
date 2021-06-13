@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profile_image"
+            android:id="@+id/iv_profileImage"
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginHorizontal="@dimen/_6sdp"
@@ -26,28 +26,28 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/tv_toolbarTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="You're Online"
             android:textColor="@color/white"
             android:textSize="@dimen/_14ssp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/profile_image"
-            app:layout_constraintEnd_toStartOf="@+id/switch1"
-            app:layout_constraintStart_toEndOf="@+id/profile_image"
-            app:layout_constraintTop_toTopOf="@+id/profile_image" />
+            app:layout_constraintBottom_toBottomOf="@+id/iv_profileImage"
+            app:layout_constraintEnd_toStartOf="@+id/sw_userAvailable"
+            app:layout_constraintStart_toEndOf="@+id/iv_profileImage"
+            app:layout_constraintTop_toTopOf="@+id/iv_profileImage" />
 
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/switch1"
+            android:id="@+id/sw_userAvailable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_6sdp"
             android:layout_marginEnd="8dp"
             android:checked="false"
-            app:layout_constraintBottom_toBottomOf="@+id/textView6"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_toolbarTitle"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView6"
+            app:layout_constraintTop_toTopOf="@+id/tv_toolbarTitle"
             app:thumbTint="@color/white"
             app:track="@drawable/switch_track" />
     </androidx.constraintlayout.widget.ConstraintLayout>

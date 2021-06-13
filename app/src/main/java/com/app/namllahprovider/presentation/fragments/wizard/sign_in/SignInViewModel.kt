@@ -33,6 +33,7 @@ class SignInViewModel @Inject constructor(
                         signInLiveData.postValue(it)
                         changeLoadingStatus(false)
                     }, {
+                        println("ERROR :: $it")
                         signInLiveData.postValue(null)
                         changeLoadingStatus(false)
                         changeErrorMessage(it)
@@ -44,8 +45,12 @@ class SignInViewModel @Inject constructor(
         }
     }
 
-    fun saveUserDataLocal(userDto: UserDto) = launch {
-        configRepository.setLoggedUser(userDto)
+//    fun saveUserDataLocal(userDto: UserDto) = launch {
+//        configRepository.setLoggedUser(userDto)
+//    }
+
+    fun saveUserTokenLocal(userToken: String) = launch {
+        configRepository.setUserToken(userToken)
     }
 
     fun changeLoginStatus(newLoginStatus: Boolean) = launch {
