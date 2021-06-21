@@ -4,6 +4,29 @@ import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 
 
+data class NotificationDto (
+    @SerializedName("id") var id : String,
+    @SerializedName("read_at") var readAt : String,
+    @SerializedName("created_at") var createdAt : String,
+    @SerializedName("updated_at") var updatedAt : String,
+    @SerializedName("data") var data : NotificationDetailsDto
+)
+
+data class NotificationDetailsDto (
+    @SerializedName("order_id") var orderId : Int,
+    @SerializedName("type") var type : String,
+    @SerializedName("msg") var msg : Msg
+)
+
+
+data class Msg (
+    @SerializedName("ar") var ar : String,
+    @SerializedName("en") var en : String
+)
+
+
+/*
+
 data class NotificationDto(
     @SerializedName("created_at") val created_at: String,
     @SerializedName("data") val data: NotificationDetailsDto,
@@ -56,4 +79,4 @@ data class NotificationMetaDto(
     override fun toString(): String {
         return Gson().toJson(this)
     }
-}
+}*/

@@ -17,12 +17,16 @@ object ViewBindingAdapter {
     @JvmStatic
     @BindingAdapter(value = ["imageUrl"])
     fun ImageView.loadImage(url: String?) {
-        if (!url.isNullOrEmpty()) {
-            Glide.with(this.context)
-                .load(url)
-                .error(R.drawable.ic_apple_circle)
-                .placeholder(R.drawable.ic_order_image_placeholder)
-                .into(this)
+        if (!url.isNullOrEmpty() && url.contains("http")) {
+            if (!url.isNullOrEmpty()) {
+                Glide.with(this.context)
+                    .load(url)
+                    .error(R.drawable.ic_blue_logo)
+                    .placeholder(R.drawable.person)
+                    .into(this)
+            }
+        }else{
+            this.setImageResource(R.drawable.person)
         }
     }
 

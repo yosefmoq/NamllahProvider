@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.app.namllahprovider.R
@@ -21,7 +22,7 @@ class UserSettingFragment : Fragment(), View.OnClickListener {
 
     private var fragmentUserSettingBinding: FragmentUserSettingBinding? = null
 
-    private val profileViewModel: ProfileViewModel by viewModels()
+    private val profileViewModel: ProfileViewModel by activityViewModels()
     private var userDto: UserDto? = null
 
     override fun onCreateView(

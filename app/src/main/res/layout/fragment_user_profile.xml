@@ -12,6 +12,10 @@
         <variable
             name="userDto"
             type="com.app.namllahprovider.data.model.UserDto" />
+        
+        <variable
+            name="address"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,11 +30,11 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/service_image"
             android:layout_width="@dimen/_60sdp"
+            imageUrl="@{userDto.images.med}"
             android:layout_height="@dimen/_60sdp"
             android:layout_marginHorizontal="@dimen/_6sdp"
             android:layout_marginStart="@dimen/_16sdp"
             android:layout_marginTop="@dimen/_16sdp"
-            android:src="@drawable/ic_on_boarding_1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 

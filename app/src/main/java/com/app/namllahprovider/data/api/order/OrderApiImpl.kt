@@ -6,7 +6,7 @@ import com.app.namllahprovider.data.api.order.list_order.ListOrderRequest
 import com.app.namllahprovider.data.api.order.show_order.ShowOrderRequest
 import com.app.namllahprovider.data.model.OrderDto
 import com.app.namllahprovider.domain.repository.ConfigRepository
-import com.app.namllahprovider.domain.utils.OrderStatus
+import com.app.namllahprovider.domain.utils.OrderStatusRequestType
 import io.reactivex.Maybe
 import timber.log.Timber
 import javax.inject.Inject
@@ -27,12 +27,12 @@ class OrderApiImpl @Inject constructor(
                 if (listOrderResponse == null) {
                     it.onError(Throwable("Something Error, Please try again later"))
                 } else {
-                    if (listOrderResponse.orders.isEmpty()) {
+                    if (listOrderResponse.orders?.isEmpty()!!) {
                         //Call on Complete
                         it.onComplete()
                     } else {
                         //Call on Success
-                        it.onSuccess(listOrderResponse.orders)
+                        it.onSuccess(listOrderResponse.orders?: listOf())
                     }
                 }
             } else {
@@ -43,21 +43,23 @@ class OrderApiImpl @Inject constructor(
 
     fun changeOrderStatus(changeOrderRequest: ChangeOrderRequest): Maybe<ChangeOrderResponse> =
         Maybe.create {
-
+            Timber.tag(TAG).d("changeOrderStatus : changeOrderRequest $changeOrderRequest")
             val response =
-                if (changeOrderRequest.orderStatus == OrderStatus.CHECK || changeOrderRequest.orderStatus == OrderStatus.PAY_ORDER) {
+                if (changeOrderRequest.orderStatusRequestType == OrderStatusRequestType.CHECK || changeOrderRequest.orderStatusRequestType == OrderStatusRequestType.PAY_ORDER) {
                     orderApi.changeOrderStatusPOST(
 //                        token =  "Bearer " + configRepository.getLoggedUser()?.token ?: "",
                         orderId = changeOrderRequest.orderId,
-                        orderStatus = changeOrderRequest.orderStatus.status
+                        orderStatus = changeOrderRequest.orderStatusRequestType.status
                     )
                 } else {
+                    Timber.tag(TAG).d("changeOrderStatus : changeOrderRequest $changeOrderRequest")
                     orderApi.changeOrderStatusGET(
 //                        token =  "Bearer " + configRepository.getLoggedUser()?.token ?: "",
                         orderId = changeOrderRequest.orderId,
-                        orderStatus = changeOrderRequest.orderStatus.status
+                        orderStatus = changeOrderRequest.orderStatusRequestType.status
                     )
                 }.execute()
+            Timber.tag(TAG).d("changeOrderStatus : response $response")
             if (response.isSuccessful) {
                 val changeOrderResponse = response.body()
                 if (changeOrderResponse == null) {
@@ -84,7 +86,7 @@ class OrderApiImpl @Inject constructor(
                     it.onError(Throwable("Something Error, Please try again later"))
                 } else {
                     //Call on Success
-                    it.onSuccess(listOrderResponse.order ?: OrderDto())
+                    it.onSuccess(listOrderResponse.order!!)
                 }
             } else {
                 //Call on Error

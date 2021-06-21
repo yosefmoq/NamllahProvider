@@ -3,18 +3,22 @@ package com.app.namllahprovider.presentation.fragments.main.home
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
+import com.app.namllahprovider.data.api.notification.update_fcm.UpdateFCMTokenRequest
+import com.app.namllahprovider.data.api.order.change_order_status.ChangeOrderRequest
+import com.app.namllahprovider.data.api.order.change_order_status.ChangeOrderResponse
 import com.app.namllahprovider.data.api.order.list_order.ListOrderRequest
+import com.app.namllahprovider.data.api.order.show_order.ShowOrderRequest
 import com.app.namllahprovider.data.api.user.change_available.ChangeAvailableResponse
 import com.app.namllahprovider.data.model.OrderDto
 import com.app.namllahprovider.data.model.UserDto
 import com.app.namllahprovider.domain.repository.ConfigRepository
+import com.app.namllahprovider.domain.repository.NotificationRepository
 import com.app.namllahprovider.domain.repository.OrderRepository
 import com.app.namllahprovider.domain.repository.UserRepository
+import com.app.namllahprovider.domain.utils.OrderStatusRequestType
 import com.app.namllahprovider.domain.utils.OrderType
 import com.app.namllahprovider.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -25,12 +29,15 @@ class HomeViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val configRepository: ConfigRepository,
     private val orderRepository: OrderRepository,
+    private val notificationRepository: NotificationRepository,
     private val userRepository: UserRepository
 ) : BaseViewModel(application) {
 
     val getListOrderLiveData = MutableLiveData<List<OrderDto>?>()
     val getLoggedUserLiveData = MutableLiveData<UserDto?>()
     val changeAvailableLiveData = MutableLiveData<ChangeAvailableResponse?>()
+    val getOrderDataLiveData = MutableLiveData<OrderDto?>()
+    val changeOrderStatusLiveData = MutableLiveData<ChangeOrderResponse?>()
 
     fun getListOrderRequest(orderType: OrderType) {
         launch {
@@ -40,6 +47,7 @@ class HomeViewModel @Inject constructor(
                     .subscribeOn(ioScheduler)
                     .observeOn(ioScheduler)
                     .subscribe({
+                        Timber.tag(TAG).d("getListOrderRequest : orderType $orderType, orders $it")
                         changeLoadingStatus(false)
                         getListOrderLiveData.postValue(it)
                     }, {
@@ -48,6 +56,7 @@ class HomeViewModel @Inject constructor(
                         changeErrorMessage(it)
                     }, {
                         getListOrderLiveData.postValue(null)
+                        notifyNoDataComing()
                         changeLoadingStatus(false)
                     })
             )
@@ -64,6 +73,7 @@ class HomeViewModel @Inject constructor(
                 .subscribe({
                     Timber.tag(TAG).d("getLoggedUser : ttt $it")
                     getLoggedUserLiveData.postValue(it)
+                    configRepository.setLoggedUser(it)
                     changeLoadingStatus(false)
                 }, {
                     getLoggedUserLiveData.postValue(null)
@@ -71,6 +81,7 @@ class HomeViewModel @Inject constructor(
                     changeLoadingStatus(false)
                 }, {
                     getLoggedUserLiveData.postValue(null)
+                    notifyNoDataComing()
                     changeLoadingStatus(false)
                 })
         )
@@ -94,11 +105,67 @@ class HomeViewModel @Inject constructor(
                     changeLoadingStatus(false)
                 }, {
                     changeAvailableLiveData.postValue(null)
+                    notifyNoDataComing()
                     changeLoadingStatus(false)
                 })
         )
     }
 
+    fun getOrderData(orderId: Int) = launch {
+        changeLoadingStatus(true, "Getting order...")
+        disposable.add(
+            orderRepository
+                .showOrder(ShowOrderRequest(orderId))
+                .subscribeOn(ioScheduler)
+                .observeOn(ioScheduler)
+                .subscribe({
+                    getOrderDataLiveData.postValue(it)
+                    changeLoadingStatus(false)
+                }, {
+                    changeErrorMessage(it)
+                    changeLoadingStatus(false)
+                }, {
+                    notifyNoDataComing()
+                    changeLoadingStatus(false)
+                })
+        )
+    }
+
+    fun changeOrderStatus(orderId: Int, orderStatusRequestType: OrderStatusRequestType) = launch {
+        changeLoadingStatus(true, orderStatusRequestType.label ?: "Loading")
+        disposable.add(
+            orderRepository.changeOrderStatus(
+                ChangeOrderRequest(
+                    orderId = orderId,
+                    orderStatusRequestType = orderStatusRequestType
+                )
+            ).subscribeOn(ioScheduler)
+                .observeOn(ioScheduler)
+                .subscribe({
+                    changeOrderStatusLiveData.postValue(it)
+                    changeLoadingStatus(false)
+                }, {
+                    changeErrorMessage(it)
+                    changeLoadingStatus(false)
+                }, {
+                    notifyNoDataComing()
+                    changeLoadingStatus(false)
+                })
+        )
+    }
+
+    fun updateUserFcmToken(fcmToken: String) {
+        launch {
+            configRepository.setFCMToken(fcmToken)
+            disposable.add(
+                notificationRepository.updateFCMToken(
+                    UpdateFCMTokenRequest(fcmToken = fcmToken)
+                ).subscribeOn(ioScheduler)
+                    .observeOn(ioScheduler)
+                    .subscribe()
+            )
+        }
+    }
 
     companion object {
         private const val TAG = "HomeViewModel"

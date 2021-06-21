@@ -5,15 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.namllahprovider.data.model.OrderDto
 import com.app.namllahprovider.databinding.FragmentInProgressOrderBinding
+import com.app.namllahprovider.domain.utils.OrderStatusRequestType
 import com.app.namllahprovider.domain.utils.OrderType
+import com.app.namllahprovider.presentation.fragments.main.MainFragmentDirections
 import com.app.namllahprovider.presentation.fragments.main.home.HomeViewModel
-import com.app.namllahprovider.presentation.fragments.wizard.sign_up.SignUpFragment
+import com.app.namllahprovider.presentation.utils.OrderStat
 import com.app.namllahprovider.presentation.utils.SweetAlert
+import com.app.namllahprovider.presentation.utils.getOrderStatus
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -24,7 +29,7 @@ class InProgressOrderFragment : Fragment(), OnInProgressOrderListener {
 
     private var fragmentInProgressOrderBinding: FragmentInProgressOrderBinding? = null
 
-    private var inProgressOrderList  = listOf<OrderDto>()
+    private var inProgressOrderList = listOf<OrderDto>()
 
     private val inProgressOrderAdapter = InProgressOrderAdapter(inProgressOrderList, this)
 
@@ -55,10 +60,42 @@ class InProgressOrderFragment : Fragment(), OnInProgressOrderListener {
         })
 
         homeViewModel.errorLiveData.observe(viewLifecycleOwner) {
-            it?.let{
+            it?.let {
                 Timber.tag(TAG).e("observeLiveData : Error Message ${it.message}")
                 SweetAlert.instance.showFailAlert(activity = requireActivity(), throwable = it)
                 it.printStackTrace()
+            }
+        }
+
+        homeViewModel.noDataLiveData.observe(viewLifecycleOwner) {
+            it?.let {
+
+            }
+        }
+
+        homeViewModel.changeOrderStatusLiveData.observe(viewLifecycleOwner) {
+            it?.let {
+                Timber.tag(TAG).d("observeLiveData ChangeOrderStatus : $it")
+                Timber.tag (TAG)
+                    .d("observeLiveData : ChangeOrderStatus OrderId:${it.order?.id} to ${it.order?.status?.getOrderStatus()}")
+                if (it.status) {
+                    when (it.order?.status?.getOrderStatus()) {
+                        OrderStat.IN_WAY -> {
+                            fetchInProgressOrders()
+                        }
+                        OrderStat.ARRIVE -> {
+                            fetchInProgressOrders()
+                        }
+                        OrderStat.CHECK -> {
+                            fetchInProgressOrders()
+                        }
+                        else -> {
+
+                        }
+                    }
+                } else {
+                    homeViewModel.changeErrorMessage(Throwable(it.error))
+                }
             }
         }
     }
@@ -71,13 +108,43 @@ class InProgressOrderFragment : Fragment(), OnInProgressOrderListener {
             it?.let {
                 inProgressOrderList = it
                 inProgressOrderAdapter.updateData(inProgressOrderList)
-                homeViewModel.getListOrderLiveData.postValue(null)
+//                homeViewModel.getListOrderLiveData.postValue(null)
             }
         })
     }
 
     override fun onClickOrder(position: Int) {
 
+    }
+
+    override fun onClickAction(position: Int) {
+        val orderDto = inProgressOrderList[position]
+        when (orderDto.status?.getOrderStatus()) {
+            OrderStat.APPROVED -> {
+                homeViewModel.changeOrderStatus(
+                    orderId = orderDto.id!!,
+                    orderStatusRequestType = OrderStatusRequestType.IN_WAY
+                )
+            }
+            OrderStat.IN_WAY -> {
+                homeViewModel.changeOrderStatus(
+                    orderId = orderDto.id!!,
+                    orderStatusRequestType = OrderStatusRequestType.ARRIVE
+                )
+            }
+            else -> {
+            }
+        }
+    }
+
+    override fun onClickShowIntMap(position: Int) {
+        Timber.tag(TAG).d("onClickShowIntMap : ")
+        val orderDto = inProgressOrderList[position]
+        findNavController().navigate(MainFragmentDirections.actionGlobalMapViewFragment(orderId = orderDto.id?:-1))
+    }
+
+    override fun onClickCancel(position: Int) {
+        Timber.tag(TAG).d("onClickCancel : ")
     }
 
     companion object {

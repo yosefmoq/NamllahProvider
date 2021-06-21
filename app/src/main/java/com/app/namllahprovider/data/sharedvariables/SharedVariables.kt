@@ -210,6 +210,17 @@ class SharedVariables @Inject constructor(mContext: Context) {
         return returnValue
     }
 
+    fun clearConfigData(){
+        try {
+            mSemaphore.acquire()
+            mSharedPreferenceEditor.clear()
+            mSharedPreferenceEditor.commit()
+            mSemaphore.release()
+        } catch (e: InterruptedException) {
+            e.printStackTrace()
+        }
+    }
+
     companion object DefaultSVValue {
         const val SPF_STRING_NO_VALUE_FOUND = "NULL"
         val SPF_STRING_LIST_NO_VALUE_FOUND = mutableListOf<String>()

@@ -13,9 +13,10 @@
     <string name="create_new_account">Create New Account</string>
     <string name="login_to_your_account">Login to your account</string>
     <string name="order_details">Order details</string>
+    <string name="client_location">Client Location</string>
     <string name="verification_code">Verification code</string>
     <string name="forget_password">Forget password</string>
-    <string name="username">Username</string>
+    <string name="name">Name</string>
     <string name="phone_number">Phone Number</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
@@ -54,6 +55,7 @@
     <string name="fake_nationality">Palestinian</string>
     <string name="my_services">My Services</string>
     <string name="add_new_services">Add New Services</string>
+    <string name="add_service">Add Service</string>
     <string name="language">Language</string>
     <string name="logout">Logout</string>
     <string name="settings">Settings</string>
@@ -93,5 +95,15 @@
     <string name="select_areas_you_cover">Select Areas You Cover</string>
     <string name="add">ADD</string>
     <string name="click_here_to_select_areas_from_list">Click here to select areas from list</string>
+    <string name="decline">Decline</string>
+    <string name="cancel">Cancel</string>
+    <string name="in_way">In Way</string>
+    <string name="show_in_map">Show in map</string>
+    <string name="start_checking">Start Checking</string>
+    <string name="client_not_in_location">Client Not In Location</string>
+    <string name="check_up">Check Up</string>
+    <string name="take_image">This app needs access to the storage even when you are getting pictures</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="firebase_notification_topic">NamllahProvider</string>
 
 </resources>

@@ -115,10 +115,11 @@ class SignInFragment : Fragment(), View.OnClickListener {
 
     private fun handleSignInResponse(signInResponse: SignInResponse) {
         if (signInResponse.status!!) {
+            Timber.tag(TAG).d("handleSignInResponse : signInResponse $signInResponse")
             //Success Login
             //Save User data in SP
 //            signInViewModel.saveUserDataLocal(signInResponse.userDto!!)
-//            signInViewModel.saveUserTokenLocal(signInResponse.userDto!!.token ?: "")
+            signInViewModel.saveUserTokenLocal(signInResponse.userDto!!.token ?: "")
             signInViewModel.changeLoginStatus(true)
             startActivity(Intent(context, MainActivity::class.java))
             requireActivity().finish()

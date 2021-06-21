@@ -31,14 +31,14 @@ class ConfigRepositoryImpl @Inject constructor(
         )
     }
 
-/*    override fun setLoggedUser(userDto: UserDto) {
+    override fun setLoggedUser(userDto: UserDto) {
         sharedVariables.setObjectInSharedVariable(
             SharedValueFlags.USER,
             userDto
         )
     }
 
-    override fun getLoggedUser(): UserDto? = ConfigRepositoryObj.getLoggedUser(context)*/
+    override fun getLoggedUser(): UserDto? = ConfigRepositoryObj.getLoggedUser(context)
 
     override fun setUserToken(userToken: String) {
         sharedVariables.setStringSharedVariable(
@@ -48,4 +48,17 @@ class ConfigRepositoryImpl @Inject constructor(
     }
 
     override fun getUserToken(): String =  ConfigRepositoryObj.getUserToken(context)
+
+    override fun setFCMToken(fcmToken: String) {
+        sharedVariables.setStringSharedVariable(
+            SharedValueFlags.FCM_TOKEN,
+            fcmToken
+        )
+    }
+
+    override fun getFCMToken(): String =  ConfigRepositoryObj.getFCMToken(context)
+
+    override fun clearConfigData() {
+        sharedVariables.clearConfigData()
+    }
 }

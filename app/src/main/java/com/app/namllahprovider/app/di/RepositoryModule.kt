@@ -1,13 +1,7 @@
 package com.app.namllahprovider.app.di
 
-import com.app.namllahprovider.data.repository.AuthRepositoryImpl
-import com.app.namllahprovider.data.repository.NotificationRepositoryImpl
-import com.app.namllahprovider.data.repository.OrderRepositoryImpl
-import com.app.namllahprovider.data.repository.UserRepositoryImpl
-import com.app.namllahprovider.domain.repository.AuthRepository
-import com.app.namllahprovider.domain.repository.NotificationRepository
-import com.app.namllahprovider.domain.repository.OrderRepository
-import com.app.namllahprovider.domain.repository.UserRepository
+import com.app.namllahprovider.data.repository.*
+import com.app.namllahprovider.domain.repository.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -28,5 +22,8 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun userRepository(notificationRepositoryImpl: UserRepositoryImpl):UserRepository
+
+    @Binds
+    abstract fun globalRepository(globalRepositoryImpl: GlobalRepositoryImpl):GlobalRepository
 
 }

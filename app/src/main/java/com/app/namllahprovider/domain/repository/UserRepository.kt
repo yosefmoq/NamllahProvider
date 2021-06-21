@@ -1,5 +1,6 @@
 package com.app.namllahprovider.domain.repository
 
+import com.app.namllahprovider.data.api.BaseResponse
 import com.app.namllahprovider.data.api.user.change_available.ChangeAvailableResponse
 import com.app.namllahprovider.data.api.user.update_user_profile.UpdateUserProfileRequest
 import com.app.namllahprovider.data.api.user.update_user_profile.UpdateUserProfileResponse
@@ -13,5 +14,7 @@ interface UserRepository {
     fun getUserProfile(): Maybe<UserDto>
 
     fun updateUserProfile(updateUserProfileRequest: UpdateUserProfileRequest): Maybe<UpdateUserProfileResponse>
+
+    fun logout(): Maybe<BaseResponse>
 
 }

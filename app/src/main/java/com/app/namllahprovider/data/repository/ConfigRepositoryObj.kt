@@ -19,4 +19,7 @@ object ConfigRepositoryObj {
 
     fun getUserToken(context: Context):String =
         SharedVariables(context).getStringSharedVariable(SharedValueFlags.USER_TOKEN)?:""
+
+    fun getFCMToken(context: Context):String =
+        SharedVariables(context).getStringSharedVariable(SharedValueFlags.FCM_TOKEN)?:""
 }

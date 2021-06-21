@@ -17,6 +17,7 @@ abstract class BaseViewModel constructor(application: Application) : AndroidView
     val dialogLiveData = MutableLiveData<DialogData?>()
     val errorLiveData = MutableLiveData<Throwable?>()
     val loadingLiveData = MutableLiveData<Boolean?>()
+    val noDataLiveData = MutableLiveData<String?>()
 
     private var job = Job()
     override val coroutineContext: CoroutineContext
@@ -33,12 +34,21 @@ abstract class BaseViewModel constructor(application: Application) : AndroidView
         disposable.dispose()
     }
 
-    fun changeLoadingStatus(newStatus: Boolean) {
+    fun changeLoadingStatus(newStatus: Boolean,loadingMessage:String = "") {
+        println("changeLoadingStatus :: New Status $newStatus, Loading Message $loadingMessage")
         loadingLiveData.postValue(newStatus)
     }
 
     fun changeErrorMessage(throwable: Throwable) {
         errorLiveData.postValue(throwable)
+        CoroutineScope(Dispatchers.IO).launch {
+            delay(1000)
+            errorLiveData.postValue(null)
+        }
+    }
+
+    fun notifyNoDataComing(){
+        noDataLiveData.postValue("")
         CoroutineScope(Dispatchers.IO).launch {
             delay(1000)
             errorLiveData.postValue(null)

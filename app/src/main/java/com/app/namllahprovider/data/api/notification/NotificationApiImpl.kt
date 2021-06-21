@@ -1,6 +1,7 @@
 package com.app.namllahprovider.data.api.notification
 
 import com.app.namllahprovider.data.api.BaseResponse
+import com.app.namllahprovider.data.api.notification.update_fcm.UpdateFCMTokenRequest
 import com.app.namllahprovider.data.model.NotificationDto
 import com.app.namllahprovider.domain.repository.ConfigRepository
 import io.reactivex.Maybe
@@ -24,7 +25,7 @@ class NotificationApiImpl @Inject constructor(
                 if (notificationsResponse.data.isEmpty()) {
                     it.onComplete()
                 } else {
-                    it.onSuccess(notificationsResponse.data[0])
+                    it.onSuccess(notificationsResponse.data)
                 }
             }
         } else {
@@ -64,6 +65,27 @@ class NotificationApiImpl @Inject constructor(
             it.onError(Throwable(response.errorBody()?.string() ?: "Something went wrong!"))
         }
     }
+
+    fun updateFCMToken(updateFCMTokenRequest: UpdateFCMTokenRequest): Maybe<BaseResponse> =
+        Maybe.create {
+            val response = notificationApi.updateFCMToken(
+                mobile = updateFCMTokenRequest.mobile,
+                token = updateFCMTokenRequest.fcmToken
+            ).execute()
+            if (response.isSuccessful) {
+                val updateFCMTokenResponse = response.body()
+                if (updateFCMTokenResponse == null) {
+                    it.onError(Throwable("Something Error, Please try again later"))
+                } else {
+                    //Call on Success
+                    it.onSuccess(updateFCMTokenResponse)
+                }
+            } else {
+                //Call on Error
+                it.onError(Throwable(response.errorBody()?.string() ?: "Something went wrong!"))
+            }
+        }
+
 
     companion object {
         private const val TAG = "NotificationApiImpl"

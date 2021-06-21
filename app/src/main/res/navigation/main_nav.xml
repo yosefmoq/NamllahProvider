@@ -56,7 +56,12 @@
     <fragment
         android:id="@+id/workFragment"
         android:name="com.app.namllahprovider.presentation.fragments.main.home.work.WorkFragment"
-        android:label="WorkFragment" />
+        android:label="WorkFragment" >
+        <argument
+            android:name="order_id"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
     <fragment
         android:id="@+id/addNewServiceFragment"
         android:name="com.app.namllahprovider.presentation.fragments.main.profile.services.add_new_service.AddNewServiceFragment"
@@ -192,6 +197,21 @@
         android:id="@+id/action_global_notificationFragment"
         app:destination="@id/notificationFragment"
         app:launchSingleTop="true" />
+    <fragment
+        android:id="@+id/mapViewFragment"
+        android:name="com.app.namllahprovider.presentation.fragments.main.home.map_fragment.MapViewFragment"
+        android:label="MapViewFragment" >
+        <argument
+            android:name="order_id"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <action
+            android:id="@+id/action_mapViewFragment_to_workFragment"
+            app:destination="@id/workFragment" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_mapViewFragment"
+        app:destination="@id/mapViewFragment" />
 
 
 </navigation>

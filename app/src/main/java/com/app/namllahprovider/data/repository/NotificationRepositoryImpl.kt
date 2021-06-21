@@ -2,6 +2,7 @@ package com.app.namllahprovider.data.repository
 
 import com.app.namllahprovider.data.api.BaseResponse
 import com.app.namllahprovider.data.api.notification.NotificationApiImpl
+import com.app.namllahprovider.data.api.notification.update_fcm.UpdateFCMTokenRequest
 import com.app.namllahprovider.data.model.NotificationDto
 import com.app.namllahprovider.domain.repository.NotificationRepository
 import io.reactivex.Maybe
@@ -19,5 +20,8 @@ class NotificationRepositoryImpl @Inject constructor(
 
     override fun markAllNotificationAsRead(): Maybe<BaseResponse> =
         notificationApiImpl.markAllNotificationAsRead()
+
+    override fun updateFCMToken(updateFCMTokenRequest: UpdateFCMTokenRequest): Maybe<BaseResponse> =
+        notificationApiImpl.updateFCMToken(updateFCMTokenRequest)
 
 }

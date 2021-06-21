@@ -35,7 +35,7 @@ class NewOrderAdapter(
     class NewOrderViewHolder(val view: ItemNewOrderBinding) : RecyclerView.ViewHolder(view.root) {
         val context = view.root.context
         fun bindView(position: Int, order: OrderDto, onNewOrderListener: OnNewOrderListener) {
-            val address = getAddressFromLatAndLng(context,order.lat?.toDoubleOrNull()?:0.0 , order.lng?.toDoubleOrNull()?:0.0)
+            val address = getAddressFromLatAndLng(context,order.lat?:0.0 , order.lng?:0.0)
             view.position = position
             view.order = order
             view.orderAddress = address

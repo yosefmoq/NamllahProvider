@@ -1,5 +1,6 @@
 package com.app.namllahprovider.data.repository
 
+import com.app.namllahprovider.data.api.BaseResponse
 import com.app.namllahprovider.data.api.user.UserApiImpl
 import com.app.namllahprovider.data.api.user.change_available.ChangeAvailableResponse
 import com.app.namllahprovider.data.api.user.update_user_profile.UpdateUserProfileRequest
@@ -22,4 +23,7 @@ class UserRepositoryImpl @Inject constructor(
 
     override fun updateUserProfile(updateUserProfileRequest: UpdateUserProfileRequest): Maybe<UpdateUserProfileResponse> =
         userApiImpl.updateUserProfile(updateUserProfileRequest)
+
+    override fun logout(): Maybe<BaseResponse> =
+        userApiImpl.logout()
 }

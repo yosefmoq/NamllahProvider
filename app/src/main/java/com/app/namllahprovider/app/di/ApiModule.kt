@@ -2,6 +2,8 @@ package com.app.namllahprovider.app.di
 
 import com.app.namllahprovider.data.api.auth.AuthApi
 import com.app.namllahprovider.data.api.auth.AuthApiImpl
+import com.app.namllahprovider.data.api.global.GlobalApi
+import com.app.namllahprovider.data.api.global.GlobalApiImpl
 import com.app.namllahprovider.data.api.notification.NotificationApi
 import com.app.namllahprovider.data.api.notification.NotificationApiImpl
 import com.app.namllahprovider.data.api.order.OrderApi
@@ -39,8 +41,12 @@ class ApiModule {
         retrofit.build().create(NotificationApi::class.java)
 
     @Provides
-    fun provideNotificationApiImpl(notificationApi: NotificationApi, configRepository: ConfigRepository) =
+    fun provideNotificationApiImpl(
+        notificationApi: NotificationApi,
+        configRepository: ConfigRepository
+    ) =
         NotificationApiImpl(notificationApi, configRepository)
+
     @Provides
     fun provideUserApi(retrofit: Retrofit.Builder): UserApi =
         retrofit.build().create(UserApi::class.java)
@@ -48,4 +54,12 @@ class ApiModule {
     @Provides
     fun provideUserApiImpl(userApi: UserApi, configRepository: ConfigRepository) =
         UserApiImpl(userApi, configRepository)
+
+    @Provides
+    fun provideGlobalApi(retrofit: Retrofit.Builder): GlobalApi =
+        retrofit.build().create(GlobalApi::class.java)
+
+    @Provides
+    fun provideGlobalApiImpl(globalApi: GlobalApi, configRepository: ConfigRepository) =
+        GlobalApiImpl(globalApi, configRepository)
 }

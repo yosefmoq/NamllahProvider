@@ -32,16 +32,17 @@ class MainFragment : Fragment(), BottomNavigationView.OnNavigationItemSelectedLi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fragmentMainBinding?.navigation?.setOnNavigationItemSelectedListener(this)
-        loadFragment(FragmentType.HOME)
+        loadFragment(currentFragmentType)
     }
 
     private fun loadFragment(fragmentType: FragmentType) {
-        val destinationFragment = when (fragmentType) {
+        currentFragmentType = fragmentType
+        val destinationFragment = when (currentFragmentType) {
             FragmentType.HOME -> HomeFragment.newInstance()
             FragmentType.NOTIFICATION -> NotificationFragment.newInstance()
             FragmentType.PROFILE -> UserProfileFragment.newInstance()
         }
-        Timber.tag(TAG).d("loadFragment : fragment type : $fragmentType")
+        Timber.tag(TAG).d("loadFragment : fragment type : $currentFragmentType")
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(fragmentMainBinding?.frameContainer?.id!!, destinationFragment).commit()
     }
@@ -61,5 +62,7 @@ class MainFragment : Fragment(), BottomNavigationView.OnNavigationItemSelectedLi
 
     companion object {
         private const val TAG = "MainFragment"
+        var currentFragmentType = FragmentType.HOME
+
     }
 }

@@ -11,7 +11,7 @@
 
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
         <item name="android:actionMenuTextColor">@color/white</item>
-
+        <item name="fontFamily">@font/poppins</item>
     </style>
 
     <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">

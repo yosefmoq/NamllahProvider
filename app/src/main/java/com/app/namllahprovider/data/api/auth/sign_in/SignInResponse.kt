@@ -1,6 +1,5 @@
 package com.app.namllahprovider.data.api.auth.sign_in
 
-import com.app.namllahprovider.data.model.ErrorsDto
 import com.app.namllahprovider.data.model.UserDto
 import com.google.gson.annotations.SerializedName
 

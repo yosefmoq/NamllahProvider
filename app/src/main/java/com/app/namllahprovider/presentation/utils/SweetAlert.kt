@@ -25,10 +25,11 @@ class SweetAlert private constructor() {
         confirmText: String? = null,
         confirmListener: () -> Unit? = {},
         cancelText: String? = null,
-        cancelListener: () -> Unit?  = {},
+        cancelListener: () -> Unit? = {},
         cancelable: Boolean = false,
         @DrawableRes imageRes: Int = -1
     ) {
+        if (sweetAlertDialog != null && sweetAlertDialog?.isShowing!!) return
         sweetAlertDialog = SweetAlertDialog(context, alertType.code)
             .setTitleText(title)
             .setContentText(message)
@@ -57,7 +58,7 @@ class SweetAlert private constructor() {
         if (imageRes != -1) {
             sweetAlertDialog?.setCustomImage(imageRes)
         }
-
+        sweetAlertDialog?.setCancelable(cancelable)
         sweetAlertDialog?.show()
     }
 

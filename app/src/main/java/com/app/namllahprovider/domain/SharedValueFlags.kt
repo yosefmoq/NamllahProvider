@@ -5,4 +5,5 @@ enum class SharedValueFlags {
     IS_SEEN_ON_BOARDING,
     USER,
     USER_TOKEN,
+    FCM_TOKEN,
 }

@@ -4,65 +4,36 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.app.namllahprovider.R
+import com.app.namllahprovider.data.model.AreaDto
+import com.app.namllahprovider.data.model.ServiceDto
 import com.app.namllahprovider.databinding.FragmentAddNewServiceBinding
 import com.app.namllahprovider.presentation.fragments.common.radio_list_bottom_sheet.RadioListSelectionItem
 import com.app.namllahprovider.presentation.fragments.common.single_list_bottom_sheet.SingleListSelectionItem
+import com.app.namllahprovider.presentation.fragments.main.profile.ProfileViewModel
+import com.app.namllahprovider.presentation.fragments.main.profile.services.UserServiceFragment
 import com.app.namllahprovider.presentation.fragments.main.profile.services.UserServiceFragmentDirections
+import com.app.namllahprovider.presentation.utils.SweetAlert
+import com.app.namllahprovider.presentation.utils.SweetAlertType
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class AddNewServiceFragment : Fragment(), View.OnClickListener {
 
+    private val profileViewModel: ProfileViewModel by activityViewModels()
+
     private var fragmentAddNewServiceBinding: FragmentAddNewServiceBinding? = null
-    val servicesList = arrayOf(
-        "Service Name 01",
-        "Service Name 02",
-        "Service Name 03",
-        "Service Name 03",
-        "Service Name 04",
-        "Service Name 05",
-        "Service Name 06",
-        "Service Name 07",
-        "Service Name 08",
-        "Service Name 09",
-        "Service Name 11",
-        "Service Name 12",
-        "Service Name 13",
-        "Service Name 13",
-        "Service Name 14",
-        "Service Name 15",
-        "Service Name 16",
-        "Service Name 17",
-        "Service Name 18",
-        "Service Name 19",
-    )
-    val areasList = arrayOf(
-        "Service Area 01",
-        "Service Area 02",
-        "Service Area 03",
-        "Service Area 04",
-        "Service Area 05",
-        "Service Area 06",
-        "Service Area 07",
-        "Service Area 08",
-        "Service Area 09",
-        "Service Area 10",
-        "Service Area 11",
-        "Service Area 12",
-        "Service Area 13",
-        "Service Area 13",
-        "Service Area 14",
-        "Service Area 15",
-        "Service Area 16",
-        "Service Area 17",
-        "Service Area 18",
-        "Service Area 19",
-        "Service Area 20",
-    )
+
+    var servicesList = arrayOf<ServiceDto>()
+    var areasList = arrayOf<AreaDto>()
+
+    var selectedServicePosition = -1
     var selectedAreasPositionList = intArrayOf()
 
     override fun onCreateView(
@@ -73,13 +44,70 @@ class AddNewServiceFragment : Fragment(), View.OnClickListener {
         fragmentAddNewServiceBinding =
             FragmentAddNewServiceBinding.inflate(inflater, container, false)
         return fragmentAddNewServiceBinding?.apply {
-            actionOnCLick = this@AddNewServiceFragment
+            actionOnClick = this@AddNewServiceFragment
         }?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initToolbar()
+        observeLiveData()
+        getServicesAndAreas()
+    }
+
+    private fun observeLiveData() {
+        profileViewModel.loadingLiveData.observe(viewLifecycleOwner, {
+            it?.let {
+                Timber.tag(TAG).d("observeLiveData : Loading Status $it")
+                if (it) {
+                    SweetAlert.instance.showAlertDialog(
+                        context = requireContext(),
+                        alertType = SweetAlertType.PROGRESS_TYPE,
+                        title = "Loading",
+                        message = "",
+                        confirmText = "",
+                        confirmListener = {},
+                        cancelText = "",
+                        cancelListener = {},
+                        cancelable = false,
+                    )
+                } else {
+                    Timber.tag(TAG).d("observeLiveData : dismissAlertDialog")
+                    SweetAlert.instance.dismissAlertDialog(true)
+                }
+            }
+        })
+
+        profileViewModel.errorLiveData.observe(viewLifecycleOwner) {
+            it?.let {
+                Timber.tag(TAG).e("observeLiveData : Error Message ${it.message}")
+                SweetAlert.instance.showFailAlert(activity = requireActivity(), throwable = it)
+                it.printStackTrace()
+            }
+        }
+    }
+
+
+    private fun getServicesAndAreas() {
+        profileViewModel.getServicesAndAreas()
+        profileViewModel.getServicesLiveData.observe(viewLifecycleOwner) {
+            it?.let {
+                if (it.isEmpty()) {
+
+                }
+                this.servicesList = it.toTypedArray()
+                profileViewModel.getServicesLiveData.postValue(null)
+            }
+        }
+        profileViewModel.getAreasLiveData.observe(viewLifecycleOwner) {
+            it?.let {
+                if (it.isEmpty()) {
+
+                }
+                this.areasList = it.toTypedArray()
+                profileViewModel.getAreasLiveData.postValue(null)
+            }
+        }
     }
 
     private fun initToolbar() {
@@ -99,9 +127,21 @@ class AddNewServiceFragment : Fragment(), View.OnClickListener {
         when (v ?: return) {
             fragmentAddNewServiceBinding?.clServiceName -> onClickServiceName()
             fragmentAddNewServiceBinding?.clServiceAreas -> onClickServiceAreas()
+            fragmentAddNewServiceBinding?.btnAddService -> onClickAddService()
         }
     }
 
+    private fun onClickAddService() {
+        profileViewModel.updateServices(servicesList[selectedServicePosition].id)
+        profileViewModel.updateProfileLiveData.observe(viewLifecycleOwner){
+            it?.let {
+                if (it.status){
+                    Toast.makeText(requireContext(), "Service Added Successfully", Toast.LENGTH_SHORT).show()
+                    findNavController().popBackStack()
+                }
+            }
+        }
+    }
 
     private fun onClickServiceName() {
         findNavController().navigate(
@@ -110,20 +150,22 @@ class AddNewServiceFragment : Fragment(), View.OnClickListener {
                 message = "Select Service You Provide it",
                 hint = "",
                 currentValue = "",
-                textArray = servicesList,
+                textArray = servicesList.map { it.title }.toTypedArray(),
                 singleListSelectionItem = SingleListSelectionItem {
-                    fragmentAddNewServiceBinding?.tvServiceName?.text = servicesList[it]
+                    selectedServicePosition = it
+                    fragmentAddNewServiceBinding?.tvServiceName?.text = servicesList[it].title
                 }
             )
         )
     }
+
     private fun onClickServiceAreas() {
         findNavController().navigate(
             UserServiceFragmentDirections.actionGlobalRadioListBottomSheetFragment(
                 title = "Select Area",
                 message = "Select Area You Cover it",
                 hint = "",
-                textArray = areasList,
+                textArray = areasList.map { it.title }.toTypedArray(),
                 selectedPositionArray = selectedAreasPositionList,
                 radioListSelectionItem = RadioListSelectionItem {
                     selectedAreasPositionList = it
@@ -134,7 +176,7 @@ class AddNewServiceFragment : Fragment(), View.OnClickListener {
                     }
                     val stringBuilder = StringBuilder()
                     it.forEach { position ->
-                        stringBuilder.append("   ${areasList[position]}")
+                        stringBuilder.append("   ${areasList[position].title}")
                         stringBuilder.append("\n")
                     }
                     fragmentAddNewServiceBinding?.tvServiceAreas?.text = stringBuilder.toString()

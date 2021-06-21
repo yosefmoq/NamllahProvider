@@ -23,6 +23,9 @@ class ViewPagerAdapter(manager: FragmentManager) : FragmentStatePagerAdapter(man
         return mFragmentTitleList[position]
     }
 
+    override fun getItemPosition(`object`: Any): Int {
+        return POSITION_NONE
+    }
     companion object {
         private const val TAG = "ViewPagerAdapter"
     }

@@ -2,6 +2,7 @@ package com.app.namllahprovider.data.networkhelper
 
 import com.app.namllahprovider.data.sharedvariables.SharedVariables
 import com.app.namllahprovider.domain.SharedValueFlags
+import com.google.gson.Gson
 import okhttp3.Interceptor
 import okhttp3.Response
 import okhttp3.ResponseBody
@@ -22,7 +23,7 @@ class LoggingInterceptor(var sharedVariables: SharedVariables) : Interceptor {
         Timber.tag(TAG).d("intercept: url ${request.url}")
         Timber.tag(TAG).d("intercept: method ${request.method}")
         Timber.tag(TAG).d("intercept: headers ${request.headers}")
-        Timber.tag(TAG).d("intercept: body ${request.body}")
+        Timber.tag(TAG).d("intercept: body ${Gson().toJson(request.body)}")
 
         val t1 = System.nanoTime()
 

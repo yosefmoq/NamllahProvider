@@ -10,6 +10,7 @@ import com.app.namllahprovider.domain.repository.ConfigRepository
 import com.app.namllahprovider.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -50,10 +51,15 @@ class SignInViewModel @Inject constructor(
 //    }
 
     fun saveUserTokenLocal(userToken: String) = launch {
+        Timber.tag(TAG).d("saveUserTokenLocal : userToken $userToken")
         configRepository.setUserToken(userToken)
     }
 
     fun changeLoginStatus(newLoginStatus: Boolean) = launch {
         configRepository.setLogin(newLoginStatus)
+    }
+
+    companion object{
+        private const val TAG = "SignInViewModel"
     }
 }

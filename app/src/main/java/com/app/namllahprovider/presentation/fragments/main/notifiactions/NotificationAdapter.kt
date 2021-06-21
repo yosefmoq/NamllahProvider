@@ -29,10 +29,10 @@ class NotificationAdapter(
             view.notification = notificationDto
             view.onNotificationListener = onNotificationListener
             view.executePendingBindings()
-            view.tvNotificationText.text = HtmlCompat.fromHtml(
-                "<b>${notificationDto.id}</b> ${notificationDto.notifiable_type}",
+            view.tvNotificationText.text = "${notificationDto.data.msg.ar}" /*HtmlCompat.fromHtml(
+                "<b>${notificationDto.id}</b> ${notificationDto.data.msg.ar}",
                 HtmlCompat.FROM_HTML_MODE_LEGACY
-            )
+            )*/
         }
     }
 

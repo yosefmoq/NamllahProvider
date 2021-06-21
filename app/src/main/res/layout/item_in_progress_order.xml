@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="order"
             type="com.app.namllahprovider.data.model.OrderDto" />
@@ -11,6 +13,14 @@
         <variable
             name="onInProgressOrderListener"
             type="com.app.namllahprovider.presentation.fragments.main.home.in_progress_order.OnInProgressOrderListener" />
+
+        <variable
+            name="orderActionText"
+            type="String" />
+
+        <variable
+            name="buttonVisibilitySetterAction"
+            type="Boolean" />
 
         <variable
             name="position"
@@ -22,34 +32,39 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_4sdp"
         android:elevation="@dimen/_4sdp"
-        app:cardCornerRadius="@dimen/_8sdp">
+        android:onClick="@{(view)->onInProgressOrderListener.onClickOrder(position)}"
+        app:cardCornerRadius="@dimen/_4sdp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/tv_orderID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:text="@{`Order Num#: `+String.valueOf(order.id)}"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/iv_customerImage"
+                app:layout_constraintTop_toTopOf="@+id/iv_customerImage" />
+
+            <TextView
                 android:id="@+id/tv_customerName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:padding="@dimen/_8sdp"
-                android:text="@{order.user.name}"
-                android:textSize="@dimen/_14ssp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/tv_customerPhoneNumber"
-                app:layout_constraintStart_toEndOf="@+id/iv_customerImage"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:text="@{`Customer: `+order.user.name}"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintStart_toStartOf="@+id/tv_orderID"
+                app:layout_constraintTop_toBottomOf="@+id/tv_orderID" />
 
             <TextView
-                android:id="@+id/tv_customerPhoneNumber"
+                android:id="@+id/tv_customerCreatedAt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_8sdp"
-                android:text="@{String.valueOf(order.user.mobile)}"
+                android:text="@{`Created at: ` + order.createdAt}"
                 android:textSize="@dimen/_12ssp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tv_customerName"
                 app:layout_constraintTop_toBottomOf="@+id/tv_customerName" />
 
@@ -57,15 +72,73 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_customerImage"
                 imageUrl="@{order.user != null? order.user.name:@string/fake_image}"
-                android:layout_width="@dimen/_70sdp"
-                android:layout_height="@dimen/_70sdp"
-                android:layout_margin="@dimen/_4sdp"
-                android:layout_marginHorizontal="@dimen/_6sdp"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_8sdp"
                 app:civ_border_color="@color/white"
                 app:civ_border_width="1dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_orderCancel"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:onClick="@{(view)->onInProgressOrderListener.onClickCancel(position)}"
+                android:text="@string/cancel"
+                android:textSize="@dimen/_10ssp"
+                android:textStyle="bold"
+                android:visibility="@{buttonVisibilitySetterAction?View.VISIBLE:View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/btn_orderAction"
+                app:layout_constraintTop_toBottomOf="@+id/divider3" />
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_orderAction"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:onClick="@{(view)->onInProgressOrderListener.onClickAction(position)}"
+                android:text="@{orderActionText}"
+                android:textSize="@dimen/_10ssp"
+                android:textStyle="bold"
+                android:visibility="@{buttonVisibilitySetterAction?View.VISIBLE:View.GONE}"
+                app:layout_constraintBaseline_toBaselineOf="@+id/btn_orderCancel"
+                app:layout_constraintEnd_toStartOf="@+id/btn_orderCancel"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/btn_orderShowInMap" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_orderShowInMap"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:onClick="@{(view)->onInProgressOrderListener.onClickShowIntMap(position)}"
+                android:text="@string/show_in_map"
+                android:textSize="@dimen/_10ssp"
+                android:textStyle="bold"
+                app:layout_constraintBaseline_toBaselineOf="@+id/btn_orderCancel"
+                app:layout_constraintEnd_toStartOf="@+id/btn_orderAction"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_customerCreatedAt" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

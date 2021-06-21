@@ -8,6 +8,10 @@
         <variable
             name="actionOnCLick"
             type="android.view.View.OnClickListener" />
+
+        <variable
+            name="userServiceAdapter"
+            type="com.app.namllahprovider.presentation.fragments.main.profile.services.UserServiceAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,5 +22,19 @@
         <include
             android:id="@+id/toolbar"
             layout="@layout/toolbar" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_userServices"
+            android:layout_width="0dp"
+            android:layout_margin="@dimen/_4sdp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:setAdapter="@{userServiceAdapter}"
+            tools:listitem="@layout/item_user_service" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

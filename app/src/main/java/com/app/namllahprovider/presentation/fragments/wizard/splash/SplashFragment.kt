@@ -36,21 +36,16 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Timber.tag(TAG).d("onViewCreated : printInLaunch")
         GlobalScope.launch(context = Dispatchers.Main) {
             delay(1500)
             moveToNextUI()
         }
-
-        GlobalScope.launch(context = Dispatchers.Main) {
-            //Do Other Action like check network and initial requests from server
-        }
-
     }
 
     private fun moveToNextUI() {
         Timber.tag(TAG).d("moveToNextUI : ")
         val isLogin = splashViewModel.isLogin()
+        Timber.tag(TAG).d("moveToNextUI : ")
         val isSeenOnBoarding = splashViewModel.isSeenOnBoarding()
         if (isLogin) {
             //Go to Main

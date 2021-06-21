@@ -3,9 +3,9 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'com.google.gms.google-services'
     id 'androidx.navigation.safeargs.kotlin'
 }
-
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -122,6 +122,13 @@ dependencies {
 
     implementation 'com.tapadoo.android:alerter:4.0.0'
 
+
+    // -- Map
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
+    implementation 'pub.devrel:easypermissions:2.0.1'
+
+    implementation 'com.google.firebase:firebase-analytics-ktx:19.0.0'
+    implementation 'com.google.firebase:firebase-messaging:20.2.4'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
