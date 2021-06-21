@@ -84,6 +84,7 @@
     <string name="english">English</string>
     <string name="start_work">Start Work</string>
     <string name="fake_time">02:13:08</string>
+    <string name="fake_Number">3</string>
     <string name="pause">Pause</string>
     <string name="finish">Finish</string>
     <string name="was_it_with_you_or_arrived_at_delivery">Was It With You Or Arrived At Delivery?</string>
@@ -105,5 +106,13 @@
     <string name="take_image">This app needs access to the storage even when you are getting pictures</string>
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <string name="firebase_notification_topic">NamllahProvider</string>
+    <string name="checking_sufficiency">Checking Sufficiency</string>
+    <string name="finish_checking">Finish Checking</string>
+    <string name="estimate_hours_work">Estimate Hours Work</string>
+    <string name="write_what_you_will_use">Write what you will use</string>
+    <string name="optional">Optional</string>
+    <string name="increase_number">Increase Number</string>
+    <string name="decrease_number">Decrease Number</string>
+    <string name="resume">Resume</string>
 
 </resources>

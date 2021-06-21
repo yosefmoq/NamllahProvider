@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +15,8 @@ import com.app.namllahprovider.domain.utils.OrderStatusRequestType
 import com.app.namllahprovider.domain.utils.OrderType
 import com.app.namllahprovider.presentation.fragments.main.MainFragmentDirections
 import com.app.namllahprovider.presentation.fragments.main.home.HomeViewModel
+import com.app.namllahprovider.presentation.fragments.main.home.check_timer.CheckTimerFragmentDirections
+import com.app.namllahprovider.presentation.fragments.main.home.work.WorkFragmentDirections
 import com.app.namllahprovider.presentation.utils.OrderStat
 import com.app.namllahprovider.presentation.utils.SweetAlert
 import com.app.namllahprovider.presentation.utils.getOrderStatus
@@ -76,7 +77,7 @@ class InProgressOrderFragment : Fragment(), OnInProgressOrderListener {
         homeViewModel.changeOrderStatusLiveData.observe(viewLifecycleOwner) {
             it?.let {
                 Timber.tag(TAG).d("observeLiveData ChangeOrderStatus : $it")
-                Timber.tag (TAG)
+                Timber.tag(TAG)
                     .d("observeLiveData : ChangeOrderStatus OrderId:${it.order?.id} to ${it.order?.status?.getOrderStatus()}")
                 if (it.status) {
                     when (it.order?.status?.getOrderStatus()) {
@@ -132,6 +133,15 @@ class InProgressOrderFragment : Fragment(), OnInProgressOrderListener {
                     orderStatusRequestType = OrderStatusRequestType.ARRIVE
                 )
             }
+
+            OrderStat.CHECK,OrderStat.WORKING -> {
+                // TODO: 6/22/2021 Move to Check Timer
+                findNavController().navigate(
+                    CheckTimerFragmentDirections.actionGlobalWorkFragment(
+                        orderId = orderDto.id!!
+                    )
+                )
+            }
             else -> {
             }
         }
@@ -140,7 +150,11 @@ class InProgressOrderFragment : Fragment(), OnInProgressOrderListener {
     override fun onClickShowIntMap(position: Int) {
         Timber.tag(TAG).d("onClickShowIntMap : ")
         val orderDto = inProgressOrderList[position]
-        findNavController().navigate(MainFragmentDirections.actionGlobalMapViewFragment(orderId = orderDto.id?:-1))
+        findNavController().navigate(
+            MainFragmentDirections.actionGlobalMapViewFragment(
+                orderId = orderDto.id ?: -1
+            )
+        )
     }
 
     override fun onClickCancel(position: Int) {

@@ -169,7 +169,7 @@ class MapViewFragment : Fragment(), View.OnClickListener {
                     when (it.order?.status?.getOrderStatus()) {
                         OrderStat.CHECK -> {
                             findNavController().navigate(
-                                MapViewFragmentDirections.actionMapViewFragmentToWorkFragment(
+                                MapViewFragmentDirections.actionMapViewFragmentToCheckTimerFragment(
                                     orderId = orderId
                                 )
                             )

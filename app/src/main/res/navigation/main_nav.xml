@@ -54,13 +54,16 @@
             app:destination="@id/addNewServiceFragment" />
     </fragment>
     <fragment
-        android:id="@+id/workFragment"
-        android:name="com.app.namllahprovider.presentation.fragments.main.home.work.WorkFragment"
-        android:label="WorkFragment" >
+        android:id="@+id/checkTimerFragment"
+        android:name="com.app.namllahprovider.presentation.fragments.main.home.check_timer.CheckTimerFragment"
+        android:label="CheckTimerFragment" >
         <argument
             android:name="order_id"
             app:argType="integer"
             android:defaultValue="-1" />
+        <action
+            android:id="@+id/action_checkTimerFragment_to_checkFragment"
+            app:destination="@id/checkFragment" />
     </fragment>
     <fragment
         android:id="@+id/addNewServiceFragment"
@@ -73,7 +76,7 @@
 
     <dialog
         android:id="@+id/workItemBottomSheetFragment"
-        android:name="com.app.namllahprovider.presentation.fragments.main.home.work.WorkItemBottomSheetFragment"
+        android:name="com.app.namllahprovider.presentation.fragments.main.home.check_timer.WorkItemBottomSheetFragment"
         android:label="WorkItemBottomSheetFragment" />
     <dialog
         android:id="@+id/singleListBottomSheetFragment"
@@ -206,12 +209,53 @@
             app:argType="integer"
             android:defaultValue="-1" />
         <action
-            android:id="@+id/action_mapViewFragment_to_workFragment"
-            app:destination="@id/workFragment" />
+            android:id="@+id/action_mapViewFragment_to_checkTimerFragment"
+            app:destination="@id/checkTimerFragment" />
     </fragment>
     <action
         android:id="@+id/action_global_mapViewFragment"
         app:destination="@id/mapViewFragment" />
+    <fragment
+        android:id="@+id/checkFragment"
+        android:name="com.app.namllahprovider.presentation.fragments.main.home.check.CheckFragment"
+        android:label="fragment_check"
+        tools:layout="@layout/fragment_check" >
+        <argument
+            android:name="order_id"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <action
+            android:id="@+id/action_checkFragment_to_workFragment"
+            app:destination="@id/workFragment" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_checkTimerFragment"
+        app:destination="@id/checkTimerFragment" />
+    <fragment
+        android:id="@+id/workFragment"
+        android:name="com.app.namllahprovider.presentation.fragments.main.home.work.WorkFragment"
+        android:label="WorkFragment" >
+        <argument
+            android:name="order_id"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <action
+            android:id="@+id/action_workFragment_to_billFragment"
+            app:destination="@id/billFragment" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_workFragment"
+        app:destination="@id/workFragment" />
+    <fragment
+        android:id="@+id/billFragment"
+        android:name="com.app.namllahprovider.presentation.fragments.main.home.bill.BillFragment"
+        android:label="fragment_bill"
+        tools:layout="@layout/fragment_bill">
+        <argument
+            android:name="order_id"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
 
 
 </navigation>

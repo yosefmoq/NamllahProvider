@@ -1,4 +1,4 @@
-package com.app.namllahprovider.presentation.fragments.main.home.work
+package com.app.namllahprovider.presentation.fragments.main.home.check_timer
 
 import android.os.Bundle
 import android.view.LayoutInflater

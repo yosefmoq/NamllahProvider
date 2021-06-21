@@ -32,7 +32,7 @@ class OrderApiImpl @Inject constructor(
                         it.onComplete()
                     } else {
                         //Call on Success
-                        it.onSuccess(listOrderResponse.orders?: listOf())
+                        it.onSuccess(listOrderResponse.orders ?: listOf())
                     }
                 }
             } else {
@@ -49,7 +49,10 @@ class OrderApiImpl @Inject constructor(
                     orderApi.changeOrderStatusPOST(
 //                        token =  "Bearer " + configRepository.getLoggedUser()?.token ?: "",
                         orderId = changeOrderRequest.orderId,
-                        orderStatus = changeOrderRequest.orderStatusRequestType.status
+                        orderStatus = changeOrderRequest.orderStatusRequestType.status,
+                        estimatedTime = changeOrderRequest.estimatedTime,
+                        estimatedPriceParts = changeOrderRequest.estimatedPriceParts.toInt(),
+                        checkDescription = changeOrderRequest.checkDescription,
                     )
                 } else {
                     Timber.tag(TAG).d("changeOrderStatus : changeOrderRequest $changeOrderRequest")

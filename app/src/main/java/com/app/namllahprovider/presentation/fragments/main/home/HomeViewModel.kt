@@ -154,6 +154,38 @@ class HomeViewModel @Inject constructor(
         )
     }
 
+    fun changeOrderStatus(
+        orderId: Int,
+        orderStatusRequestType: OrderStatusRequestType,
+        estimatedTime: Int,
+        estimatedPriceParts: Double,
+        checkDescription: String = "",
+    ) = launch {
+        changeLoadingStatus(true, orderStatusRequestType.label ?: "Loading")
+        disposable.add(
+            orderRepository.changeOrderStatus(
+                ChangeOrderRequest(
+                    orderId = orderId,
+                    orderStatusRequestType = orderStatusRequestType,
+                    estimatedTime = estimatedTime,
+                    estimatedPriceParts = estimatedPriceParts,
+                    checkDescription = checkDescription
+                )
+            ).subscribeOn(ioScheduler)
+                .observeOn(ioScheduler)
+                .subscribe({
+                    changeOrderStatusLiveData.postValue(it)
+                    changeLoadingStatus(false)
+                }, {
+                    changeErrorMessage(it)
+                    changeLoadingStatus(false)
+                }, {
+                    notifyNoDataComing()
+                    changeLoadingStatus(false)
+                })
+        )
+    }
+
     fun updateUserFcmToken(fcmToken: String) {
         launch {
             configRepository.setFCMToken(fcmToken)

@@ -45,6 +45,8 @@ class InProgressOrderAdapter(
             view.orderActionText = when (order.status?.getOrderStatus()) {
                 OrderStat.APPROVED -> "In way"
                 OrderStat.IN_WAY -> "Arrive"
+                OrderStat.CHECK  -> "Work Now"
+                OrderStat.WORKING  -> "Continue"
                 else -> {
                     buttonVisibilitySetterAction = false
                     "gone"

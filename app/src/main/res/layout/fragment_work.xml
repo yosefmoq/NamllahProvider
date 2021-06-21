@@ -5,20 +5,19 @@
 
     <data>
 
-        <import type="android.view.View" />
-
         <variable
             name="actionOnClick"
             type="android.view.View.OnClickListener" />
 
-
+        <variable
+            name="orderDto"
+            type="com.app.namllahprovider.data.model.OrderDto" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".presentation.fragments.main.home.work.WorkFragment">
-
 
         <include
             android:id="@+id/toolbar"
@@ -28,7 +27,6 @@
             android:id="@+id/tv_workTimer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/fake_time"
             android:textSize="@dimen/_48ssp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,13 +34,14 @@
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_startWork"
+            android:id="@+id/btn_startWorkTimer"
             style="@style/AppButton.AccentButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_8sdp"
             android:layout_marginHorizontal="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
             android:layout_weight="2"
+            android:onClick="@{actionOnClick::onClick}"
             android:text="@string/start_work"
             android:textAllCaps="false"
             app:layout_constraintBottom_toTopOf="@+id/ll_btnsContainer"
@@ -67,6 +66,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/_4sdp"
+                android:onClick="@{actionOnClick::onClick}"
                 android:layout_weight="1"
                 android:text="@string/finish"
                 android:textAllCaps="false"
@@ -76,9 +76,10 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_pauseResumeTime"
-                style="@style/AppButton.PrimaryButton"
+                style="@style/AppButton.AccentButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:onClick="@{actionOnClick::onClick}"
                 android:layout_marginStart="@dimen/_4sdp"
                 android:layout_weight="1"
                 android:text="@string/pause"

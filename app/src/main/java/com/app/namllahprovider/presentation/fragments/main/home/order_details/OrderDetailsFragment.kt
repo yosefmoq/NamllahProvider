@@ -176,7 +176,6 @@ class OrderDetailsFragment : Fragment(), View.OnClickListener {
                 }
             }
         }
-
     }
 
     private fun initToolbar() {

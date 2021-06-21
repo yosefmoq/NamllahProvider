@@ -16,7 +16,7 @@
         android:paddingBottom="@dimen/_8sdp"
         app:cardCornerRadius="@dimen/_8sdp"
         app:layout_behavior="com.your.package.LockableBottomSheetBehavior"
-        tools:context=".presentation.fragments.main.home.work.WorkItemBottomSheetFragment">
+        tools:context=".presentation.fragments.main.home.check_timer.WorkItemBottomSheetFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

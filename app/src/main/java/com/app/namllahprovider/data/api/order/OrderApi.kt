@@ -21,11 +21,15 @@ interface OrderApi {
         @Path("orderStatus") orderStatus: String
     ): Call<ChangeOrderResponse>
 
+    @FormUrlEncoded
     @POST("provider/orders/{orderId}/{orderStatus}")
     fun changeOrderStatusPOST(
 //        @Header("Authorization") token: String,
         @Path("orderId") orderId: Int,
-        @Path("orderStatus") orderStatus: String
+        @Path("orderStatus") orderStatus: String,
+        @Field("estimated_time") estimatedTime: Int,
+        @Field("estimated_price_parts") estimatedPriceParts: Int,
+        @Field("check_description") checkDescription: String,
     ): Call<ChangeOrderResponse>
 
     @GET("provider/orders/{orderId}")

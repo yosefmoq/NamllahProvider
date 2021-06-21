@@ -1,6 +1,7 @@
 package com.app.namllahprovider.presentation.utils
 
 import com.app.namllahprovider.data.model.StatusDto
+import java.util.concurrent.TimeUnit
 
 fun StatusDto.getOrderStatus() =
     OrderStat.getOrderStatById(this.id)
@@ -31,4 +32,15 @@ enum class OrderStat(val id: Int) {
             }
 
     }
+}
+
+fun Int.getTime(): String {
+    return String.format(
+        "%02d:%02d:%02d",
+        TimeUnit.MILLISECONDS.toHours(this.toLong()),
+        TimeUnit.MILLISECONDS.toMinutes(this.toLong()) -
+                TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(this.toLong())), // The change is in this line
+        TimeUnit.MILLISECONDS.toSeconds(this.toLong()) -
+                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(this.toLong()))
+    )
 }
