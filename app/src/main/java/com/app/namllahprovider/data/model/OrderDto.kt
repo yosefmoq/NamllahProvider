@@ -79,3 +79,8 @@ data class CustomerDto(
     @SerializedName("name") var name: String,
     @SerializedName("mobile") var mobile: String
 )
+
+data class BillDto(
+    @SerializedName("id") var id: Int,
+    @SerializedName("image") var image: ImageDto,
+)

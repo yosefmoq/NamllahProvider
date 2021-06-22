@@ -84,7 +84,10 @@
     <string name="english">English</string>
     <string name="start_work">Start Work</string>
     <string name="fake_time">02:13:08</string>
-    <string name="fake_Number">3</string>
+    <string name="fake_date">18/4/2021</string>
+    <string name="fake_price">110 SR</string>
+    <string name="fake_service">Plumbing</string>
+    <string name="fake_number">3</string>
     <string name="pause">Pause</string>
     <string name="finish">Finish</string>
     <string name="was_it_with_you_or_arrived_at_delivery">Was It With You Or Arrived At Delivery?</string>
@@ -114,5 +117,17 @@
     <string name="increase_number">Increase Number</string>
     <string name="decrease_number">Decrease Number</string>
     <string name="resume">Resume</string>
+    <string name="check_out">Check out</string>
+    <string name="bill">Bill</string>
+    <string name="work">Work</string>
+    <string name="upload_bill">Upload Bill</string>
+    <string name="delivery_times">Delivery Times</string>
+    <string name="total_items_price">Total Items Price</string>
+    <string name="order_num">Order Num #:</string>
+    <string name="category">Category</string>
+    <string name="date">Date</string>
+    <string name="total_time_work">Total Time Work</string>
+    <string name="total_summation">Total Summation</string>
+    <string name="there_is_no_bills_yet">There is no bills yet</string>
 
 </resources>

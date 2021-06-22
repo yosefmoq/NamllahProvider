@@ -27,8 +27,9 @@
             android:id="@+id/tv_workTimer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/_48ssp"
-            android:textStyle="bold"
+            android:textSize="@dimen/_32ssp"
+            android:layout_marginTop="@dimen/_8sdp"
+            tools:text="@string/fake_time"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />

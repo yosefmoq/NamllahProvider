@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.app.namllahprovider.presentation.utils.ImageUtilsKt" />
+
+        <variable
+            name="billListener"
+            type="com.app.namllahprovider.presentation.fragments.main.home.bill.BillListener" />
+
+        <variable
+            name="position"
+            type="Integer" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/_2sdp"
+            android:onClick="@{()->billListener.onClickBill(position)}"
+            app:cardCornerRadius="@dimen/_8sdp"
+            app:cardElevation="@dimen/_4sdp">
+
+            <ImageView
+                android:id="@+id/iv_billImage"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_margin="@dimen/_4sdp"
+                android:onClick="@{()->billListener.onClickDeleteBill(position)}"
+                android:scaleType="centerCrop"
+                android:src="@drawable/person" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                android:background="@android:color/holo_red_dark"
+                android:padding="@dimen/_4sdp"
+                android:src="@drawable/ic_close_24px"
+                app:tint="@color/white" />
+
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

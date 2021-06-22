@@ -61,7 +61,7 @@ class WorkFragment : Fragment(), View.OnClickListener {
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
 
         val toolBarTitleView = toolbar?.toolbarTitle
-        toolBarTitleView?.text = getString(R.string.order_details)
+        toolBarTitleView?.text = getString(R.string.work)
 
         toolbar?.root?.setNavigationOnClickListener {
             findNavController().popBackStack()
@@ -230,6 +230,10 @@ class WorkFragment : Fragment(), View.OnClickListener {
 
     private fun onClickFinishWork() {
         findNavController().navigate(WorkFragmentDirections.actionWorkFragmentToBillFragment(orderId = orderId))
+        homeViewModel.changeOrderStatus(orderId = orderId, OrderStatusRequestType.STOP_WORK)
+        if (this::countDownTimer.isInitialized) {
+            countDownTimer.cancel()
+        }
     }
 
     private fun onClickPauseResumeWork() {

@@ -20,6 +20,8 @@ import com.app.namllahprovider.domain.utils.OrderType
 import com.app.namllahprovider.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -170,6 +172,38 @@ class HomeViewModel @Inject constructor(
                     estimatedTime = estimatedTime,
                     estimatedPriceParts = estimatedPriceParts,
                     checkDescription = checkDescription
+                )
+            ).subscribeOn(ioScheduler)
+                .observeOn(ioScheduler)
+                .subscribe({
+                    changeOrderStatusLiveData.postValue(it)
+                    changeLoadingStatus(false)
+                }, {
+                    changeErrorMessage(it)
+                    changeLoadingStatus(false)
+                }, {
+                    notifyNoDataComing()
+                    changeLoadingStatus(false)
+                })
+        )
+    }
+
+    fun changeOrderStatus(
+        orderId: Int,
+        orderStatusRequestType: OrderStatusRequestType,
+        boughtPrice: RequestBody,
+        bringTimes: RequestBody,
+        bills: List<MultipartBody.Part>?,
+    ) = launch {
+        changeLoadingStatus(true, orderStatusRequestType.label ?: "Loading")
+        disposable.add(
+            orderRepository.changeOrderStatus(
+                ChangeOrderRequest(
+                    orderId = orderId,
+                    orderStatusRequestType = orderStatusRequestType,
+                    boughtPrice = boughtPrice,
+                    bringTimes = bringTimes,
+                    bills = bills
                 )
             ).subscribeOn(ioScheduler)
                 .observeOn(ioScheduler)

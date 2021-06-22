@@ -152,6 +152,7 @@ class CheckFragment : Fragment(), View.OnClickListener {
     }
 
     private fun updateNumber(increaseNumber: Boolean) {
+        if (estimateHoursWork == 0 && !increaseNumber) return
         estimateHoursWork =
             if (increaseNumber) estimateHoursWork.plus(1) else estimateHoursWork.minus(1)
         fragmentCheckBinding?.apply {

@@ -44,24 +44,32 @@ class OrderApiImpl @Inject constructor(
     fun changeOrderStatus(changeOrderRequest: ChangeOrderRequest): Maybe<ChangeOrderResponse> =
         Maybe.create {
             Timber.tag(TAG).d("changeOrderStatus : changeOrderRequest $changeOrderRequest")
-            val response =
-                if (changeOrderRequest.orderStatusRequestType == OrderStatusRequestType.CHECK || changeOrderRequest.orderStatusRequestType == OrderStatusRequestType.PAY_ORDER) {
+            val response = when (changeOrderRequest.orderStatusRequestType) {
+                OrderStatusRequestType.PAY_ORDER -> {
+                    orderApi.changeOrderStatusPOST2(
+                        orderId = changeOrderRequest.orderId,
+                        orderStatus = changeOrderRequest.orderStatusRequestType.status,
+                        bringTimes = changeOrderRequest.bringTimes!!,
+                        boughtPrice = changeOrderRequest.boughtPrice!!,
+                        bills = changeOrderRequest.bills ?: listOf()
+                    )
+                }
+                OrderStatusRequestType.CHECK -> {
                     orderApi.changeOrderStatusPOST(
-//                        token =  "Bearer " + configRepository.getLoggedUser()?.token ?: "",
                         orderId = changeOrderRequest.orderId,
                         orderStatus = changeOrderRequest.orderStatusRequestType.status,
                         estimatedTime = changeOrderRequest.estimatedTime,
                         estimatedPriceParts = changeOrderRequest.estimatedPriceParts.toInt(),
                         checkDescription = changeOrderRequest.checkDescription,
                     )
-                } else {
-                    Timber.tag(TAG).d("changeOrderStatus : changeOrderRequest $changeOrderRequest")
+                }
+                else -> {
                     orderApi.changeOrderStatusGET(
-//                        token =  "Bearer " + configRepository.getLoggedUser()?.token ?: "",
                         orderId = changeOrderRequest.orderId,
                         orderStatus = changeOrderRequest.orderStatusRequestType.status
                     )
-                }.execute()
+                }
+            }.execute()
             Timber.tag(TAG).d("changeOrderStatus : response $response")
             if (response.isSuccessful) {
                 val changeOrderResponse = response.body()
