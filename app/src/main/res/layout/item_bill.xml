@@ -32,7 +32,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_100sdp"
                 android:layout_margin="@dimen/_4sdp"
-                android:onClick="@{()->billListener.onClickDeleteBill(position)}"
                 android:scaleType="centerCrop"
                 android:src="@drawable/person" />
 
@@ -40,6 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top|end"
+                android:onClick="@{()->billListener.onClickDeleteBill(position)}"
                 android:background="@android:color/holo_red_dark"
                 android:padding="@dimen/_4sdp"
                 android:src="@drawable/ic_close_24px"

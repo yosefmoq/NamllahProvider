@@ -1,6 +1,7 @@
 package com.app.namllahprovider.data.api.global
 
 import com.app.namllahprovider.data.model.AreaDto
+import com.app.namllahprovider.data.model.CancelReasonDto
 import com.app.namllahprovider.data.model.ServiceDto
 import com.app.namllahprovider.domain.repository.ConfigRepository
 import io.reactivex.Maybe
@@ -51,7 +52,27 @@ class GlobalApiImpl @Inject constructor(
         }
     }
 
-    companion object{
+    fun getCancelReasons(): Maybe<List<CancelReasonDto>> = Maybe.create {
+        val response = globalApi.getCancelReasons().execute()
+        if (response.isSuccessful) {
+            val cancelReasonsResponse = response.body()
+            Timber.tag(TAG).d("getCancelReasons : cancelReasonsResponse $cancelReasonsResponse")
+            if (cancelReasonsResponse == null) {
+                it.onError(Throwable("Something Error, Please try again later"))
+            } else {
+                if (cancelReasonsResponse.cancelReasonsList.isNullOrEmpty()) {
+                    it.onComplete()
+                } else {
+                    it.onSuccess(cancelReasonsResponse.cancelReasonsList)
+                }
+            }
+        } else {
+            //Call on Error
+            it.onError(Throwable(response.errorBody()?.string() ?: "Something went wrong!"))
+        }
+    }
+
+    companion object {
         private const val TAG = "GlobalApiImpl"
     }
 }

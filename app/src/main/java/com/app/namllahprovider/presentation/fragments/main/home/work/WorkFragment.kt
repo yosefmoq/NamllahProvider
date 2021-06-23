@@ -17,6 +17,10 @@ import com.app.namllahprovider.presentation.fragments.main.home.HomeViewModel
 import com.app.namllahprovider.presentation.fragments.main.home.order_details.OrderDetailsFragmentArgs
 import com.app.namllahprovider.presentation.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -91,6 +95,10 @@ class WorkFragment : Fragment(), View.OnClickListener {
                                 }
                             }
                             else -> {
+                                SweetAlert.instance.showFailAlert(
+                                    activity = requireActivity(),
+                                    message = "Couldn't Update Order Status"
+                                )
                                 findNavController().popBackStack(R.id.mainFragment, false)
                             }
                         }
@@ -229,8 +237,15 @@ class WorkFragment : Fragment(), View.OnClickListener {
     }
 
     private fun onClickFinishWork() {
-        findNavController().navigate(WorkFragmentDirections.actionWorkFragmentToBillFragment(orderId = orderId))
         homeViewModel.changeOrderStatus(orderId = orderId, OrderStatusRequestType.STOP_WORK)
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(1000)
+            findNavController().navigate(
+                WorkFragmentDirections.actionWorkFragmentToBillFragment(
+                    orderId = orderId
+                )
+            )
+        }
         if (this::countDownTimer.isInitialized) {
             countDownTimer.cancel()
         }

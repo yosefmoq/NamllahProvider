@@ -2,6 +2,7 @@ package com.app.namllahprovider.data.repository
 
 import com.app.namllahprovider.data.api.global.GlobalApiImpl
 import com.app.namllahprovider.data.model.AreaDto
+import com.app.namllahprovider.data.model.CancelReasonDto
 import com.app.namllahprovider.data.model.ServiceDto
 import com.app.namllahprovider.domain.repository.GlobalRepository
 import io.reactivex.Maybe
@@ -16,4 +17,7 @@ class GlobalRepositoryImpl @Inject constructor(
 
     override fun getAreas(): Maybe<List<AreaDto>> =
         globalApiImpl.getAreas()
+
+    override fun getCancelReasons(): Maybe<List<CancelReasonDto>> =
+        globalApiImpl.getCancelReasons()
 }

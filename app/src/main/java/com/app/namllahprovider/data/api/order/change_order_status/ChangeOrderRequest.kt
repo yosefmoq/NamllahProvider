@@ -8,6 +8,8 @@ data class ChangeOrderRequest(
     val orderId: Int,
     val orderStatusRequestType: OrderStatusRequestType,
     val estimatedTime: Int = 0,
+    val amount: Int = 0,
+    val cancelReasonId: Int = 0,
     val estimatedPriceParts: Double = 0.0,
     val checkDescription: String = "",
     val boughtPrice: RequestBody? = null,

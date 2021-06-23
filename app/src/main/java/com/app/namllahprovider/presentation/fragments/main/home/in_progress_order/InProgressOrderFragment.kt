@@ -16,7 +16,7 @@ import com.app.namllahprovider.domain.utils.OrderType
 import com.app.namllahprovider.presentation.fragments.main.MainFragmentDirections
 import com.app.namllahprovider.presentation.fragments.main.home.HomeViewModel
 import com.app.namllahprovider.presentation.fragments.main.home.check_timer.CheckTimerFragmentDirections
-import com.app.namllahprovider.presentation.fragments.main.home.work.WorkFragmentDirections
+import com.app.namllahprovider.presentation.fragments.main.home.order_details.OrderDetailsFragmentDirections
 import com.app.namllahprovider.presentation.utils.OrderStat
 import com.app.namllahprovider.presentation.utils.SweetAlert
 import com.app.namllahprovider.presentation.utils.getOrderStatus
@@ -90,6 +90,13 @@ class InProgressOrderFragment : Fragment(), OnInProgressOrderListener {
                         OrderStat.CHECK -> {
                             fetchInProgressOrders()
                         }
+                        OrderStat.CANCEL -> {
+                            fetchInProgressOrders()
+                            SweetAlert.instance.showSuccessAlert(
+                                requireActivity(),
+                                "Order Canceled Successfully"
+                            )
+                        }
                         else -> {
 
                         }
@@ -134,7 +141,7 @@ class InProgressOrderFragment : Fragment(), OnInProgressOrderListener {
                 )
             }
 
-            OrderStat.CHECK,OrderStat.WORKING -> {
+            OrderStat.CHECK, OrderStat.WORKING -> {
                 // TODO: 6/22/2021 Move to Check Timer
                 findNavController().navigate(
                     CheckTimerFragmentDirections.actionGlobalWorkFragment(
@@ -159,6 +166,12 @@ class InProgressOrderFragment : Fragment(), OnInProgressOrderListener {
 
     override fun onClickCancel(position: Int) {
         Timber.tag(TAG).d("onClickCancel : ")
+        val orderDto = inProgressOrderList[position]
+        findNavController().navigate(
+            OrderDetailsFragmentDirections.actionGlobalCancelReasonsFragment(
+                orderId = orderDto.id ?: -1
+            )
+        )
     }
 
     companion object {

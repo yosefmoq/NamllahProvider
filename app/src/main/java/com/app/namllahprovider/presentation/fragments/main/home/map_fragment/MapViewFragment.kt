@@ -175,7 +175,11 @@ class MapViewFragment : Fragment(), View.OnClickListener {
                             )
                         }
                         OrderStat.CANCEL -> {
-
+                            SweetAlert.instance.showSuccessAlert(
+                                requireActivity(),
+                                "Order Canceled Successfully"
+                            )
+                            findNavController().popBackStack(R.id.mainFragment, false)
                         }
                         else -> {
 
@@ -202,7 +206,7 @@ class MapViewFragment : Fragment(), View.OnClickListener {
                 val myLocation = LatLng(lat, lng)
                 googleMap.clear()
                 googleMap.addMarker(MarkerOptions().position(myLocation).title(address))
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 13f))
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 15f))
             }
 
         }
@@ -224,9 +228,11 @@ class MapViewFragment : Fragment(), View.OnClickListener {
     }
 
     private fun onClickDeclineOrder() {
-//        homeViewModel.changeOrderStatus(orderId = orderId, OrderStatusRequestType.CANCEL)
-        // TODO: 6/20/2021 MOVE TO CANCEL REASON
-
+        findNavController().navigate(
+            MapViewFragmentDirections.actionGlobalCancelReasonsFragment(
+                orderId = orderId
+            )
+        )
     }
 
 }

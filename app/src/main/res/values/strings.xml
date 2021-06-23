@@ -129,5 +129,6 @@
     <string name="total_time_work">Total Time Work</string>
     <string name="total_summation">Total Summation</string>
     <string name="there_is_no_bills_yet">There is no bills yet</string>
+    <string name="confirm_cancel">Confirm Cancel</string>
 
 </resources>

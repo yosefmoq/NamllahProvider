@@ -9,12 +9,10 @@ import com.app.namllahprovider.data.api.order.change_order_status.ChangeOrderRes
 import com.app.namllahprovider.data.api.order.list_order.ListOrderRequest
 import com.app.namllahprovider.data.api.order.show_order.ShowOrderRequest
 import com.app.namllahprovider.data.api.user.change_available.ChangeAvailableResponse
+import com.app.namllahprovider.data.model.CancelReasonDto
 import com.app.namllahprovider.data.model.OrderDto
 import com.app.namllahprovider.data.model.UserDto
-import com.app.namllahprovider.domain.repository.ConfigRepository
-import com.app.namllahprovider.domain.repository.NotificationRepository
-import com.app.namllahprovider.domain.repository.OrderRepository
-import com.app.namllahprovider.domain.repository.UserRepository
+import com.app.namllahprovider.domain.repository.*
 import com.app.namllahprovider.domain.utils.OrderStatusRequestType
 import com.app.namllahprovider.domain.utils.OrderType
 import com.app.namllahprovider.presentation.base.BaseViewModel
@@ -32,7 +30,8 @@ class HomeViewModel @Inject constructor(
     private val configRepository: ConfigRepository,
     private val orderRepository: OrderRepository,
     private val notificationRepository: NotificationRepository,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val globalRepository: GlobalRepository,
 ) : BaseViewModel(application) {
 
     val getListOrderLiveData = MutableLiveData<List<OrderDto>?>()
@@ -40,6 +39,7 @@ class HomeViewModel @Inject constructor(
     val changeAvailableLiveData = MutableLiveData<ChangeAvailableResponse?>()
     val getOrderDataLiveData = MutableLiveData<OrderDto?>()
     val changeOrderStatusLiveData = MutableLiveData<ChangeOrderResponse?>()
+    val cancelReasonsLiveData = MutableLiveData<List<CancelReasonDto>?>()
 
     fun getListOrderRequest(orderType: OrderType) {
         launch {
@@ -220,6 +220,34 @@ class HomeViewModel @Inject constructor(
         )
     }
 
+    fun changeOrderStatus(
+        orderId: Int,
+        orderStatusRequestType: OrderStatusRequestType,
+        cancelReasonId: Int
+    ) = launch {
+        changeLoadingStatus(true, orderStatusRequestType.label ?: "Loading")
+        disposable.add(
+            orderRepository.changeOrderStatus(
+                ChangeOrderRequest(
+                    orderId = orderId,
+                    orderStatusRequestType = orderStatusRequestType,
+                    cancelReasonId = cancelReasonId
+                )
+            ).subscribeOn(ioScheduler)
+                .observeOn(ioScheduler)
+                .subscribe({
+                    changeOrderStatusLiveData.postValue(it)
+                    changeLoadingStatus(false)
+                }, {
+                    changeErrorMessage(it)
+                    changeLoadingStatus(false)
+                }, {
+                    notifyNoDataComing()
+                    changeLoadingStatus(false)
+                })
+        )
+    }
+
     fun updateUserFcmToken(fcmToken: String) {
         launch {
             configRepository.setFCMToken(fcmToken)
@@ -231,6 +259,26 @@ class HomeViewModel @Inject constructor(
                     .subscribe()
             )
         }
+    }
+
+    fun getCancelReasons() = launch {
+        changeLoadingStatus(true, "Loading")
+        disposable.add(
+            globalRepository
+                .getCancelReasons()
+                .subscribeOn(ioScheduler)
+                .observeOn(ioScheduler)
+                .subscribe({
+                    cancelReasonsLiveData.postValue(it)
+                    changeLoadingStatus(false)
+                }, {
+                    changeErrorMessage(it)
+                    changeLoadingStatus(false)
+                }, {
+                    notifyNoDataComing()
+                    changeLoadingStatus(false)
+                })
+        )
     }
 
     companion object {

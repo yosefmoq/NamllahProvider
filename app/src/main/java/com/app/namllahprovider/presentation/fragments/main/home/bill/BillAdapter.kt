@@ -19,16 +19,19 @@ class BillAdapter constructor(
     }
 
     fun addBillToList(billDto: Uri) {
-        billList.add(billDto)
-        notifyItemInserted(billList.indexOf(billDto))
+        val newIndex = billList.size
+        billList.add(newIndex, billDto)
+        notifyItemInserted(newIndex)
     }
 
     fun removeBillFromList(position: Int) {
-        try {
-            billList.removeAt(position)
-            notifyItemRemoved(position)
-        } catch (e: Exception) {
 
+        if (position < this.billList.size) {
+            this.billList.removeAt(position)
+            notifyItemRemoved(position)
+            for (index in this.billList.indices) {
+                notifyItemChanged(index)
+            }
         }
     }
 

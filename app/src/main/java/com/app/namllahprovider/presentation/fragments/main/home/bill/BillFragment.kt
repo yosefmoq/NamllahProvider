@@ -206,7 +206,7 @@ class BillFragment : Fragment(), View.OnClickListener, BillListener {
 
         homeViewModel.changeOrderStatus(
             orderId = orderId,
-            orderStatusRequestType = OrderStatusRequestType.PAY_ORDER,
+            orderStatusRequestType = OrderStatusRequestType.ADD_BILLS,
             boughtPrice = boughtPriceBody,
             bringTimes = deliveryTimesBody,
             bills = billListBody,
@@ -266,11 +266,10 @@ class BillFragment : Fragment(), View.OnClickListener, BillListener {
     }
 
     override fun onClickBill(position: Int) {
-        Timber.tag(TAG).d("onClickBill : ${billList[position]}")
+
     }
 
     override fun onClickDeleteBill(position: Int) {
-        Timber.tag(TAG).d("onClickDeleteBill : ${billList[position]}")
         billAdapter.removeBillFromList(position)
 
     }

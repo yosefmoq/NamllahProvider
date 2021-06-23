@@ -45,13 +45,27 @@ class OrderApiImpl @Inject constructor(
         Maybe.create {
             Timber.tag(TAG).d("changeOrderStatus : changeOrderRequest $changeOrderRequest")
             val response = when (changeOrderRequest.orderStatusRequestType) {
-                OrderStatusRequestType.PAY_ORDER -> {
+                OrderStatusRequestType.ADD_BILLS -> {
                     orderApi.changeOrderStatusPOST2(
                         orderId = changeOrderRequest.orderId,
                         orderStatus = changeOrderRequest.orderStatusRequestType.status,
                         bringTimes = changeOrderRequest.bringTimes!!,
                         boughtPrice = changeOrderRequest.boughtPrice!!,
                         bills = changeOrderRequest.bills ?: listOf()
+                    )
+                }
+                OrderStatusRequestType.CANCEL -> {
+                    orderApi.changeOrderStatusPOST4(
+                        orderId = changeOrderRequest.orderId,
+                        orderStatus = changeOrderRequest.orderStatusRequestType.status,
+                        cancelReasonId = changeOrderRequest.cancelReasonId
+                    )
+                }
+                OrderStatusRequestType.PAY_ORDER -> {
+                    orderApi.changeOrderStatusPOST3(
+                        orderId = changeOrderRequest.orderId,
+                        orderStatus = changeOrderRequest.orderStatusRequestType.status,
+                        amount = changeOrderRequest.amount
                     )
                 }
                 OrderStatusRequestType.CHECK -> {

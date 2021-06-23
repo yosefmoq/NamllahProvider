@@ -4,8 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.app.namllahprovider.data.model.ServiceDto
-import com.app.namllahprovider.databinding.ItemInProgressOrderBinding
-import com.app.namllahprovider.databinding.ItemInProgressOrderBindingImpl
 import com.app.namllahprovider.databinding.ItemUserServiceBinding
 import timber.log.Timber
 
@@ -22,7 +20,7 @@ class UserServiceAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserServiceViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemUserServiceBinding.inflate(inflater)
+        val binding = ItemUserServiceBinding.inflate(inflater,parent,false)
         return UserServiceViewHolder(binding)
     }
 

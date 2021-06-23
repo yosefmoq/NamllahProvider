@@ -1,6 +1,8 @@
 package com.app.namllahprovider.data.api
 
+import com.google.gson.annotations.SerializedName
+
 data class BaseResponse(
-    val status: Boolean? = null,
-    val msg: String? = null
+    @SerializedName("status") val status: Boolean? = null,
+    @SerializedName("msg") val msg: String? = null
 )

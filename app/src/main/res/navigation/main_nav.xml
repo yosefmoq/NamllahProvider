@@ -256,6 +256,19 @@
             app:argType="integer"
             android:defaultValue="-1" />
     </fragment>
+    <fragment
+        android:id="@+id/cancelReasonsFragment"
+        android:name="com.app.namllahprovider.presentation.fragments.main.home.cancel_reasons.CancelReasonsFragment"
+        android:label="fragment_cancel_reasons"
+        tools:layout="@layout/fragment_cancel_reasons" >
+        <argument
+            android:name="order_id"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_cancelReasonsFragment"
+        app:destination="@id/cancelReasonsFragment" />
 
 
 </navigation>

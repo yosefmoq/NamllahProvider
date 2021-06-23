@@ -1,5 +1,6 @@
 package com.app.namllahprovider.data.networkhelper
 
+import com.app.namllahprovider.data.model.UserDto
 import com.app.namllahprovider.data.sharedvariables.SharedVariables
 import com.app.namllahprovider.domain.SharedValueFlags
 import com.google.gson.Gson
@@ -15,8 +16,13 @@ class LoggingInterceptor(var sharedVariables: SharedVariables) : Interceptor {
         var request = chain.request()
         val token =
             sharedVariables.getStringSharedVariable(SharedValueFlags.USER_TOKEN) ?: ""
+        val language =
+            sharedVariables.getObjectFromSharedVariable<UserDto>(SharedValueFlags.USER)?.language?.code
+                ?: "ar"
+
         request = request.newBuilder()
             .header("Accept", "application/json")
+            .header("Accept-Language", language)
             .header("Authorization", token)
             .method(request.method, request.body).build()
 

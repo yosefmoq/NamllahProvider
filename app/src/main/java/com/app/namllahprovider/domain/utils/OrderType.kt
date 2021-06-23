@@ -19,9 +19,10 @@ enum class OrderStatusRequestType(processSeq: Int, val status: String, val label
     COMPLETE(7, ""),
 
     FINISH_ORDER(10, "finish"),
-    PAY_ORDER(11, "pay"),
+    ADD_BILLS(11, "add-bills"),
+    PAY_ORDER(12, "pay"),
 
-    CANCEL(8, "", "Canceling");
+    CANCEL(8, "cancel", "Canceling Order");
 
     companion object {
 

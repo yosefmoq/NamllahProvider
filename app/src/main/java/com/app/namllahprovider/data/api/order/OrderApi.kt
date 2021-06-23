@@ -38,9 +38,25 @@ interface OrderApi {
     fun changeOrderStatusPOST2(
         @Path("orderId") orderId: Int,
         @Path("orderStatus") orderStatus: String,
-        @Part("amount") boughtPrice: RequestBody,
+        @Part("bought_price") boughtPrice: RequestBody,
         @Part("bring_times") bringTimes: RequestBody,
         @Part bills: List<MultipartBody.Part>
+    ): Call<ChangeOrderResponse>
+
+    @FormUrlEncoded
+    @POST("provider/orders/{orderId}/{orderStatus}")
+    fun changeOrderStatusPOST3(
+        @Path("orderId") orderId: Int,
+        @Path("orderStatus") orderStatus: String,
+        @Field("amount") amount: Int,
+    ): Call<ChangeOrderResponse>
+
+    @FormUrlEncoded
+    @POST("provider/orders/{orderId}/{orderStatus}")
+    fun changeOrderStatusPOST4(
+        @Path("orderId") orderId: Int,
+        @Path("orderStatus") orderStatus: String,
+        @Field("cancel_reason_id") cancelReasonId: Int,
     ): Call<ChangeOrderResponse>
 
     @GET("provider/orders/{orderId}")

@@ -12,4 +12,7 @@ interface GlobalApi {
 
     @GET("areas")
     fun getAreas(): Call<GetAreasResponse>
+
+    @GET("cancel-reasons")
+    fun getCancelReasons(): Call<CancelReasonsResponse>
 }
