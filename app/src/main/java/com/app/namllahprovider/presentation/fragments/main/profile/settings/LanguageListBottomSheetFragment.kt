@@ -1,6 +1,7 @@
 package com.app.namllahprovider.presentation.fragments.main.profile.settings
 
 import android.app.Activity
+import android.content.Intent
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Bundle
@@ -9,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.app.namllahprovider.databinding.FragmentLanguageListBottomSheetBinding
+import com.app.namllahprovider.presentation.MainActivity
+import com.app.namllahprovider.presentation.base.ContextUtils
 import com.app.namllahprovider.presentation.fragments.main.profile.ProfileViewModel
 import com.app.namllahprovider.presentation.utils.SweetAlert
 import com.app.namllahprovider.presentation.utils.SweetAlertType
@@ -43,7 +46,8 @@ class LanguageListBottomSheetFragment : BottomSheetDialogFragment(), View.OnClic
             FragmentLanguageListBottomSheetBinding.inflate(inflater, container, false)
         return fragmentUserEditBottomSheetBinding?.apply {
             actionOnClick = this@LanguageListBottomSheetFragment
-            currentLanguage = currentLanguage
+            Timber.tag(TAG).d("onCreateView : currentLanguage ${this@LanguageListBottomSheetFragment.currentLanguage}")
+            currentLanguage = this@LanguageListBottomSheetFragment.currentLanguage
         }?.root
     }
 
@@ -97,6 +101,9 @@ class LanguageListBottomSheetFragment : BottomSheetDialogFragment(), View.OnClic
                         requireActivity(),
                         "Language Changed Successfully"
                     )
+                    ContextUtils.updateLocale(requireContext(), Locale(newLanguage))
+                    startActivity(Intent(context, MainActivity::class.java))
+                    requireActivity().finish()
                     dismiss()
                 } else {
                     val errorMessage = updateUserProfileResponse.msg

@@ -47,7 +47,7 @@ class UserSettingFragment : Fragment(), View.OnClickListener {
     }
 
     private fun getLoggedProfile() {
-        profileViewModel.getLoggedUser()
+        profileViewModel.getLoggedUserApi()
         profileViewModel.getLoggedUserLiveData.observe(viewLifecycleOwner, {
             it?.let {
                 Timber.tag(TAG).d("getLoggedProfile : it $it")
@@ -89,6 +89,7 @@ class UserSettingFragment : Fragment(), View.OnClickListener {
     }
 
     private fun onClickEditLanguage() {
+        Timber.tag(TAG).d("onClickEditLanguage : language $userDto")
         findNavController().navigate(
             UserSettingFragmentDirections.actionUserSettingFragmentToLanguageListBottomSheetFragment(
                 currentLanguage = (userDto?.language?.id ?: 1).toInt()

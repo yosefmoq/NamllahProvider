@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Namllah Provider</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="skip">SKIP</string>
     <string name="next">Next</string>
     <string name="get_started">Get started</string>
@@ -65,7 +64,7 @@
     <string name="change_phone_number_title">Change Phone Number</string>
     <string name="change_phone_number_message">We will sent a code to your new mobile number</string>
 
-    <string name="change_username_title">Change Username</string>
+    <string name="change_username_title">Change Name</string>
     <string name="change_username_message">Enter New Name</string>
 
     <string name="change_password_title">Change Password</string>
@@ -108,7 +107,7 @@
     <string name="check_up">Check Up</string>
     <string name="take_image">This app needs access to the storage even when you are getting pictures</string>
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
-    <string name="firebase_notification_topic">NamllahProvider</string>
+    <string name="firebase_notification_topic" translatable="false">NamllahProvider</string>
     <string name="checking_sufficiency">Checking Sufficiency</string>
     <string name="finish_checking">Finish Checking</string>
     <string name="estimate_hours_work">Estimate Hours Work</string>
@@ -130,5 +129,13 @@
     <string name="total_summation">Total Summation</string>
     <string name="there_is_no_bills_yet">There is no bills yet</string>
     <string name="confirm_cancel">Confirm Cancel</string>
+    <string name="_new">New</string>
+    <string name="_in_progress">In Progress</string>
+    <string name="_finish">Finish</string>
+    <string name="your_are_online">You\'re online</string>
+    <string name="you_are_offline">You\'re offline</string>
+    <string name="loading">Loading</string>
+    <string name="arrive">Arrive</string>
+    <string name="_continue">Continue</string>
 
 </resources>

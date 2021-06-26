@@ -136,7 +136,7 @@ class HomeFragment : Fragment() {
                     SweetAlert.instance.showAlertDialog(
                         context = requireContext(),
                         alertType = SweetAlertType.PROGRESS_TYPE,
-                        title = "Loading",
+                        title = getString(R.string.loading),
                         message = "",
                         confirmText = "",
                         confirmListener = {},
@@ -163,7 +163,8 @@ class HomeFragment : Fragment() {
                 Timber.tag(TAG).d("observeLiveData : userDto $userDto")
 
                 val isAvailable = userDto.isAvailable == 1
-                toolBarTitleView?.text = if (isAvailable) "You're online" else "You're offline"
+                toolBarTitleView?.text = if (isAvailable) getString(R.string.your_are_online) else getString(
+                                    R.string.you_are_offline)
 
                 swUserAvailable?.setOnCheckedChangeListener(null)
                 swUserAvailable?.isChecked = isAvailable
@@ -199,9 +200,9 @@ class HomeFragment : Fragment() {
 
     private fun setupViewPager(viewPager: ViewPager) {
         adapter = ViewPagerAdapter(childFragmentManager)
-        adapter.addFragment(NewOrderFragment.newInstance(), "New")
-        adapter.addFragment(InProgressOrderFragment.newInstance(), "In Progress")
-        adapter.addFragment(FinishedOrderFragment.newInstance(), "Finish")
+        adapter.addFragment(NewOrderFragment.newInstance(), getString(R.string._new))
+        adapter.addFragment(InProgressOrderFragment.newInstance(), getString(R.string._in_progress))
+        adapter.addFragment(FinishedOrderFragment.newInstance(), getString(R.string.finish))
         viewPager.adapter = adapter
         viewPager.currentItem = lastFragmentPosition
     }

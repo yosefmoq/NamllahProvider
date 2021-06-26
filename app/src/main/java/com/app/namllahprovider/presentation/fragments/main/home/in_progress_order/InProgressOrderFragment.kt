@@ -32,7 +32,7 @@ class InProgressOrderFragment : Fragment(), OnInProgressOrderListener {
 
     private var inProgressOrderList = listOf<OrderDto>()
 
-    private val inProgressOrderAdapter = InProgressOrderAdapter(inProgressOrderList, this)
+    private val inProgressOrderAdapter = InProgressOrderAdapter(requireContext(),inProgressOrderList, this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
