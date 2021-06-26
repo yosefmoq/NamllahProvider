@@ -43,8 +43,12 @@ interface UserApi {
     @POST("user/profile")
     fun updateUserService(@Field("services_id[]") services_id: Array<Int>): Call<UpdateUserProfileResponse>
 
-    @POST("user/profile")
-    fun updateUserSettings(): Call<UpdateUserProfileResponse>
+    @FormUrlEncoded
+    @POST("user/change-setting")
+    fun updateUserSettings(
+        @Field("key") key: String,
+        @Field("value") value: Boolean
+    ): Call<BaseResponse>
 
     @Multipart
     @POST("user/profile")

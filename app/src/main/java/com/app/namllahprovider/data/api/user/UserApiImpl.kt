@@ -99,6 +99,24 @@ class UserApiImpl @Inject constructor(
             }
         }
 
+    fun updateUserSettings(key: String, value: Boolean): Maybe<BaseResponse> = Maybe.create {
+        Timber.tag(TAG).d("updateUserSettings : key $key, value $value")
+        val response = userApi.updateUserSettings(
+            key = key,
+            value = value
+        ).execute()
+        if (response.isSuccessful) {
+            val userProfileResponse = response.body()
+            if (userProfileResponse == null) {
+                it.onError(Throwable("Something Error, Please try again later"))
+            } else {
+                it.onSuccess(userProfileResponse)
+            }
+        } else {
+            it.onError(Throwable(response.errorBody()?.string() ?: "Something went wrong!"))
+        }
+    }
+
     fun logout(): Maybe<BaseResponse> = Maybe.create {
         val response = userApi.logout().execute()
         if (response.isSuccessful) {

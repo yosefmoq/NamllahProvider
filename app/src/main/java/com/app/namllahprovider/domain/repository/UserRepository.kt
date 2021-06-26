@@ -15,6 +15,8 @@ interface UserRepository {
 
     fun updateUserProfile(updateUserProfileRequest: UpdateUserProfileRequest): Maybe<UpdateUserProfileResponse>
 
+    fun updateUserSettings(key: String, value: Boolean): Maybe<BaseResponse>
+
     fun logout(): Maybe<BaseResponse>
 
 }

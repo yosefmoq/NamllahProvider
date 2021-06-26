@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.app.namllahprovider.R
 import com.app.namllahprovider.data.model.UserDto
@@ -40,6 +39,11 @@ class UserSettingFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         initToolbar()
         getLoggedProfile()
+        initCurrentSettings()
+    }
+
+    private fun initCurrentSettings() {
+
     }
 
     private fun getLoggedProfile() {
@@ -49,7 +53,10 @@ class UserSettingFragment : Fragment(), View.OnClickListener {
                 Timber.tag(TAG).d("getLoggedProfile : it $it")
                 userDto = it
                 fragmentUserSettingBinding?.notificationStatus =
-                    userDto?.settings?.notification ?: "0" == "1"
+                    userDto?.settings?.notification ?: "false" == "true"
+                fragmentUserSettingBinding?.switchUserNotification?.setOnCheckedChangeListener { _, isChecked ->
+                    profileViewModel.updateSettings("notification", isChecked)
+                }
                 profileViewModel.getLoggedUserLiveData.postValue(null)
             }
         })

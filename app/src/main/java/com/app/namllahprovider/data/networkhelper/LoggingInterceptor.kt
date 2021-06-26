@@ -18,7 +18,7 @@ class LoggingInterceptor(var sharedVariables: SharedVariables) : Interceptor {
             sharedVariables.getStringSharedVariable(SharedValueFlags.USER_TOKEN) ?: ""
         val language =
             sharedVariables.getObjectFromSharedVariable<UserDto>(SharedValueFlags.USER)?.language?.code
-                ?: "ar"
+                ?: "en"
 
         request = request.newBuilder()
             .header("Accept", "application/json")

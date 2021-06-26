@@ -24,6 +24,9 @@ class UserRepositoryImpl @Inject constructor(
     override fun updateUserProfile(updateUserProfileRequest: UpdateUserProfileRequest): Maybe<UpdateUserProfileResponse> =
         userApiImpl.updateUserProfile(updateUserProfileRequest)
 
+    override fun updateUserSettings(key: String, value: Boolean): Maybe<BaseResponse> =
+        userApiImpl.updateUserSettings(key, value)
+
     override fun logout(): Maybe<BaseResponse> =
         userApiImpl.logout()
 }

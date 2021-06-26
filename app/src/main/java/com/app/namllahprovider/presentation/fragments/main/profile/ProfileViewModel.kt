@@ -124,6 +124,18 @@ class ProfileViewModel @Inject constructor(
         )
     }
 
+    fun updateSettings(key: String, value: Boolean) = launch {
+        Timber.tag(TAG).d("updateSettings : key $key, value $value")
+//        changeLoadingStatus(true)
+        disposable.add(
+            userRepository
+                .updateUserSettings(key, value)
+                .subscribeOn(ioScheduler)
+                .observeOn(ioScheduler)
+                .subscribe()
+        )
+    }
+
     fun updatePassword(oldPassword: String, newPassword: String) = launch {
 //        changeLoadingStatus(true,"updatePassword")
         disposable.add(

@@ -114,7 +114,6 @@ class UserEditProfileFragment : Fragment(), View.OnClickListener {
         })
     }
 
-
     private fun getLoggedProfile() {
         profileViewModel.getLoggedUser()
         profileViewModel.getLoggedUserLiveData.observe(viewLifecycleOwner, {
