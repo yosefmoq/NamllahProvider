@@ -123,7 +123,7 @@ class SweetAlert private constructor() {
     fun showSuccessAlert(activity: Activity, message: String) {
         Alerter.create(activity)
             .setTitle(message)
-            .setBackgroundColorInt(ContextCompat.getColor(activity, R.color.green_light))
+            .setBackgroundColorInt(ContextCompat.getColor(activity, R.color.primary_color))
             .enableInfiniteDuration(false)
             .setDuration(3000)
             .setTitleAppearance(R.style.AlertTextAppearance_Title)

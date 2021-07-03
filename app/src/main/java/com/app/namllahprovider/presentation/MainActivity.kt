@@ -7,7 +7,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
+import androidx.preference.PreferenceManager
 import com.app.namllahprovider.databinding.ActivityMainBinding
+import com.app.namllahprovider.domain.SharedValueFlags
 import com.app.namllahprovider.presentation.base.ContextUtils
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -15,12 +17,10 @@ import java.util.*
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedListener {
 
-    private val mainViewModel: MainViewModel by viewModels()
 
     override fun attachBaseContext(newBase: Context) {
-        // get chosen language from shread preference
-        val loggedUser = mainViewModel.getLoggedUser()
-        val language = loggedUser?.language?.code
+        val language = PreferenceManager.getDefaultSharedPreferences(newBase)
+            .getString(SharedValueFlags.LANGUAGE.name, "en")
         val localeToSwitchTo = Locale(language ?: "en")
         val localeUpdatedContext: ContextWrapper =
             ContextUtils.updateLocale(newBase, localeToSwitchTo)

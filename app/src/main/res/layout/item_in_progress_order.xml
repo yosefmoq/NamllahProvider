@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_4sdp"
-                android:text="@{`Order Num#: `+String.valueOf(order.id)}"
+                android:text="@{@string/order_num +` `+ String.valueOf(order.id)}"
                 android:textSize="@dimen/_12ssp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/iv_customerImage"
@@ -54,7 +54,7 @@
                 android:id="@+id/tv_customerName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{`Customer: `+order.user.name}"
+                android:text="@{@string/customer +` `+order.user.name}"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintStart_toStartOf="@+id/tv_orderID"
                 app:layout_constraintTop_toBottomOf="@+id/tv_orderID" />
@@ -63,7 +63,7 @@
                 android:id="@+id/tv_customerCreatedAt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{`Created at: ` + order.createdAt}"
+                android:text="@{@string/created_at +` `+ order.createdAt}"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintStart_toStartOf="@+id/tv_customerName"
                 app:layout_constraintTop_toBottomOf="@+id/tv_customerName" />

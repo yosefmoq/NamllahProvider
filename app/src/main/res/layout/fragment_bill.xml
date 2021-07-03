@@ -114,7 +114,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:text="@{orderDto.totalPrice + `SR`}"
+            android:text="@{orderDto.totalPrice +``+ @string/currency}"
             android:textSize="@dimen/_14ssp"
             android:textStyle="bold"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView23"

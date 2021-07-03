@@ -39,7 +39,7 @@ data class OrderDto(
     @SerializedName("lat") var lat: Double? ,
     @SerializedName("lng") var lng: Double? ,
     @SerializedName("created_at") var createdAt: String? ,
-    @SerializedName("bills") var bills: List<String>?
+    @SerializedName("bills") var bills: List<BillDto>?
 ) {
     override fun toString(): String {
         return Gson().toJson(this)
@@ -81,6 +81,8 @@ data class CustomerDto(
 )
 
 data class BillDto(
-    @SerializedName("id") var id: Int,
-    @SerializedName("image") var image: ImageDto,
+    @SerializedName("id") var id : Int,
+    @SerializedName("image") var image : ImageDto,
+    @SerializedName("type") var type : String,
+    @SerializedName("size") var size : Int
 )

@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.app.namllahprovider.data.api.auth.sign_in.SignInResponse
-import com.app.namllahprovider.data.model.UserDto
 import com.app.namllahprovider.domain.repository.AuthRepository
 import com.app.namllahprovider.domain.repository.ConfigRepository
 import com.app.namllahprovider.presentation.base.BaseViewModel
@@ -32,6 +31,8 @@ class SignInViewModel @Inject constructor(
                     .observeOn(ioScheduler)
                     .subscribe({
                         signInLiveData.postValue(it)
+                        configRepository.setLoggedUser(it.userDto)
+                        configRepository.setLanguage(it.userDto?.language?.code?:"")
                         changeLoadingStatus(false)
                     }, {
                         println("ERROR :: $it")

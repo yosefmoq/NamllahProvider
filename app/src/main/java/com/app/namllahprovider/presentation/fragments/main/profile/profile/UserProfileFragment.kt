@@ -11,7 +11,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.app.namllahprovider.R
 import com.app.namllahprovider.databinding.FragmentUserProfileBinding
-import com.app.namllahprovider.presentation.MainActivity
 import com.app.namllahprovider.presentation.WizardActivity
 import com.app.namllahprovider.presentation.fragments.main.MainFragmentDirections
 import com.app.namllahprovider.presentation.fragments.main.profile.ProfileViewModel
@@ -83,7 +82,7 @@ class UserProfileFragment : Fragment(), View.OnClickListener {
                     SweetAlert.instance.showAlertDialog(
                         context = requireContext(),
                         alertType = SweetAlertType.PROGRESS_TYPE,
-                        title = "Loading",
+                        title = getString(R.string.loading),
                         message = "",
                         confirmText = "",
                         confirmListener = {},
@@ -130,19 +129,34 @@ class UserProfileFragment : Fragment(), View.OnClickListener {
 
     private fun onClickLogout() {
         //Delete Logged User From SP
-        profileViewModel.logoutLiveData.observe(viewLifecycleOwner) {
-            it?.let {
-                if (it.status!!) {
-                    //clear config data
-                    profileViewModel.clearConfigData()
+        SweetAlert.instance.showAlertDialog(
+            context = requireContext(),
+            alertType = SweetAlertType.WARNING_TYPE,
+            title = "Logout?",
+            message = "Are you sure you want to logout?",
+            confirmText = "Logout",
+            confirmListener = {
+                profileViewModel.logoutLiveData.observe(viewLifecycleOwner) {
+                    it?.let {
+                        if (it.status!!) {
+                            //clear config data
+                            profileViewModel.clearConfigData()
 
-                    //move to login UI
-                    startActivity(Intent(context, WizardActivity::class.java))
-                    requireActivity().finish()
+                            //move to login UI
+                            startActivity(Intent(context, WizardActivity::class.java))
+                            requireActivity().finish()
+                        }
+                    }
                 }
-            }
-        }
-        profileViewModel.logout()
+                profileViewModel.logout()
+            },
+            cancelText = "Stay",
+            cancelListener = {
+
+            },
+            cancelable = true,
+        )
+
     }
 
     companion object {

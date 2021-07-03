@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import com.app.namllahprovider.R
 import com.app.namllahprovider.databinding.FragmentEditTextBottomSheetBinding
 import com.app.namllahprovider.presentation.base.BottomSheetInputType
 import com.app.namllahprovider.presentation.fragments.main.profile.ProfileViewModel
@@ -57,7 +58,7 @@ class EditTextBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickLis
                     SweetAlert.instance.showAlertDialog(
                         context = requireContext(),
                         alertType = SweetAlertType.PROGRESS_TYPE,
-                        title = "Loading",
+                        title = getString(R.string.loading),
                         message = "",
                         confirmText = "",
                         confirmListener = {},

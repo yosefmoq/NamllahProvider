@@ -137,4 +137,9 @@
     <string name="you_are_offline">غير متصل</string>
     <string name="loading">جاري التحميل</string>
     <string name="_continue">إستمرار</string>
+    <string name="arrive">تم الوصول</string>
+    <string name="created_at">"تاريخ:</string>
+    <string name="customer">إسم العميل:</string>
+
+    <string name="currency">ر.س</string>
 </resources>

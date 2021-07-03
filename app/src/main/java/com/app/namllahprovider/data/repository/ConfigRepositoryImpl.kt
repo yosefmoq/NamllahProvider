@@ -31,7 +31,7 @@ class ConfigRepositoryImpl @Inject constructor(
         )
     }
 
-    override fun setLoggedUser(userDto: UserDto) {
+    override fun setLoggedUser(userDto: UserDto?) {
         sharedVariables.setObjectInSharedVariable(
             SharedValueFlags.USER,
             userDto
@@ -39,6 +39,15 @@ class ConfigRepositoryImpl @Inject constructor(
     }
 
     override fun getLoggedUser(): UserDto? = ConfigRepositoryObj.getLoggedUser(context)
+
+    override fun setLanguage(languageCode: String) {
+        sharedVariables.setStringSharedVariable(
+            SharedValueFlags.LANGUAGE,
+            languageCode
+        )
+    }
+
+    override fun getLanguage(): String = ConfigRepositoryObj.getLanguage(context)
 
     override fun setUserToken(userToken: String) {
         sharedVariables.setStringSharedVariable(

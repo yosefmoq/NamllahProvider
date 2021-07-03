@@ -49,6 +49,7 @@ class ProfileViewModel @Inject constructor(
                     Timber.tag(TAG).d("getLoggedUser : $it")
                     getLoggedUserLiveData.postValue(it)
                     configRepository.setLoggedUser(it)
+                    configRepository.setLanguage(it.language.code)
                     changeLoadingStatus(false, "getLoggedUserApi")
                 }, {
                     getLoggedUserLiveData.postValue(null)

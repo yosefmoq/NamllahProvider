@@ -172,7 +172,7 @@ class WorkFragment : Fragment(), View.OnClickListener {
                     SweetAlert.instance.showAlertDialog(
                         context = requireContext(),
                         alertType = SweetAlertType.PROGRESS_TYPE,
-                        title = "Loading",
+                        title = getString(R.string.loading),
                         message = "",
                         confirmText = "",
                         confirmListener = {},

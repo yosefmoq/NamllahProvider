@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import com.app.namllahprovider.R
 import com.app.namllahprovider.databinding.FragmentUserEditPasswordBinding
 import com.app.namllahprovider.presentation.fragments.main.profile.ProfileViewModel
 import com.app.namllahprovider.presentation.utils.SweetAlert
@@ -69,7 +70,7 @@ class UserEditPasswordFragment : BottomSheetDialogFragment(), View.OnClickListen
                     SweetAlert.instance.showAlertDialog(
                         context = requireContext(),
                         alertType = SweetAlertType.PROGRESS_TYPE,
-                        title = "Loading",
+                        title = getString(R.string.loading),
                         message = "",
                         confirmText = "",
                         confirmListener = {},

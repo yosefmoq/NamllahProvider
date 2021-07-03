@@ -10,7 +10,7 @@ object ViewBindingAdapter {
 
     @JvmStatic
     @BindingAdapter(value = ["app:setAdapter"])
-    fun RecyclerView.bindRecyclerViewAdapter(adapter: RecyclerView.Adapter<*>) {
+    fun RecyclerView.bindRecyclerViewAdapter(adapter: RecyclerView.Adapter<*>?) {
         this.run { this.adapter = adapter }
     }
 

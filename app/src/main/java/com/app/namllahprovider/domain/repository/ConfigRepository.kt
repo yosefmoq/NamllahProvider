@@ -13,9 +13,13 @@ interface ConfigRepository {
 
     fun setSeenOnBoarding(isSeenOnBoarding: Boolean)
 
-    fun setLoggedUser(userDto: UserDto)
+    fun setLoggedUser(userDto: UserDto?)
 
     fun getLoggedUser(): UserDto?
+
+    fun setLanguage(languageCode: String)
+
+    fun getLanguage(): String
 
     fun setUserToken(userToken: String)
 

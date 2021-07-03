@@ -137,5 +137,8 @@
     <string name="loading">Loading</string>
     <string name="arrive">Arrive</string>
     <string name="_continue">Continue</string>
+    <string name="created_at">Created at: </string>
+    <string name="customer">Customer: </string>
+    <string name="currency">SR</string>
 
 </resources>

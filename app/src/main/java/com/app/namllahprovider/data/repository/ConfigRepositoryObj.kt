@@ -17,6 +17,9 @@ object ConfigRepositoryObj {
     fun getLoggedUser(context: Context): UserDto? =
         SharedVariables(context).getObjectFromSharedVariable<UserDto>(SharedValueFlags.USER)
 
+    fun getLanguage(context: Context): String =
+        SharedVariables(context).getStringSharedVariable(SharedValueFlags.LANGUAGE)?:""
+
     fun getUserToken(context: Context):String =
         SharedVariables(context).getStringSharedVariable(SharedValueFlags.USER_TOKEN)?:""
 

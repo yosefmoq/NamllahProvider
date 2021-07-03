@@ -32,7 +32,7 @@ class InProgressOrderFragment : Fragment(), OnInProgressOrderListener {
 
     private var inProgressOrderList = listOf<OrderDto>()
 
-    private val inProgressOrderAdapter = InProgressOrderAdapter(requireContext(),inProgressOrderList, this)
+    private var inProgressOrderAdapter: InProgressOrderAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +42,6 @@ class InProgressOrderFragment : Fragment(), OnInProgressOrderListener {
         fragmentInProgressOrderBinding =
             FragmentInProgressOrderBinding.inflate(inflater, container, false)
         return fragmentInProgressOrderBinding?.apply {
-            inProgressOrderAdapter = this@InProgressOrderFragment.inProgressOrderAdapter
             inProgressOrderLayoutManger =
                 LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         }?.root
@@ -51,7 +50,10 @@ class InProgressOrderFragment : Fragment(), OnInProgressOrderListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeLiveData()
-
+        inProgressOrderAdapter = InProgressOrderAdapter(requireContext(), inProgressOrderList, this)
+        fragmentInProgressOrderBinding?.apply {
+            this.inProgressOrderAdapter = this@InProgressOrderFragment.inProgressOrderAdapter
+        }
         fetchInProgressOrders()
     }
 
@@ -115,7 +117,7 @@ class InProgressOrderFragment : Fragment(), OnInProgressOrderListener {
             Timber.tag(TAG).d("fetchInProgressOrders : it $it")
             it?.let {
                 inProgressOrderList = it
-                inProgressOrderAdapter.updateData(inProgressOrderList)
+                inProgressOrderAdapter?.updateData(inProgressOrderList)
 //                homeViewModel.getListOrderLiveData.postValue(null)
             }
         })
