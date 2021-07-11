@@ -6,6 +6,7 @@ import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Build
 import android.os.LocaleList
+import timber.log.Timber
 import java.util.*
 
 class ContextUtils(base: Context) : ContextWrapper(base) {
@@ -13,6 +14,7 @@ class ContextUtils(base: Context) : ContextWrapper(base) {
     companion object {
 
         fun updateLocale(c: Context, localeToSwitchTo: Locale): ContextWrapper {
+            Timber.tag("ContextUtils").d("updateLocale : ")
             var context = c
             val resources: Resources = context.resources
             val configuration: Configuration = resources.configuration

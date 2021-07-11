@@ -210,7 +210,6 @@ class HomeFragment : Fragment() {
     companion object {
         private const val TAG = "HomeFragment"
 
-        @JvmStatic
         fun newInstance() = HomeFragment()
 
         var lastFragmentPosition = 0

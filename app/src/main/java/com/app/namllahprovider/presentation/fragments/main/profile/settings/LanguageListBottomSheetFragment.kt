@@ -102,10 +102,13 @@ class LanguageListBottomSheetFragment : BottomSheetDialogFragment(), View.OnClic
                         requireActivity(),
                         "Language Changed Successfully"
                     )
-                    ContextUtils.updateLocale(requireContext(), Locale(newLanguage))
-                    startActivity(Intent(context, MainActivity::class.java))
+                    LocaleHelper.setLocale(requireActivity() as MainActivity, "en");
                     requireActivity().finish()
-                    dismiss()
+                    startActivity(Intent(context, MainActivity::class.java))
+                    /*
+                        ContextUtils.updateLocale(requireContext(), Locale(newLanguage))
+
+                        dismiss()*/
                 } else {
                     val errorMessage = updateUserProfileResponse.msg
                         ?: updateUserProfileResponse.error

@@ -161,8 +161,6 @@ class UserProfileFragment : Fragment(), View.OnClickListener {
 
     companion object {
         private const val TAG = "ProfileFragment"
-
-        @JvmStatic
         fun newInstance() = UserProfileFragment()
     }
 }

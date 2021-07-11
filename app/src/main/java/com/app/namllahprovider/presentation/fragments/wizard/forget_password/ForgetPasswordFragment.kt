@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.app.namllahprovider.R
 import com.app.namllahprovider.data.api.auth.forget_password.ForgetPasswordResponse
 import com.app.namllahprovider.databinding.FragmentForgetPasswordBinding
+import com.app.namllahprovider.presentation.fragments.wizard.verification_code.VerificationCodeFragment
 import com.app.namllahprovider.presentation.utils.SweetAlert
 import com.app.namllahprovider.presentation.utils.SweetAlertType
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +24,7 @@ class ForgetPasswordFragment : Fragment(), View.OnClickListener {
 
     private val forgetPasswordViewModel: ForgetPasswordViewModel by viewModels()
     private var fragmentForgetPasswordBinding: FragmentForgetPasswordBinding? = null
-
+    var phoneNumber = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -129,6 +130,12 @@ class ForgetPasswordFragment : Fragment(), View.OnClickListener {
                 forgetPasswordResponse.msg ?: ""
             )
             //Move to Verify OTP Code Screen
+            findNavController().navigate(
+                ForgetPasswordFragmentDirections.actionForgetPasswordFragmentToVerificationCodeFragment(
+                    phoneNumber = phoneNumber,
+                    verifyType = VerificationCodeFragment.VERIFY_TYPE_RESET_PASSWORD
+                )
+            )
 
         } else {
             SweetAlert.instance.showFailAlert(
@@ -146,7 +153,7 @@ class ForgetPasswordFragment : Fragment(), View.OnClickListener {
 
     private fun onClickSendOTPCode() {
         val errorMessage: String
-        val phoneNumber = fragmentForgetPasswordBinding?.etPhoneNumber?.text?.toString() ?: ""
+        phoneNumber = fragmentForgetPasswordBinding?.etPhoneNumber?.text?.toString() ?: ""
         if (phoneNumber.isEmpty() || phoneNumber.isBlank() || phoneNumber.length < 6) {
             errorMessage = "Invalid Phone number"
             fragmentForgetPasswordBinding?.tilPhoneNumber?.error = errorMessage

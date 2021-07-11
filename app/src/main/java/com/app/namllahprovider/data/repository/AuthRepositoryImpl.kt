@@ -1,6 +1,7 @@
 package com.app.namllahprovider.data.repository
 
 import com.app.namllahprovider.data.api.auth.AuthApiImpl
+import com.app.namllahprovider.data.api.auth.check_reset_password.CheckResetPasswordResponse
 import com.app.namllahprovider.data.api.auth.forget_password.ForgetPasswordResponse
 import com.app.namllahprovider.data.api.auth.reset_password.ResetPasswordResponse
 import com.app.namllahprovider.data.api.auth.sign_in.SignInResponse
@@ -24,8 +25,11 @@ class AuthRepositoryImpl @Inject constructor(
         language: String
     ): Maybe<SignUpResponse> = authApiImpl.signUp(userName, phoneNumber, password, language)
 
-    override fun verifyOTPCode(phoneNumber: String, code: Int): Maybe<VerificationCodeResponse> =
+    override fun verifyOTPCode(phoneNumber: String, code: String): Maybe<VerificationCodeResponse> =
         authApiImpl.verifyOTPCode(phoneNumber, code)
+
+    override fun checkResetPassword(phoneNumber: String, code: String): Maybe<CheckResetPasswordResponse> =
+        authApiImpl.checkResetPassword(phoneNumber, code)
 
     override fun resendOTPCode(phoneNumber: String): Maybe<ForgetPasswordResponse> =
         authApiImpl.resendOTPCode(phoneNumber)
@@ -36,7 +40,7 @@ class AuthRepositoryImpl @Inject constructor(
     override fun resetPassword(
         phoneNumber: String,
         password: String,
-        code: Int
+        code: String
     ): Maybe<ResetPasswordResponse> =
         authApiImpl.resetPassword(phoneNumber, password, code)
 }

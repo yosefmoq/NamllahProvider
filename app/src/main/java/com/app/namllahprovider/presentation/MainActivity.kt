@@ -17,7 +17,6 @@ import java.util.*
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedListener {
 
-
     override fun attachBaseContext(newBase: Context) {
         val language = PreferenceManager.getDefaultSharedPreferences(newBase)
             .getString(SharedValueFlags.LANGUAGE.name, "en")

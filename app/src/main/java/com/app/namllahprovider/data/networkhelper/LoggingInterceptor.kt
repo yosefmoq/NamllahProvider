@@ -40,9 +40,14 @@ class LoggingInterceptor(var sharedVariables: SharedVariables) : Interceptor {
             Locale.US, "Received response for %s in %.1fms%n%s",
             response.request.url, (t2 - t1) / 1e6, response.headers
         )
+        var bodyString = ""
+        try {
+            bodyString = response.body!!.string()
+            Timber.tag(TAG).d("intercept : response\n$responseLog\n Response Body : $bodyString")
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
 
-        val bodyString = response.body!!.string()
-        Timber.tag(TAG).d("intercept : response\n$responseLog\n Response Body : $bodyString")
 
 
         return response.newBuilder()

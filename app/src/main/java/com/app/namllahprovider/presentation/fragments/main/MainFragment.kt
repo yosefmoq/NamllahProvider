@@ -63,6 +63,5 @@ class MainFragment : Fragment(), BottomNavigationView.OnNavigationItemSelectedLi
     companion object {
         private const val TAG = "MainFragment"
         var currentFragmentType = FragmentType.HOME
-
     }
 }

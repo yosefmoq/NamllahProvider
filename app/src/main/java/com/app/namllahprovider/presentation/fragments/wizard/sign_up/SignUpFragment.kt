@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.app.namllahprovider.R
 import com.app.namllahprovider.data.api.auth.sign_up.SignUpResponse
 import com.app.namllahprovider.databinding.FragmentSignUpBinding
+import com.app.namllahprovider.presentation.fragments.wizard.verification_code.VerificationCodeFragment
 import com.app.namllahprovider.presentation.utils.SweetAlert
 import com.app.namllahprovider.presentation.utils.SweetAlertType
 import dagger.hilt.android.AndroidEntryPoint
@@ -131,7 +132,8 @@ class SignUpFragment : Fragment(), View.OnClickListener {
             //Navigate to Verification Code UI
             findNavController().navigate(
                 SignUpFragmentDirections.actionSignUpFragmentToVerificationCodeFragment(
-                    phoneNumber = phoneNumber
+                    phoneNumber = phoneNumber,
+                    verifyType = VerificationCodeFragment.VERIFY_TYPE_ACTIVATION_CODE
                 )
             )
         } else {
