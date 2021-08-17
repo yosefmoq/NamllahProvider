@@ -101,6 +101,12 @@ class NotificationFragment : Fragment(), OnNotificationListener {
                 nextPageNumber++
 
                 notificationList = it
+
+                if (it.isEmpty()) {
+                    fragmentNotificationBinding?.llEmptyStatus?.visibility = View.VISIBLE
+                }else{
+                    fragmentNotificationBinding?.llEmptyStatus?.visibility = View.GONE
+                }
                 notificationAdapter.updateData(notificationList)
                 notificationViewModel.getListNotificationLiveData.postValue(null)
             }

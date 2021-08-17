@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +14,6 @@ import com.app.namllahprovider.databinding.FragmentNewOrderBinding
 import com.app.namllahprovider.domain.utils.OrderType
 import com.app.namllahprovider.presentation.fragments.main.MainFragmentDirections
 import com.app.namllahprovider.presentation.fragments.main.home.HomeViewModel
-import com.app.namllahprovider.presentation.fragments.wizard.sign_up.SignUpFragment
 import com.app.namllahprovider.presentation.utils.SweetAlert
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -57,7 +55,7 @@ class NewOrderFragment : Fragment(), OnNewOrderListener {
         })
 
         homeViewModel.errorLiveData.observe(viewLifecycleOwner) {
-            it?.let{
+            it?.let {
                 Timber.tag(TAG).e("observeLiveData : Error Message ${it.message}")
                 SweetAlert.instance.showFailAlert(activity = requireActivity(), throwable = it)
                 it.printStackTrace()
@@ -71,6 +69,11 @@ class NewOrderFragment : Fragment(), OnNewOrderListener {
         homeViewModel.getListOrderLiveData.observe(viewLifecycleOwner, {
             it?.let {
                 Timber.tag(TAG).d("fetchNewOrder : it $it")
+                if (it.isEmpty()) {
+                    fragmentNewOrderBinding?.llEmptyStatus?.visibility = View.VISIBLE
+                }else{
+                    fragmentNewOrderBinding?.llEmptyStatus?.visibility = View.GONE
+                }
                 newOrderList = it
                 newOrderAdapter.updateData(newOrderList)
                 homeViewModel.getListOrderLiveData.postValue(null)
@@ -82,8 +85,6 @@ class NewOrderFragment : Fragment(), OnNewOrderListener {
     companion object {
         private const val TAG = "NewOrderFragment"
 
-        @JvmStatic
-        fun newInstance() = NewOrderFragment()
     }
 
     override fun onClickSeeMore(position: Int) {

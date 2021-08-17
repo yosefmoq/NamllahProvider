@@ -117,6 +117,12 @@ class InProgressOrderFragment : Fragment(), OnInProgressOrderListener {
             Timber.tag(TAG).d("fetchInProgressOrders : it $it")
             it?.let {
                 inProgressOrderList = it
+
+                if (it.isEmpty()) {
+                    fragmentInProgressOrderBinding?.llEmptyStatus?.visibility = View.VISIBLE
+                }else{
+                    fragmentInProgressOrderBinding?.llEmptyStatus?.visibility = View.GONE
+                }
                 inProgressOrderAdapter?.updateData(inProgressOrderList)
 //                homeViewModel.getListOrderLiveData.postValue(null)
             }
@@ -180,7 +186,5 @@ class InProgressOrderFragment : Fragment(), OnInProgressOrderListener {
 
         private const val TAG = "InProgressOrderFragment"
 
-        @JvmStatic
-        fun newInstance() = InProgressOrderFragment()
     }
 }

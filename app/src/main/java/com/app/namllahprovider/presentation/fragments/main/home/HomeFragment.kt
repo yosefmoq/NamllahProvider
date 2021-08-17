@@ -105,8 +105,6 @@ class HomeFragment : Fragment() {
                     TimeUnit.MILLISECONDS.toSeconds(goingMillis) -
                             TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(goingMillis))
                 )
-                Timber.tag(TAG).d("onTick : Going Time $s")
-
             }
 
             override fun onFinish() {
@@ -200,9 +198,9 @@ class HomeFragment : Fragment() {
 
     private fun setupViewPager(viewPager: ViewPager) {
         adapter = ViewPagerAdapter(childFragmentManager)
-        adapter.addFragment(NewOrderFragment.newInstance(), getString(R.string._new))
-        adapter.addFragment(InProgressOrderFragment.newInstance(), getString(R.string._in_progress))
-        adapter.addFragment(FinishedOrderFragment.newInstance(), getString(R.string.finish))
+        adapter.addFragment(NewOrderFragment(), getString(R.string._new))
+        adapter.addFragment(InProgressOrderFragment(), getString(R.string._in_progress))
+        adapter.addFragment(FinishedOrderFragment(), getString(R.string.finish))
         viewPager.adapter = adapter
         viewPager.currentItem = lastFragmentPosition
     }

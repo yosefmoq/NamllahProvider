@@ -140,5 +140,9 @@
     <string name="created_at">Created at: </string>
     <string name="customer">Customer: </string>
     <string name="currency">SR</string>
+    <string name="no_new_orders">No New Orders</string>
+    <string name="no_in_progress_order">No In Progress Order</string>
+    <string name="nothing_finished_yet">Nothing finished yet</string>
+    <string name="no_notifications">No Notifications</string>
 
 </resources>

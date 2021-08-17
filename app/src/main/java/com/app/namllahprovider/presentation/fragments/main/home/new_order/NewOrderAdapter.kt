@@ -1,7 +1,5 @@
 package com.app.namllahprovider.presentation.fragments.main.home.new_order
 
-import android.content.Context
-import android.location.Geocoder
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -35,7 +33,11 @@ class NewOrderAdapter(
     class NewOrderViewHolder(val view: ItemNewOrderBinding) : RecyclerView.ViewHolder(view.root) {
         val context = view.root.context
         fun bindView(position: Int, order: OrderDto, onNewOrderListener: OnNewOrderListener) {
-            val address = getAddressFromLatAndLng(context,order.lat?:0.0 , order.lng?:0.0)
+            val address = try {
+                getAddressFromLatAndLng(context, order.lat ?: 0.0, order.lng ?: 0.0)
+            } catch (e: Exception) {
+                "Default Location"
+            }
             view.position = position
             view.order = order
             view.orderAddress = address

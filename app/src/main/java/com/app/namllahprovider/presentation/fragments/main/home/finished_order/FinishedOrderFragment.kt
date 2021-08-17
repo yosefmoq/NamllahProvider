@@ -69,6 +69,11 @@ class FinishedOrderFragment : Fragment(), OnFinishedOrderListener {
             it?.let {
                 Timber.tag(TAG).d("fetchFinishedOrders : it $it")
                 finishedOrderList = it
+                if (it.isEmpty()) {
+                    fragmentFinishedOrderBinding?.llEmptyStatus?.visibility = View.VISIBLE
+                }else{
+                    fragmentFinishedOrderBinding?.llEmptyStatus?.visibility = View.GONE
+                }
                 finishedOrderAdapter.updateData(finishedOrderList)
                 homeViewModel.getListOrderLiveData.postValue(null)
             }
@@ -82,7 +87,5 @@ class FinishedOrderFragment : Fragment(), OnFinishedOrderListener {
     companion object {
         private const val TAG = "FinishedOrderFragment"
 
-        @JvmStatic
-        fun newInstance() = FinishedOrderFragment()
     }
 }

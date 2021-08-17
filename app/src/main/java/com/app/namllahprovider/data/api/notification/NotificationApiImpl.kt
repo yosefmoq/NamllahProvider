@@ -22,11 +22,11 @@ class NotificationApiImpl @Inject constructor(
             if (notificationsResponse == null) {
                 it.onError(Throwable("Something Error, Please try again later"))
             } else {
-                if (notificationsResponse.data.isEmpty()) {
-                    it.onComplete()
-                } else {
+//                if (notificationsResponse.data.isEmpty()) {
+//                    it.onComplete()
+//                } else {
                     it.onSuccess(notificationsResponse.data)
-                }
+//                }
             }
         } else {
             //Call on Error

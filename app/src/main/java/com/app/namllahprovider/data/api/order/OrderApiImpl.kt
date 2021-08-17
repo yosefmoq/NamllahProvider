@@ -27,16 +27,17 @@ class OrderApiImpl @Inject constructor(
                 if (listOrderResponse == null) {
                     it.onError(Throwable("Something Error, Please try again later"))
                 } else {
-                    if (listOrderResponse.orders?.isEmpty()!!) {
-                        //Call on Complete
-                        it.onComplete()
-                    } else {
-                        //Call on Success
-                        it.onSuccess(listOrderResponse.orders ?: listOf())
-                    }
+//                    if (listOrderResponse.orders?.isEmpty()!!) {
+//                        //Call on Complete
+//                        it.onComplete()
+//                    } else {
+                    //Call on Success
+                    it.onSuccess(listOrderResponse.orders ?: listOf())
+//                    }
                 }
             } else {
                 //Call on Error
+                Timber.tag(TAG).e(Throwable(response.errorBody()?.string() ?: "Something went wrong!"),"getListOrder : ")
                 it.onError(Throwable(response.errorBody()?.string() ?: "Something went wrong!"))
             }
         }

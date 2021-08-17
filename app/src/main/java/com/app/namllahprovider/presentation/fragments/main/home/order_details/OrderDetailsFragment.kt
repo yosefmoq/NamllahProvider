@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -237,22 +236,17 @@ class OrderDetailsFragment : Fragment(), View.OnClickListener {
     }
 
     private fun getLocation() {
-        if (ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            )
-            == PackageManager.PERMISSION_GRANTED
-        ) {
-            fusedLocationProvider!!.lastLocation.addOnCompleteListener {
-                lat = orderDto?.lat ?: 0.0
-                lng = orderDto?.lng ?: 0.0
-                val myLocation = LatLng(lat, lng)
-                googleMap.clear()
-                googleMap.addMarker(MarkerOptions().position(myLocation).title(address))
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 10f))
-            }
 
+        fusedLocationProvider!!.lastLocation.addOnCompleteListener {
+            lat = orderDto?.lat ?: 0.0
+            lng = orderDto?.lng ?: 0.0
+            val myLocation = LatLng(lat, lng)
+            googleMap.clear()
+            googleMap.addMarker(MarkerOptions().position(myLocation).title(address))
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 10f))
         }
+
+
     }
 
     companion object {
