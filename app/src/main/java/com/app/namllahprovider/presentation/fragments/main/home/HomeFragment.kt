@@ -43,7 +43,7 @@ class HomeFragment : Fragment() {
     lateinit var adapter: ViewPagerAdapter
 
 
-    val onCheckedChangeListener = CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+    private val onCheckedChangeListener = CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
         homeViewModel.changeUserAvailable(isChecked)
     }
 

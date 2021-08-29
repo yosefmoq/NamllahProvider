@@ -16,7 +16,6 @@ data class OrderDto(
     @SerializedName("estimated_time") var estimatedTime: Int? ,
     @SerializedName("estimated_price_parts") var estimatedPriceParts: Int? ,
     @SerializedName("estimated_price") var estimatedPrice: Int? ,
-    @SerializedName("check_description") var checkDescription: String? ,
     @SerializedName("is_pay_complete") var isPayComplete: Int? ,
     @SerializedName("cancel_reason_id") var cancelReasonId: String? ,
     @SerializedName("cancel_reason") var cancelReason: String? ,

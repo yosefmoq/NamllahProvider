@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,8 +12,9 @@ import com.app.namllahprovider.data.model.OrderDto
 import com.app.namllahprovider.databinding.FragmentFinishedOrderBinding
 import com.app.namllahprovider.domain.utils.OrderType
 import com.app.namllahprovider.presentation.fragments.main.home.HomeViewModel
-import com.app.namllahprovider.presentation.fragments.wizard.sign_up.SignUpFragment
+import com.app.namllahprovider.presentation.utils.OrderStat.*
 import com.app.namllahprovider.presentation.utils.SweetAlert
+import com.app.namllahprovider.presentation.utils.getOrderStatus
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -48,13 +48,14 @@ class FinishedOrderFragment : Fragment(), OnFinishedOrderListener {
 
         fetchFinishedOrders()
     }
+
     private fun observeLiveData() {
         homeViewModel.loadingLiveData.observe(viewLifecycleOwner, {
             Timber.tag(TAG).d("observeLiveData : Loading Status $it")
         })
 
         homeViewModel.errorLiveData.observe(viewLifecycleOwner) {
-            it?.let{
+            it?.let {
                 Timber.tag(TAG).e("observeLiveData : Error Message ${it.message}")
                 SweetAlert.instance.showFailAlert(activity = requireActivity(), throwable = it)
                 it.printStackTrace()
@@ -71,7 +72,7 @@ class FinishedOrderFragment : Fragment(), OnFinishedOrderListener {
                 finishedOrderList = it
                 if (it.isEmpty()) {
                     fragmentFinishedOrderBinding?.llEmptyStatus?.visibility = View.VISIBLE
-                }else{
+                } else {
                     fragmentFinishedOrderBinding?.llEmptyStatus?.visibility = View.GONE
                 }
                 finishedOrderAdapter.updateData(finishedOrderList)
@@ -81,6 +82,23 @@ class FinishedOrderFragment : Fragment(), OnFinishedOrderListener {
     }
 
     override fun onClickOrder(position: Int) {
+        val order = finishedOrderList[position]
+        when (order.status?.getOrderStatus()) {
+            COMPLETE -> {
+                if (order.completeAt == null || order.completeAt == "") {
+                    //Show Confirm Payment Dialog
+                    Timber.tag(TAG).d("onClickOrder : Order have to confirm")
+                } else {
+                    Timber.tag(TAG).d("onClickOrder : Order is Confirmed")
+                }
+            }
+            CANCEL -> {
+                Timber.tag(TAG).d("onClickOrder : Order is Canceled")
+            }
+            else -> {
+                Timber.tag(TAG).d("onClickOrder : Order Not Supported")
+            }
+        }
 
     }
 

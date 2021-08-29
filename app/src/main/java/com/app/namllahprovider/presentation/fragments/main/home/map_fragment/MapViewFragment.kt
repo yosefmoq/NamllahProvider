@@ -59,6 +59,8 @@ class MapViewFragment : Fragment(), View.OnClickListener {
         googleMap.uiSettings.isZoomControlsEnabled = true
         googleMap.setPadding(0, 0, 50, 450)
         getLocation()
+
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -114,6 +116,12 @@ class MapViewFragment : Fragment(), View.OnClickListener {
                             getAddressFromLatAndLng(requireContext(), it.lat ?: 0.0, it.lng ?: 0.0)
                         this.orderDto = it
                         this@MapViewFragment.orderDto = it
+                        lat = orderDto?.lat ?: 0.0
+                        lng = orderDto?.lng ?: 0.0
+                        val myLocation = LatLng(lat, lng)
+                        googleMap.clear()
+                        googleMap.addMarker(MarkerOptions().position(myLocation).title(address))
+                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 15f))
                         this.address = this@MapViewFragment.address
                         if (it.status?.getOrderStatus() == OrderStat.ARRIVE) {
                             llMapBtns.visibility = View.VISIBLE
@@ -201,12 +209,6 @@ class MapViewFragment : Fragment(), View.OnClickListener {
             == PackageManager.PERMISSION_GRANTED
         ) {
             fusedLocationProvider!!.lastLocation.addOnCompleteListener {
-                lat = orderDto?.lat ?: 0.0
-                lng = orderDto?.lng ?: 0.0
-                val myLocation = LatLng(lat, lng)
-                googleMap.clear()
-                googleMap.addMarker(MarkerOptions().position(myLocation).title(address))
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 15f))
             }
 
         }
