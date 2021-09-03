@@ -37,7 +37,7 @@ class BillAdapter constructor(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BillViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemBillBinding.inflate(inflater)
+        val binding = ItemBillBinding.inflate(inflater,parent,false)
         return BillViewHolder(binding)
     }
 

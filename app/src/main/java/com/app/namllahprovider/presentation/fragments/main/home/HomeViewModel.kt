@@ -224,6 +224,34 @@ class HomeViewModel @Inject constructor(
     fun changeOrderStatus(
         orderId: Int,
         orderStatusRequestType: OrderStatusRequestType,
+        amount: Double,
+    ) = launch {
+        changeLoadingStatus(true, orderStatusRequestType.label ?: "Loading")
+        disposable.add(
+            orderRepository.changeOrderStatus(
+                ChangeOrderRequest(
+                    orderId = orderId,
+                    orderStatusRequestType = orderStatusRequestType,
+                    amount = amount.toInt()
+                )
+            ).subscribeOn(ioScheduler)
+                .observeOn(ioScheduler)
+                .subscribe({
+                    changeOrderStatusLiveData.postValue(it)
+                    changeLoadingStatus(false)
+                }, {
+                    changeErrorMessage(it)
+                    changeLoadingStatus(false)
+                }, {
+                    notifyNoDataComing()
+                    changeLoadingStatus(false)
+                })
+        )
+    }
+
+    fun changeOrderStatus(
+        orderId: Int,
+        orderStatusRequestType: OrderStatusRequestType,
         cancelReasonId: Int
     ) = launch {
         changeLoadingStatus(true, orderStatusRequestType.label ?: "Loading")

@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -108,14 +107,64 @@ class BillFragment : Fragment(), View.OnClickListener, BillListener {
                     orderDto = it
                     fragmentBillBinding?.apply {
                         orderDto = this@BillFragment.orderDto
-                        if (orderDto?.status?.getOrderStatus() != OrderStat.WORKING) {
+//                        this@BillFragment.billAdapter.updateList(orderDto.bills?: mutableListOf())
+
+
+                        Timber.tag(TAG).d("getOrderData : Order $orderDto")
+
+                        when (orderDto?.status?.getOrderStatus()) {
+                            OrderStat.WORKING -> {
+                                Timber.tag(TAG).d("getOrderData : WORKING")
+                            }
+                            OrderStat.COMPLETE -> {
+                                Timber.tag(TAG).d("getOrderData : COMPLETE")
+                                btnCheckOut.visibility = View.GONE
+                                ibDecreaseNumber.isEnabled = false
+                                ibIncreaseNumber.isEnabled = false
+                                btnUploadBill.isEnabled = false
+
+                                if (it.payment?.id == 0) {
+                                    btnConfirmPayment.visibility = View.GONE
+                                    tvOrderStatus.text = "Please wait until customer pay"
+                                } else {
+                                    if (it.isPayComplete == 0) {
+                                        tvOrderStatus.text =
+                                            "Please Confirm Payment ${it.payment?.title}"
+                                    } else {
+                                        btnConfirmPayment.visibility = View.GONE
+                                        tvOrderStatus.text = "Order Done and paid by ${it.payment?.title}"
+                                    }
+                                }
+                            }
+                            OrderStat.CANCEL -> {
+                                Timber.tag(TAG).d("getOrderData : CANCEL")
+
+                            }
+                            else -> {
+                                Timber.tag(TAG)
+                                    .d("getOrderData : ELSE ${orderDto?.status?.getOrderStatus()}")
+                            }
+                        }
+                        /*if (orderDto?.status?.getOrderStatus() != OrderStat.WORKING
+                            || orderDto?.status?.getOrderStatus() != OrderStat.COMPLETE
+                        ) {
                             Toast.makeText(
                                 requireContext(),
                                 "Can't finish this order",
                                 Toast.LENGTH_SHORT
                             ).show()
                             findNavController().popBackStack(R.id.mainFragment, false)
-                        }
+                        } else {
+                            if (it.payment?.id == 0) {
+
+                            } else {
+                                if (it.isPayComplete == 0) {
+
+                                } else {
+
+                                }
+                            }
+                        }*/
                     }
                 }
             }
@@ -158,8 +207,6 @@ class BillFragment : Fragment(), View.OnClickListener, BillListener {
         homeViewModel.changeOrderStatusLiveData.observe(viewLifecycleOwner) {
             it?.let {
                 Timber.tag(TAG).d("observeLiveData ChangeOrderStatus : $it")
-                Timber.tag(TAG)
-                    .d("observeLiveData : ChangeOrderStatus OrderId:${it.order?.id} to ${it.order?.status?.getOrderStatus()}")
                 if (it.status) {
                     orderDto = it.order
                     fragmentBillBinding?.apply {
@@ -194,7 +241,13 @@ class BillFragment : Fragment(), View.OnClickListener, BillListener {
             fragmentBillBinding?.btnUploadBill -> onClickUploadImage()
             fragmentBillBinding?.ibIncreaseNumber -> updateDeliveryTimes(true)
             fragmentBillBinding?.ibDecreaseNumber -> updateDeliveryTimes(false)
+            fragmentBillBinding?.btnConfirmPayment -> onClickConfirmPayment()
+
         }
+    }
+
+    private fun onClickConfirmPayment() {
+        homeViewModel.changeOrderStatus(orderId = orderId,OrderStatusRequestType.PAY_ORDER , 0.0)
     }
 
     private fun onClickCheckout() {

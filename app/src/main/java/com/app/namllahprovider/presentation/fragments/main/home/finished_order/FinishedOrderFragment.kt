@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.namllahprovider.data.model.OrderDto
 import com.app.namllahprovider.databinding.FragmentFinishedOrderBinding
 import com.app.namllahprovider.domain.utils.OrderType
+import com.app.namllahprovider.presentation.fragments.main.MainFragmentDirections
 import com.app.namllahprovider.presentation.fragments.main.home.HomeViewModel
 import com.app.namllahprovider.presentation.utils.OrderStat.*
 import com.app.namllahprovider.presentation.utils.SweetAlert
@@ -83,14 +85,19 @@ class FinishedOrderFragment : Fragment(), OnFinishedOrderListener {
 
     override fun onClickOrder(position: Int) {
         val order = finishedOrderList[position]
+        Timber.tag(TAG).d("onClickOrde : $order")
         when (order.status?.getOrderStatus()) {
             COMPLETE -> {
-                if (order.completeAt == null || order.completeAt == "") {
-                    //Show Confirm Payment Dialog
-                    Timber.tag(TAG).d("onClickOrder : Order have to confirm")
-                } else {
-                    Timber.tag(TAG).d("onClickOrder : Order is Confirmed")
-                }
+                //Case 1 when When order.payment is empty this mean customer not selected payment method (Show message "Wait until customer pay")
+                //Case 2 when When order.payment is full we will check isPayComplete if 0 that's mean provider have to confirm it("Show Button to confirm it"send pay request check postman")
+                //Case 3 when When order.payment is full we will check isPayComplete if 1 that's mean order PAID and CLOSED(Show message to user "Order has closed")
+
+                findNavController().navigate(
+                    MainFragmentDirections.actionGlobalBillFragment(
+                        finishedOrderList[position].id?: 0
+                    )
+                )
+
             }
             CANCEL -> {
                 Timber.tag(TAG).d("onClickOrder : Order is Canceled")
