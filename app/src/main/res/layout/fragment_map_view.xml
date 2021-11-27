@@ -83,6 +83,22 @@
                 app:layout_constraintBottom_toBottomOf="@+id/textView11"
                 app:layout_constraintEnd_toEndOf="@+id/textView14"
                 app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_directions"
+                style="@style/AppButton.AccentButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/_4sdp"
+                android:gravity="center"
+                android:onClick="@{actionOnClick::onClick}"
+                android:text="show directions"
+                android:textAllCaps="false"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/textView11"
+                app:layout_constraintEnd_toEndOf="@+id/textView14"
+                app:layout_constraintTop_toBottomOf="@+id/textView12" />
         </LinearLayout>
 
 

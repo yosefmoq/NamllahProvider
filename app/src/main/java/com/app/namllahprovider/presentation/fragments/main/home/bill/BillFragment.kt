@@ -3,7 +3,9 @@ package com.app.namllahprovider.presentation.fragments.main.home.bill
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,7 +49,10 @@ class BillFragment : Fragment(), View.OnClickListener, BillListener {
 
     private var orderDto: OrderDto? = null
     private val billAdapter = BillAdapter(this)
+    private lateinit var billsAdapter:BillsAdapter
+
     private val billList get() = billAdapter.getBillList()
+
     private val billListBody = mutableListOf<MultipartBody.Part>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,6 +73,8 @@ class BillFragment : Fragment(), View.OnClickListener, BillListener {
             actionOnClick = this@BillFragment
             billAdapter = this@BillFragment.billAdapter
             deliveryTimes = this@BillFragment.deliveryTimes
+
+            billsAdapter =  BillsAdapter(requireContext(), arrayListOf())
             rvBills.layoutManager =
                 object : LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false) {
                     override fun checkLayoutParams(lp: RecyclerView.LayoutParams?): Boolean {
@@ -105,9 +112,14 @@ class BillFragment : Fragment(), View.OnClickListener, BillListener {
             homeViewModel.getOrderDataLiveData.observe(viewLifecycleOwner) {
                 it?.let {
                     orderDto = it
+
                     fragmentBillBinding?.apply {
                         orderDto = this@BillFragment.orderDto
 //                        this@BillFragment.billAdapter.updateList(orderDto.bills?: mutableListOf())
+                        servicePrice = ((orderDto!!.duration!!/1000.0/60/60)*50.0).toString().substring(0,4)
+
+                        Timber.tag(TAG).d("getOrderData : ServicePrice $servicePrice")
+
 
 
                         Timber.tag(TAG).d("getOrderData : Order $orderDto")
@@ -115,6 +127,8 @@ class BillFragment : Fragment(), View.OnClickListener, BillListener {
                         when (orderDto?.status?.getOrderStatus()) {
                             OrderStat.WORKING -> {
                                 Timber.tag(TAG).d("getOrderData : WORKING")
+                                btnConfirmPayment.visibility = View.GONE
+
                             }
                             OrderStat.COMPLETE -> {
                                 Timber.tag(TAG).d("getOrderData : COMPLETE")
@@ -125,20 +139,25 @@ class BillFragment : Fragment(), View.OnClickListener, BillListener {
 
                                 if (it.payment?.id == 0) {
                                     btnConfirmPayment.visibility = View.GONE
+                                    ibDecreaseNumber.visibility = View.GONE
+                                    ibIncreaseNumber.visibility = View.GONE
+                                    btnUploadBill.visibility  = View.GONE
+                                    tvEstimateHoursWork.visibility  = View.GONE
                                     tvOrderStatus.text = "Please wait until customer pay"
                                 } else {
                                     if (it.isPayComplete == 0) {
                                         tvOrderStatus.text =
                                             "Please Confirm Payment ${it.payment?.title}"
+                                        fragmentBillBinding!!.tilTotalItemsPrice.visibility = View.GONE
                                     } else {
                                         btnConfirmPayment.visibility = View.GONE
+                                        fragmentBillBinding!!.etTotalItemsPrice.visibility = View.GONE
                                         tvOrderStatus.text = "Order Done and paid by ${it.payment?.title}"
                                     }
                                 }
                             }
                             OrderStat.CANCEL -> {
                                 Timber.tag(TAG).d("getOrderData : CANCEL")
-
                             }
                             else -> {
                                 Timber.tag(TAG)
@@ -211,13 +230,16 @@ class BillFragment : Fragment(), View.OnClickListener, BillListener {
                     orderDto = it.order
                     fragmentBillBinding?.apply {
                         orderDto = this@BillFragment.orderDto
+                        if(orderDto!!.bills!!.isNotEmpty()){
+                            billsAdapter.update(orderDto!!.bills!!)
+                        }
                     }
                     when (it.order?.status?.getOrderStatus()) {
                         OrderStat.COMPLETE -> {
                             SweetAlert.instance.showSuccessAlert(
                                 requireActivity(),
                                 "Order Finished Successfully"
-                            )
+                             )
                             findNavController().navigate(R.id.mainFragment)
                         }
                         else -> {
@@ -247,7 +269,7 @@ class BillFragment : Fragment(), View.OnClickListener, BillListener {
     }
 
     private fun onClickConfirmPayment() {
-        homeViewModel.changeOrderStatus(orderId = orderId,OrderStatusRequestType.PAY_ORDER , 0.0)
+        homeViewModel.changeOrderStatus(orderId = orderId,OrderStatusRequestType.PAY_ORDER , 58)
     }
 
     private fun onClickCheckout() {
@@ -271,8 +293,8 @@ class BillFragment : Fragment(), View.OnClickListener, BillListener {
         if (hasStoragePermission()) {
             val intent = Intent()
             intent.type = "image/*"
-            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-            intent.action = Intent.ACTION_GET_CONTENT
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false)
+            intent.action = Intent.ACTION_PICK
             someActivityResultLauncher.launch(intent)
         } else {
             EasyPermissions.requestPermissions(
@@ -300,7 +322,7 @@ class BillFragment : Fragment(), View.OnClickListener, BillListener {
                 val data: Intent = result.data!!
                 billAdapter.addBillToList(data.data!!)
 
-                val realPath: String = FileUtils().getPath(requireContext(), data.data!!)!!
+                val realPath: String = getRealPathFromURI(data.data)!!
                 val file = File(realPath)
                 val requestBody: RequestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
 
@@ -324,6 +346,16 @@ class BillFragment : Fragment(), View.OnClickListener, BillListener {
 
     override fun onClickDeleteBill(position: Int) {
         billAdapter.removeBillFromList(position)
-
+    }
+    private fun getRealPathFromURI(contentUri: Uri?): String? {
+        var res: String? = null
+        val proj = arrayOf(MediaStore.Images.Media.DATA)
+        val cursor = requireActivity().contentResolver.query(contentUri!!, proj, null, null, null)
+        if (cursor!!.moveToFirst()) {
+            val column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            res = cursor.getString(column_index)
+        }
+        cursor.close()
+        return res
     }
 }

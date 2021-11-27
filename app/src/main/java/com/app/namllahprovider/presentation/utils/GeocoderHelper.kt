@@ -4,6 +4,9 @@ import android.content.Context
 import android.location.Geocoder
 
 fun getAddressFromLatAndLng(context: Context, lat: Double, lng: Double): String {
+
+    return ""
+/*
     val geocoder = Geocoder(context)
     //Gaza lat 31.49 lng 34.45
     //Medina Saudi Arabia lat 24.5511 lng 39.6711
@@ -16,4 +19,5 @@ fun getAddressFromLatAndLng(context: Context, lat: Double, lng: Double): String 
         ""
     }
 
+*/
 }

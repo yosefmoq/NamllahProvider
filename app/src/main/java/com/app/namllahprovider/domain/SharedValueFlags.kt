@@ -7,4 +7,5 @@ enum class SharedValueFlags {
     LANGUAGE,
     USER_TOKEN,
     FCM_TOKEN,
+    EST_CHECK
 }

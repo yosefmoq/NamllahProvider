@@ -37,7 +37,7 @@ class BillAdapter constructor(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BillViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemBillBinding.inflate(inflater,parent,false)
+        val binding = ItemBillBinding.inflate(inflater)
         return BillViewHolder(binding)
     }
 
@@ -61,6 +61,7 @@ class BillAdapter constructor(
             item.apply {
                 this.billListener = billListener
                 this.position = position
+                this.visible = true
             }
             item.ivBillImage.setImageURI(uri)
         }

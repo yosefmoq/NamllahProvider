@@ -8,7 +8,10 @@ import android.content.Intent
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.app.namllahprovider.R
+import com.app.namllahprovider.domain.Constants
 import com.app.namllahprovider.presentation.MainActivity
 
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -40,6 +43,9 @@ class MyFirebaseInstanceIDService : FirebaseMessagingService() {
         // Check if message contains a data payload.
         if (p0.data.isNotEmpty()) {
             Timber.tag(TAG).d("Message data payload: ${ p0.data}")
+            if(p0.data["type"] == Constants.NEW_ORDER){
+                Notification.instance!!.addOrder("")
+            }
             if ( /* Check if data needs to be processed by long running job */true) {
                 // For long-running tasks (10 seconds or more) use WorkManager.
 //                scheduleJob();
@@ -69,7 +75,7 @@ class MyFirebaseInstanceIDService : FirebaseMessagingService() {
     ) {
         val intent = Intent(this, MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(
-            this, 0 /* Request code */, intent,
+            this, 0, intent,
             PendingIntent.FLAG_NO_CREATE
         )
         val channelId = getString(R.string.default_notification_channel_id)
@@ -98,4 +104,26 @@ class MyFirebaseInstanceIDService : FirebaseMessagingService() {
     }
 
 
+    class Notification private constructor() {
+        private val newOrder: MutableLiveData<String> = MutableLiveData()
+        fun getNewOrder(): LiveData<String> {
+            return newOrder
+        }
+
+        fun addOrder(orderID: String) {
+            newOrder.postValue(orderID)
+        }
+
+        companion object {
+            var instance: Notification? = null
+                get() {
+                    if (field == null) {
+                        field = Notification()
+                    }
+                    return field
+                }
+                private set
+        }
+
+    }
 }

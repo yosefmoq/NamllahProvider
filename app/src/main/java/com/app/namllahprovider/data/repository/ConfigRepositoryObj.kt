@@ -25,4 +25,9 @@ object ConfigRepositoryObj {
 
     fun getFCMToken(context: Context):String =
         SharedVariables(context).getStringSharedVariable(SharedValueFlags.FCM_TOKEN)?:""
+
+    fun getEstTime(context: Context):Double =
+        SharedVariables(context).getDoubleSharedVariable(SharedValueFlags.EST_CHECK)
+
+
 }

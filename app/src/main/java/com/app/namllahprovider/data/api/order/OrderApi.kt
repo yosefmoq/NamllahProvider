@@ -28,7 +28,7 @@ interface OrderApi {
     fun changeOrderStatusPOST(
         @Path("orderId") orderId: Int,
         @Path("orderStatus") orderStatus: String,
-        @Field("estimated_time") estimatedTime: Int,
+        @Field("estimated_time") estimatedTime: Double,
         @Field("estimated_price_parts") estimatedPriceParts: Int,
         @Field("check_description") checkDescription: String,
     ): Call<ChangeOrderResponse>

@@ -15,7 +15,6 @@ import com.app.namllahprovider.domain.utils.OrderStatusRequestType
 import com.app.namllahprovider.domain.utils.OrderType
 import com.app.namllahprovider.presentation.fragments.main.MainFragmentDirections
 import com.app.namllahprovider.presentation.fragments.main.home.HomeViewModel
-import com.app.namllahprovider.presentation.fragments.main.home.check_timer.CheckTimerFragmentDirections
 import com.app.namllahprovider.presentation.fragments.main.home.order_details.OrderDetailsFragmentDirections
 import com.app.namllahprovider.presentation.utils.OrderStat
 import com.app.namllahprovider.presentation.utils.SweetAlert
@@ -151,11 +150,20 @@ class InProgressOrderFragment : Fragment(), OnInProgressOrderListener {
 
             OrderStat.CHECK, OrderStat.WORKING -> {
                 // TODO: 6/22/2021 Move to Check Timer
-                findNavController().navigate(
-                    CheckTimerFragmentDirections.actionGlobalWorkFragment(
-                        orderId = orderDto.id!!
+                if(orderDto.duration!! >= orderDto.estimatedTime!! * 60 * 60 * 1000){
+                    findNavController().navigate(
+                        MainFragmentDirections.actionMainFragmentToBillFragment(
+                            orderId = orderDto.id!!
+                        )
                     )
-                )
+                }else{
+                    findNavController().navigate(
+                        MainFragmentDirections.actionMainFragmentToWorkFragment(
+                            orderId = orderDto.id!!
+                        )
+                    )
+                }
+
             }
             else -> {
             }
@@ -181,6 +189,7 @@ class InProgressOrderFragment : Fragment(), OnInProgressOrderListener {
             )
         )
     }
+
 
     companion object {
 

@@ -144,5 +144,6 @@
     <string name="no_in_progress_order">No In Progress Order</string>
     <string name="nothing_finished_yet">Nothing finished yet</string>
     <string name="no_notifications">No Notifications</string>
+    <string name="servicePrice">Service Price(hours price)</string>
 
 </resources>

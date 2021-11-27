@@ -1,6 +1,7 @@
 package com.app.namllahprovider.presentation.fragments.main.home.new_order
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import com.app.namllahprovider.databinding.FragmentNewOrderBinding
 import com.app.namllahprovider.domain.utils.OrderType
 import com.app.namllahprovider.presentation.fragments.main.MainFragmentDirections
 import com.app.namllahprovider.presentation.fragments.main.home.HomeViewModel
+import com.app.namllahprovider.presentation.utils.MyFirebaseInstanceIDService
 import com.app.namllahprovider.presentation.utils.SweetAlert
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -45,8 +47,12 @@ class NewOrderFragment : Fragment(), OnNewOrderListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeLiveData()
-
         fetchNewOrders()
+
+        MyFirebaseInstanceIDService.Notification.instance!!.getNewOrder().observe(viewLifecycleOwner){
+            Log.v("ttt","New Order")
+            fetchNewOrders()
+        }
     }
 
     private fun observeLiveData() {

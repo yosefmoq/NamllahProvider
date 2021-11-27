@@ -114,8 +114,8 @@
     <string name="write_what_you_will_use">اكتب ما ستستخدمه</string>
     <string name="optional">اختياري</string>
     <string name="increase_number">زيادة الرقم</string>
-    <string name="decrease_number">Decrease Number</string>
-    <string name="resume">إنقاص الرقم</string>
+    <string name="decrease_number">إنقاص الرقم</string>
+    <string name="resume">إستئناف</string>
     <string name="check_out">الدفع</string>
     <string name="bill">فاتورة</string>
     <string name="work">عمل</string>
@@ -140,6 +140,7 @@
     <string name="arrive">تم الوصول</string>
     <string name="created_at">"تاريخ:</string>
     <string name="customer">إسم العميل:</string>
+    <string name="servicePrice">سعر الخدمة(سعر الساعات)</string>
 
     <string name="currency">ر.س</string>
 </resources>

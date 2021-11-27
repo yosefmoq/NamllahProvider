@@ -86,7 +86,6 @@ class NotificationApiImpl @Inject constructor(
             }
         }
 
-
     companion object {
         private const val TAG = "NotificationApiImpl"
     }

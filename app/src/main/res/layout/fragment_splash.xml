@@ -9,13 +9,15 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#0080C6"
         tools:context=".presentation.fragments.wizard.splash.SplashFragment">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/ic_blue_logo" />
+            android:src="@drawable/logo"
+            />
 
     </FrameLayout>
 </layout>

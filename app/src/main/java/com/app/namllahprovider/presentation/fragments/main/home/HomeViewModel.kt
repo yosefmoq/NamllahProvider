@@ -89,7 +89,7 @@ class HomeViewModel @Inject constructor(
                 })
         )
     }
-
+    fun getId() = configRepository.getLoggedUser()!!.id
     fun changeUserAvailable(newStatus: Boolean) = launch {
         Timber.tag(TAG).d("changeUserAvailable : ttt")
         changeLoadingStatus(true)
@@ -160,7 +160,7 @@ class HomeViewModel @Inject constructor(
     fun changeOrderStatus(
         orderId: Int,
         orderStatusRequestType: OrderStatusRequestType,
-        estimatedTime: Int,
+        estimatedTime: Double,
         estimatedPriceParts: Double,
         checkDescription: String = "",
     ) = launch {
@@ -221,6 +221,10 @@ class HomeViewModel @Inject constructor(
         )
     }
 
+    fun saveCheckTime(time:Double){
+        configRepository.setEstTime(time)
+    }
+    fun getCheckTime() = configRepository.getEstTime()
     fun changeOrderStatus(
         orderId: Int,
         orderStatusRequestType: OrderStatusRequestType,

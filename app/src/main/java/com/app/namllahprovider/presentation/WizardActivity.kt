@@ -7,7 +7,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
+import androidx.navigation.findNavController
 import androidx.preference.PreferenceManager
+import com.app.namllahprovider.R
 import com.app.namllahprovider.databinding.ActivityWizardBinding
 import com.app.namllahprovider.domain.SharedValueFlags
 import com.app.namllahprovider.presentation.base.ContextUtils
@@ -41,5 +43,9 @@ class WizardActivity : AppCompatActivity(), NavController.OnDestinationChangedLi
         arguments: Bundle?
     ) {
 
+    }
+
+    override fun onBackPressed() {
+        findNavController(R.id.wizard_nav).popBackStack()
     }
 }

@@ -66,6 +66,14 @@ class ConfigRepositoryImpl @Inject constructor(
     }
 
     override fun getFCMToken(): String =  ConfigRepositoryObj.getFCMToken(context)
+    override fun setEstTime(estTime: Double) {
+        sharedVariables.setDoubleSharedVariable(
+            SharedValueFlags.EST_CHECK,
+            estTime
+        )
+    }
+
+    override fun getEstTime(): Double  = ConfigRepositoryObj.getEstTime(context)
 
     override fun clearConfigData() {
         sharedVariables.clearConfigData()

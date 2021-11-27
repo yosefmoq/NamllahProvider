@@ -31,4 +31,8 @@ interface ConfigRepository {
 
     fun getFCMToken(): String
 
+    fun setEstTime(estTime:Double)
+
+    fun getEstTime():Double
+
 }

@@ -27,6 +27,13 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import android.widget.Toast
+
+import android.content.Intent
+import android.net.Uri
+import android.util.Log
+import java.lang.NullPointerException
+
 
 @AndroidEntryPoint
 class MapViewFragment : Fragment(), View.OnClickListener {
@@ -222,6 +229,22 @@ class MapViewFragment : Fragment(), View.OnClickListener {
         when (v ?: return) {
             fragmentMapViewBinding?.btnStartChecking -> onClickStartChecking()
             fragmentMapViewBinding?.btnClientNotInLocation -> onClickDeclineOrder()
+            fragmentMapViewBinding?.btnDirections->{
+                val latitude: String = java.lang.String.valueOf(lat)
+                val longitude: String = java.lang.String.valueOf(lng)
+                val gmmIntentUri: Uri = Uri.parse("google.navigation:q=$latitude,$longitude")
+                val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                mapIntent.setPackage("com.google.android.apps.maps")
+
+                try {
+                    if (mapIntent.resolveActivity(requireActivity().packageManager) != null) {
+                        startActivity(mapIntent)
+                    }
+                } catch (e: NullPointerException) {
+                    Log.e(TAG, "onClick: NullPointerException: Couldn't open map." + e.message)
+                    Toast.makeText(activity, "Couldn't open map", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 

@@ -13,7 +13,7 @@ data class OrderDto(
     @SerializedName("area") var area: AreaDto? ,
     @SerializedName("service") var service: ServiceDto? ,
     @SerializedName("check_at") var checkAt: String? ,
-    @SerializedName("estimated_time") var estimatedTime: Int? ,
+    @SerializedName("estimated_time") var estimatedTime: Double? ,
     @SerializedName("estimated_price_parts") var estimatedPriceParts: Int? ,
     @SerializedName("estimated_price") var estimatedPrice: Int? ,
     @SerializedName("is_pay_complete") var isPayComplete: Int? ,
@@ -22,7 +22,7 @@ data class OrderDto(
     @SerializedName("cancel_at") var cancelAt: String? ,
     @SerializedName("is_cancel") var isCancel: Int? ,
     @SerializedName("cancel_by_me") var cancelByMe: Int? ,
-    @SerializedName("duration") var duration: Int? ,
+    @SerializedName("duration") var duration: Long? ,
     @SerializedName("is_working") var isWorking: Int? ,
     @SerializedName("start_at") var startAt: String? ,
     @SerializedName("complete_at") var completeAt: String? ,
@@ -38,7 +38,7 @@ data class OrderDto(
     @SerializedName("lat") var lat: Double? ,
     @SerializedName("lng") var lng: Double? ,
     @SerializedName("created_at") var createdAt: String? ,
-    @SerializedName("bills") var bills: List<BillDto>?
+    @SerializedName("bills") var bills: ArrayList<BillDto>?
 ) {
     override fun toString(): String {
         return Gson().toJson(this)

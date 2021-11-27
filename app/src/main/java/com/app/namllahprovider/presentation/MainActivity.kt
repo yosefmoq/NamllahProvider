@@ -7,7 +7,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
+import androidx.navigation.findNavController
 import androidx.preference.PreferenceManager
+import com.app.namllahprovider.R
 import com.app.namllahprovider.databinding.ActivityMainBinding
 import com.app.namllahprovider.domain.SharedValueFlags
 import com.app.namllahprovider.presentation.base.ContextUtils
@@ -42,7 +44,6 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
+        findNavController(R.id.main_nav).popBackStack()
     }
-
 }

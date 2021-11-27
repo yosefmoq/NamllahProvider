@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -28,7 +29,7 @@ class CheckFragment : Fragment(), View.OnClickListener {
     private var fragmentCheckBinding: FragmentCheckBinding? = null
     private var orderId: Int = -1
 
-    private var estimateHoursWork: Int = 0
+    private var estimateHoursWork: Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -155,22 +156,29 @@ class CheckFragment : Fragment(), View.OnClickListener {
     }
 
     private fun updateNumber(increaseNumber: Boolean) {
-        if (estimateHoursWork == 0 && !increaseNumber) return
+        if (estimateHoursWork == 0.0 && !increaseNumber) return
         estimateHoursWork =
-            if (increaseNumber) estimateHoursWork.plus(1) else estimateHoursWork.minus(1)
+            if (increaseNumber) estimateHoursWork.plus(0.5) else estimateHoursWork.minus(0.5)
         fragmentCheckBinding?.apply {
             estimateHoursWork = this@CheckFragment.estimateHoursWork
         }
     }
 
     private fun onClickStartWork() {
-        homeViewModel.changeOrderStatus(
-            orderId = orderId,
-            orderStatusRequestType = OrderStatusRequestType.CHECK,
-            estimatedTime = estimateHoursWork,
-            estimatedPriceParts = 0.0,
-            checkDescription = fragmentCheckBinding?.etCheckDescription?.text?.toString() ?: ""
-        )
+        if(estimateHoursWork==0.0){
+            Toast.makeText(requireContext(), "Please select estimate time", Toast.LENGTH_SHORT)
+                .show()
+        }else{
+            homeViewModel.saveCheckTime(estimateHoursWork)
+            homeViewModel.changeOrderStatus(
+                orderId = orderId,
+                orderStatusRequestType = OrderStatusRequestType.CHECK,
+                estimatedTime = estimateHoursWork,
+                estimatedPriceParts = 0.0,
+                checkDescription = fragmentCheckBinding?.etCheckDescription?.text?.toString() ?: ""
+            )
+        }
+
     }
 
     private fun onClickCheckingSufficiency() {

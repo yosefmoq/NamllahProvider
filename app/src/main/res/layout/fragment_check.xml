@@ -11,7 +11,7 @@
 
         <variable
             name="estimateHoursWork"
-            type="Integer" />
+            type="Double" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
