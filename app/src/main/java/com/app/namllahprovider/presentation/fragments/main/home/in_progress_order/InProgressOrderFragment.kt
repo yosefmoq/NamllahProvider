@@ -119,7 +119,7 @@ class InProgressOrderFragment : Fragment(), OnInProgressOrderListener {
 
                 if (it.isEmpty()) {
                     fragmentInProgressOrderBinding?.llEmptyStatus?.visibility = View.VISIBLE
-                }else{
+                } else {
                     fragmentInProgressOrderBinding?.llEmptyStatus?.visibility = View.GONE
                 }
                 inProgressOrderAdapter?.updateData(inProgressOrderList)
@@ -148,15 +148,23 @@ class InProgressOrderFragment : Fragment(), OnInProgressOrderListener {
                 )
             }
 
-            OrderStat.CHECK, OrderStat.WORKING -> {
+            OrderStat.CHECK -> {
+                findNavController().navigate(
+                    MainFragmentDirections.actionMainFragmentToCheckFragment(
+                        orderId = orderDto.id!!
+                    )
+                )
+            }
+            OrderStat.WORKING -> {
                 // TODO: 6/22/2021 Move to Check Timer
-                if(orderDto.duration!! >= orderDto.estimatedTime!! * 60 * 60 * 1000){
+
+                if (orderDto.duration!! >= orderDto.estimatedTime!! * 60 * 60 * 1000) {
                     findNavController().navigate(
                         MainFragmentDirections.actionMainFragmentToBillFragment(
                             orderId = orderDto.id!!
                         )
                     )
-                }else{
+                } else {
                     findNavController().navigate(
                         MainFragmentDirections.actionMainFragmentToWorkFragment(
                             orderId = orderDto.id!!

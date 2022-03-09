@@ -1,6 +1,7 @@
 package com.app.namllahprovider.presentation.utils
 
 import android.util.Log
+import androidx.fragment.app.Fragment
 import com.app.namllahprovider.data.model.StatusDto
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -24,7 +25,24 @@ fun getUserDocument(id: String): DocumentReference {
     return firestore.collection("Users").document(id)
 }
 
+fun Fragment.testTimeZone(): Long {
+    val tz = TimeZone.getTimeZone("GMT+03:00");
+    val c = Calendar.getInstance(tz);
+    val time = String.format("%02d", c.get(Calendar.HOUR_OF_DAY)) + ":" +
+            String.format("%02d", c.get(Calendar.MINUTE)) + ":" +
+            String.format("%02d", c.get(Calendar.SECOND)) + ":" +
+            String.format("%03d", c.get(Calendar.MILLISECOND));
+    Log.v("tttt", time)
+    Log.v("ttt", c.timeInMillis.toString())
+    return c.timeInMillis
+}
+
 private fun testTimeZone(): Long {
+    val timeZone = TimeZone.getDefault()
+    Log.v("ttt","timeZone::${timeZone.id}")
+    Log.v("ttt","timeZone::${timeZone.displayName}")
+    Log.v("ttt","timeZone::${timeZone.dstSavings}")
+    Log.v("ttt","timeZone::${timeZone.rawOffset}")
     val tz = TimeZone.getTimeZone("GMT+03:00");
     val c = Calendar.getInstance(tz);
     val time = String.format("%02d", c.get(Calendar.HOUR_OF_DAY)) + ":" +
@@ -39,7 +57,6 @@ private fun testTimeZone(): Long {
 
 fun String.toDate(): Long {
 
-
     if (this.isEmpty()) {
         return 0
     } else {
@@ -52,11 +69,10 @@ fun String.toDate(): Long {
 
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.YEAR, year)
-        calendar.set(Calendar.MONTH, month)
+        calendar.set(Calendar.MONTH, month - 1)
         calendar.set(Calendar.DAY_OF_MONTH, day)
         if (hour > 12) {
             calendar.set(Calendar.HOUR_OF_DAY, hour)
-
         } else {
             calendar.set(Calendar.HOUR, hour)
 

@@ -110,7 +110,7 @@
     <string name="take_image">يحتاج هذا التطبيق إلى الوصول إلى التخزين حتى عند الحصول على الصور</string>
     <string name="checking_sufficiency">الإكتفاء بالفحص</string>
     <string name="finish_checking">إنهاء الفحص</string>
-    <string name="estimate_hours_work">تقدير ساعات العمل</string>
+    <string name="estimate_hours_work">تقدير ساعات العمل:</string>
     <string name="write_what_you_will_use">اكتب ما ستستخدمه</string>
     <string name="optional">اختياري</string>
     <string name="increase_number">زيادة الرقم</string>
@@ -140,7 +140,18 @@
     <string name="arrive">تم الوصول</string>
     <string name="created_at">"تاريخ:</string>
     <string name="customer">إسم العميل:</string>
-    <string name="servicePrice">سعر الخدمة(سعر الساعات)</string>
+    <string name="servicePrice">سعر شراء الأدوات</string>
+    <string name="completed">مكتملة</string>
+    <string name="canceled">ملغية</string>
+    <string name="waitingClient">بإنتظار التأكيد</string>
+    <string name="complete_at">إكتملت في: </string>
+    <string name="customer_name">إسم المستخدم:  </string>
+    <string name="hour">ساعة</string>
+
+    <string name="no_new_orders">لا يوجد طلبات جديدة</string>
+    <string name="no_in_progress_order">لا يوجد طلبات قيد العمل</string>
+    <string name="nothing_finished_yet">لا يوجد طلبات منتهية</string>
+    <string name="no_notifications">لا يوجد اشعارات</string>
 
     <string name="currency">ر.س</string>
 </resources>

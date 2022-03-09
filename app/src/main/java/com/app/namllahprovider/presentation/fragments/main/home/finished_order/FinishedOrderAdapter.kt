@@ -13,7 +13,7 @@ class FinishedOrderAdapter(
 
     fun updateData(finishedOrderList: List<OrderDto>) {
         this.finishedOrderList = finishedOrderList
-        notifyDataSetChanged()
+        notifyItemRangeInserted(0,finishedOrderList.size-1)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FinishedOrderViewHolder {

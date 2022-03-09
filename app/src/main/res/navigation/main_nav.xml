@@ -79,6 +79,9 @@
         <action
             android:id="@+id/action_mainFragment_to_billFragment"
             app:destination="@id/billFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_checkFragment"
+            app:destination="@id/checkFragment" />
     </fragment>
 
     <dialog
@@ -218,6 +221,9 @@
         <action
             android:id="@+id/action_mapViewFragment_to_checkTimerFragment"
             app:destination="@id/checkTimerFragment" />
+        <action
+            android:id="@+id/action_mapViewFragment_to_checkFragment"
+            app:destination="@id/checkFragment" />
     </fragment>
     <action
         android:id="@+id/action_global_mapViewFragment"
@@ -283,13 +289,10 @@
         android:id="@+id/action_global_mainFragment"
         app:destination="@id/mainFragment" />
 
-    <action
-        android:id="@+id/action_global_billFragment"
-        app:destination="@id/billFragment" />
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.app.namllahprovider.presentation.fragments.main.home.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment" /><action android:id="@+id/action_global_billFragment" app:destination="@id/billFragment"/>
 
 
 </navigation>

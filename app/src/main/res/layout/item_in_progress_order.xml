@@ -71,7 +71,7 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_customerImage"
-                imageUrl="@{order.user != null? order.user.name:@string/fake_image}"
+                imageUrl="@{order.user != null? order.user.image.original:@string/fake_image}"
                 android:layout_width="@dimen/_50sdp"
                 android:layout_height="@dimen/_50sdp"
                 android:layout_marginStart="@dimen/_4sdp"
@@ -89,6 +89,7 @@
                 android:gravity="center"
                 android:onClick="@{(view)->onInProgressOrderListener.onClickCancel(position)}"
                 android:text="@string/cancel"
+                android:textColor="@color/red"
                 android:textSize="@dimen/_10ssp"
                 android:textStyle="bold"
                 android:visibility="@{buttonVisibilitySetterAction?View.VISIBLE:View.GONE}"
@@ -108,6 +109,7 @@
                 android:onClick="@{(view)->onInProgressOrderListener.onClickAction(position)}"
                 android:text="@{orderActionText}"
                 android:textSize="@dimen/_10ssp"
+                android:textColor="@color/green_light"
                 android:textStyle="bold"
                 android:visibility="@{buttonVisibilitySetterAction?View.VISIBLE:View.GONE}"
                 app:layout_constraintBaseline_toBaselineOf="@+id/btn_orderCancel"

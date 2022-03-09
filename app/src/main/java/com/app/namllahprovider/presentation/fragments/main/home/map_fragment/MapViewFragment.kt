@@ -33,6 +33,8 @@ import android.content.Intent
 import android.net.Uri
 import android.util.Log
 import java.lang.NullPointerException
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 
 @AndroidEntryPoint
@@ -130,8 +132,32 @@ class MapViewFragment : Fragment(), View.OnClickListener {
                         googleMap.addMarker(MarkerOptions().position(myLocation).title(address))
                         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 15f))
                         this.address = this@MapViewFragment.address
-                        if (it.status?.getOrderStatus() == OrderStat.ARRIVE) {
+                        if (it.status?.getOrderStatus()!! >= OrderStat.ARRIVE) {
                             llMapBtns.visibility = View.VISIBLE
+
+                            if (it.arrive_at!!.isNotEmpty()) {
+
+                                val hours = it.arrive_at!!.split(" ")[1].split(":")[0].toInt()
+                                val minutes = it.arrive_at!!.split(" ")[1].split(":")[1].toInt()
+
+                                val calender = Calendar.getInstance()
+                                val nowHours = calender.get(Calendar.HOUR_OF_DAY)
+                                val nowMinutes = calender.get(Calendar.MINUTE)
+
+                                if (nowHours.minus(hours) == 0) {
+                                    if (nowMinutes - minutes >= 10) {
+                                        fragmentMapViewBinding!!.btnClientNotInLocation.visibility =
+                                            View.VISIBLE
+                                    } else {
+                                        fragmentMapViewBinding!!.btnClientNotInLocation.visibility =
+                                            View.GONE
+                                    }
+                                } else {
+                                    fragmentMapViewBinding!!.btnClientNotInLocation.visibility =
+                                        View.VISIBLE
+                                }
+                            }
+
                         } else {
                             llMapBtns.visibility = View.GONE
                         }
@@ -184,7 +210,7 @@ class MapViewFragment : Fragment(), View.OnClickListener {
                     when (it.order?.status?.getOrderStatus()) {
                         OrderStat.CHECK -> {
                             findNavController().navigate(
-                                MapViewFragmentDirections.actionMapViewFragmentToCheckTimerFragment(
+                                MapViewFragmentDirections.actionMapViewFragmentToCheckFragment(
                                     orderId = orderId
                                 )
                             )
@@ -229,7 +255,7 @@ class MapViewFragment : Fragment(), View.OnClickListener {
         when (v ?: return) {
             fragmentMapViewBinding?.btnStartChecking -> onClickStartChecking()
             fragmentMapViewBinding?.btnClientNotInLocation -> onClickDeclineOrder()
-            fragmentMapViewBinding?.btnDirections->{
+            fragmentMapViewBinding?.btnDirections -> {
                 val latitude: String = java.lang.String.valueOf(lat)
                 val longitude: String = java.lang.String.valueOf(lng)
                 val gmmIntentUri: Uri = Uri.parse("google.navigation:q=$latitude,$longitude")

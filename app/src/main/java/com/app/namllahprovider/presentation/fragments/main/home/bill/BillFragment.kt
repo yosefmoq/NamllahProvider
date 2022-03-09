@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,9 +44,7 @@ class BillFragment : Fragment(), View.OnClickListener, BillListener {
     private var fragmentBillBinding: FragmentBillBinding? = null
     private var orderId: Int = -1
     private var deliveryTimes: Int = 0
-
     private val SELECT_PHOTO: Int = 143
-
 
     private var orderDto: OrderDto? = null
     private val billAdapter = BillAdapter(this)
@@ -82,6 +81,15 @@ class BillFragment : Fragment(), View.OnClickListener, BillListener {
                         return true
                     }
                 }
+
+            rvBillsUrl.layoutManager =
+                object : LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false) {
+                    override fun checkLayoutParams(lp: RecyclerView.LayoutParams?): Boolean {
+                        lp!!.width = width / 3
+                        return true
+                    }
+                }
+            rvBillsUrl.adapter = billsAdapter
         }?.root
     }
 
@@ -131,24 +139,33 @@ class BillFragment : Fragment(), View.OnClickListener, BillListener {
 
                             }
                             OrderStat.COMPLETE -> {
+                                if(orderDto!!.bills!!.size>0){
+                                    Timber.tag("ttt").v("true")
+                                    billsAdapter.update(orderDto!!.bills!!)
+                                }
                                 Timber.tag(TAG).d("getOrderData : COMPLETE")
                                 btnCheckOut.visibility = View.GONE
                                 ibDecreaseNumber.isEnabled = false
                                 ibIncreaseNumber.isEnabled = false
                                 btnUploadBill.isEnabled = false
 
+                                btnConfirmPayment.visibility = View.GONE
+                                ibDecreaseNumber.visibility = View.GONE
+                                ibIncreaseNumber.visibility = View.GONE
+                                btnUploadBill.visibility  = View.GONE
+                                tvEstimateHoursWork.visibility  = View.GONE
+                                tilTotalItemsPrice.visibility = View.GONE
+                                textView6.visibility = View.GONE
                                 if (it.payment?.id == 0) {
-                                    btnConfirmPayment.visibility = View.GONE
-                                    ibDecreaseNumber.visibility = View.GONE
-                                    ibIncreaseNumber.visibility = View.GONE
-                                    btnUploadBill.visibility  = View.GONE
-                                    tvEstimateHoursWork.visibility  = View.GONE
+
                                     tvOrderStatus.text = "Please wait until customer pay"
                                 } else {
                                     if (it.isPayComplete == 0) {
                                         tvOrderStatus.text =
                                             "Please Confirm Payment ${it.payment?.title}"
                                         fragmentBillBinding!!.tilTotalItemsPrice.visibility = View.GONE
+                                        btnConfirmPayment.visibility = View.VISIBLE
+
                                     } else {
                                         btnConfirmPayment.visibility = View.GONE
                                         fragmentBillBinding!!.etTotalItemsPrice.visibility = View.GONE
@@ -230,9 +247,7 @@ class BillFragment : Fragment(), View.OnClickListener, BillListener {
                     orderDto = it.order
                     fragmentBillBinding?.apply {
                         orderDto = this@BillFragment.orderDto
-                        if(orderDto!!.bills!!.isNotEmpty()){
-                            billsAdapter.update(orderDto!!.bills!!)
-                        }
+
                     }
                     when (it.order?.status?.getOrderStatus()) {
                         OrderStat.COMPLETE -> {
@@ -284,7 +299,7 @@ class BillFragment : Fragment(), View.OnClickListener, BillListener {
             orderStatusRequestType = OrderStatusRequestType.ADD_BILLS,
             boughtPrice = boughtPriceBody,
             bringTimes = deliveryTimesBody,
-            bills = billListBody,
+            bills = billListBody
         )
     }
 
@@ -346,6 +361,7 @@ class BillFragment : Fragment(), View.OnClickListener, BillListener {
 
     override fun onClickDeleteBill(position: Int) {
         billAdapter.removeBillFromList(position)
+        billListBody.removeAt(position)
     }
     private fun getRealPathFromURI(contentUri: Uri?): String? {
         var res: String? = null

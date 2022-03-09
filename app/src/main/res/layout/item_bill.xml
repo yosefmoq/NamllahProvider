@@ -4,9 +4,7 @@
 
     <data>
         <import type="android.view.View"/>
-        <variable
-            name="url"
-            type="String" />
+
         <variable
             name="visible"
             type="Boolean" />
@@ -37,7 +35,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_100sdp"
                 android:layout_margin="@dimen/_4sdp"
-                imageUrl="@{url}"
                 android:scaleType="centerCrop"
                 android:src="@drawable/person" />
 

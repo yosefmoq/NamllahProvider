@@ -93,7 +93,7 @@ class FinishedOrderFragment : Fragment(), OnFinishedOrderListener {
                 //Case 3 when When order.payment is full we will check isPayComplete if 1 that's mean order PAID and CLOSED(Show message to user "Order has closed")
 
                 findNavController().navigate(
-                    MainFragmentDirections.actionGlobalBillFragment(
+                    MainFragmentDirections.actionMainFragmentToBillFragment(
                         finishedOrderList[position].id?: 0
                     )
                 )

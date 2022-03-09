@@ -50,7 +50,6 @@ class NewOrderFragment : Fragment(), OnNewOrderListener {
         fetchNewOrders()
 
         MyFirebaseInstanceIDService.Notification.instance!!.getNewOrder().observe(viewLifecycleOwner){
-            Log.v("ttt","New Order")
             fetchNewOrders()
         }
     }

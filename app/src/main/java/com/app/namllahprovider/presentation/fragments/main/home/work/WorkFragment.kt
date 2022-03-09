@@ -23,6 +23,7 @@ import kotlinx.coroutines.*
 import timber.log.Timber
 import com.google.firebase.firestore.DocumentSnapshot
 import io.reactivex.disposables.Disposable
+import io.reactivex.disposables.Disposables
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
@@ -189,7 +190,7 @@ class WorkFragment : Fragment(), View.OnClickListener {
 
     private fun initCounter(initialTime: Int) {
 //        val est = homeViewModel.getCheckTime()
-        var totalMillis: Long = if (orderDto!!.estimatedTime != 0.0) {
+        val totalMillis: Long = if (orderDto!!.estimatedTime != 0.0) {
             (orderDto!!.estimatedTime!! * 60 * 60 * 1000).toLong()
 
         } else {
@@ -197,7 +198,7 @@ class WorkFragment : Fragment(), View.OnClickListener {
         }
 
         if (orderDto!!.duration!! >= orderDto!!.estimatedTime!! * 60 * 60 * 1000) {
-            onClickFinishWork()
+//            onClickFinishWork()
 
         } else {
 
@@ -226,29 +227,31 @@ class WorkFragment : Fragment(), View.OnClickListener {
 
     fun countUp(userFirebaseJaveModel: UserFirebaseJaveModel) {
 
-        if (orderDto!!.duration!! >= orderDto!!.estimatedTime!! * 60 * 60 * 1000) {
-            onClickFinishWork()
 
-        } else {
-            counter = io.reactivex.Observable.interval(1, TimeUnit.SECONDS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
-                .subscribe {
-                    val differance = userFirebaseJaveModel.complete_at.getDifferance()
-                    val timeAsLong = userFirebaseJaveModel.duration + (differance * 1000)
+        counter = io.reactivex.Observable.interval(1, TimeUnit.SECONDS)
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .subscribe {
+                val differance = userFirebaseJaveModel.complete_at.getDifferance()
+                val timeAsLong = userFirebaseJaveModel.duration + (differance * 1000)
 
-                    if (timeAsLong >= orderDto!!.estimatedTime!! * 60 * 60 * 1000) {
-                        counter.dispose()
+                if (timeAsLong >= orderDto!!.estimatedTime!! * 60 * 60 * 1000) {
+                    counter.dispose()
+
+                    requireActivity().runOnUiThread {
                         onClickFinishWork()
 
-                    } else {
-                            fragmentWorkBinding?.tvWorkTimer?.post(Runnable {
-                                fragmentWorkBinding?.tvWorkTimer?.text = timeAsLong.getTime()
-                            })
                     }
 
+
+                } else {
+                    fragmentWorkBinding?.tvWorkTimer?.post(Runnable {
+                        fragmentWorkBinding?.tvWorkTimer?.text = timeAsLong.getTime()
+                    })
                 }
-        }
+
+            }
+
 
         /*   var totalMillis: Long = if (orderDto!!.estimatedTime != 0.0) {
                (orderDto!!.estimatedTime!! * 60 * 60 * 1000).toLong()
@@ -337,13 +340,13 @@ class WorkFragment : Fragment(), View.OnClickListener {
 
     private fun onClickFinishWork() {
         homeViewModel.changeOrderStatus(orderId = orderId, OrderStatusRequestType.STOP_WORK)
-        CoroutineScope(Dispatchers.Main).launch {
-            findNavController().navigate(
-                WorkFragmentDirections.actionWorkFragmentToBillFragment(
-                    orderId = orderId
-                )
+
+        findNavController().navigate(
+            WorkFragmentDirections.actionWorkFragmentToBillFragment(
+                orderId = orderId
             )
-        }
+        )
+
         if (this::countDownTimer.isInitialized) {
             countDownTimer.cancel()
         }
@@ -364,14 +367,14 @@ class WorkFragment : Fragment(), View.OnClickListener {
     override fun onResume() {
         super.onResume()
         myDocumentReference.addSnapshotListener(MetadataChanges.EXCLUDE) { value, _ ->
-                if (value != null) {
-                    if (this::counter.isInitialized)
-                        counter.dispose()
-                    isWorking = false
-                    handleChangeDataInMyDocument(value)
+            if (value != null) {
+                if (this::counter.isInitialized)
+                    counter.dispose()
+                isWorking = false
+                handleChangeDataInMyDocument(value)
 
-                }
             }
+        }
     }
 
     private fun handleChangeDataInMyDocument(value: DocumentSnapshot) {
@@ -381,9 +384,10 @@ class WorkFragment : Fragment(), View.OnClickListener {
             if (isWorking) {
                 countUp(userFirebaseJavaModel)
             } else {
-                if(userFirebaseJavaModel.status_id == 6){
+                if (userFirebaseJavaModel.status_id == 6) {
                     fragmentWorkBinding?.tvWorkTimer?.visibility = View.VISIBLE
-                    fragmentWorkBinding?.tvWorkTimer?.text = userFirebaseJavaModel.duration.getTime()
+                    fragmentWorkBinding?.tvWorkTimer?.text =
+                        userFirebaseJavaModel.duration.getTime()
                 }
             }
         }

@@ -13,6 +13,7 @@ data class OrderDto(
     @SerializedName("area") var area: AreaDto? ,
     @SerializedName("service") var service: ServiceDto? ,
     @SerializedName("check_at") var checkAt: String? ,
+    @SerializedName("arrive_at") var arrive_at:String?,
     @SerializedName("estimated_time") var estimatedTime: Double? ,
     @SerializedName("estimated_price_parts") var estimatedPriceParts: Int? ,
     @SerializedName("estimated_price") var estimatedPrice: Int? ,
@@ -64,7 +65,8 @@ data class PaymentDto(
 data class ProviderDto(
     @SerializedName("id") var id: Int,
     @SerializedName("name") var name: String,
-    @SerializedName("mobile") var mobile: String
+    @SerializedName("mobile") var mobile: String,
+    @SerializedName("images") var image : ImageDto
 )
 
 data class StatusDto(
@@ -76,7 +78,9 @@ data class StatusDto(
 data class CustomerDto(
     @SerializedName("id") var id: Int,
     @SerializedName("name") var name: String,
-    @SerializedName("mobile") var mobile: String
+    @SerializedName("mobile") var mobile: String,
+    @SerializedName("images") var image : ImageDto
+
 )
 
 data class BillDto(

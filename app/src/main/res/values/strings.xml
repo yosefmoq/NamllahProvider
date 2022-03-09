@@ -110,7 +110,7 @@
     <string name="firebase_notification_topic" translatable="false">NamllahProvider</string>
     <string name="checking_sufficiency">Checking Sufficiency</string>
     <string name="finish_checking">Finish Checking</string>
-    <string name="estimate_hours_work">Estimate Hours Work</string>
+    <string name="estimate_hours_work">Estimate Hours Work:</string>
     <string name="write_what_you_will_use">Write what you will use</string>
     <string name="optional">Optional</string>
     <string name="increase_number">Increase Number</string>
@@ -122,11 +122,10 @@
     <string name="upload_bill">Upload Bill</string>
     <string name="delivery_times">Delivery Times</string>
     <string name="total_items_price">Total Items Price</string>
-    <string name="order_num">Order Num #:</string>
     <string name="category">Category</string>
     <string name="date">Date</string>
     <string name="total_time_work">Total Time Work</string>
-    <string name="total_summation">Total Summation</string>
+    <string name="total_summation">Total Price: </string>
     <string name="there_is_no_bills_yet">There is no bills yet</string>
     <string name="confirm_cancel">Confirm Cancel</string>
     <string name="_new">New</string>
@@ -140,10 +139,20 @@
     <string name="created_at">Created at: </string>
     <string name="customer">Customer: </string>
     <string name="currency">SR</string>
+
+    <string name="complete_at">Complete at: </string>
+    <string name="customer_name">Customer Name: </string>
+    <string name="order_num">Order Num#: </string>
+    <string name="completed">Completed</string>
+    <string name="waitingClient">Waiting Confirm</string>
+    <string name="canceled">Canceled</string>
+    <string name="hour">Hour</string>
+
     <string name="no_new_orders">No New Orders</string>
     <string name="no_in_progress_order">No In Progress Order</string>
     <string name="nothing_finished_yet">Nothing finished yet</string>
     <string name="no_notifications">No Notifications</string>
-    <string name="servicePrice">Service Price(hours price)</string>
+
+    <string name="servicePrice">Bought price</string>
 
 </resources>

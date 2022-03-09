@@ -1,5 +1,6 @@
 package com.app.namllahprovider.presentation.fragments.main.home.new_order
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -31,7 +32,7 @@ class NewOrderAdapter(
     override fun getItemCount(): Int = newOrderList.size
 
     class NewOrderViewHolder(val view: ItemNewOrderBinding) : RecyclerView.ViewHolder(view.root) {
-        val context = view.root.context
+        val context: Context = view.root.context
         fun bindView(position: Int, order: OrderDto, onNewOrderListener: OnNewOrderListener) {
             val address = try {
                 getAddressFromLatAndLng(context, order.lat ?: 0.0, order.lng ?: 0.0)
