@@ -9,13 +9,17 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.app.namllahprovider.R
 import com.app.namllahprovider.data.api.auth.sign_up.SignUpResponse
 import com.app.namllahprovider.databinding.FragmentSignUpBinding
-import com.google.gson.Gson
+import com.app.namllahprovider.presentation.fragments.wizard.verification_code.VerificationCodeFragment
+import com.app.namllahprovider.presentation.utils.SweetAlert
+import com.app.namllahprovider.presentation.utils.SweetAlertType
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import java.util.*
 
 @AndroidEntryPoint
 class SignUpFragment : Fragment(), View.OnClickListener {
@@ -78,12 +82,36 @@ class SignUpFragment : Fragment(), View.OnClickListener {
 
     private fun observeLiveData() {
         signUpViewModel.loadingLiveData.observe(viewLifecycleOwner, {
-            Timber.tag(TAG).d("observeLiveData : Loading Status $it")
+            it?.let {
+                Timber.tag(TAG).d("observeLiveData : Loading Status $it")
+                if (it) {
+                    SweetAlert.instance.showAlertDialog(
+                        context = requireContext(),
+                        alertType = SweetAlertType.PROGRESS_TYPE,
+                        title = getString(R.string.loading),
+                        message = "",
+                        confirmText = "",
+                        confirmListener = {},
+                        cancelText = "",
+                        cancelListener = {},
+                        cancelable = false,
+                    )
+                } else {
+                    SweetAlert.instance.dismissAlertDialog(true)
+                }
+            }
         })
 
         signUpViewModel.errorLiveData.observe(viewLifecycleOwner, {
-            Timber.tag(TAG).e("observeLiveData : Error Message ${Gson().toJson(it.message)}")
-            it.printStackTrace()
+            it?.let {
+                Timber.tag(TAG).e("observeLiveData : Error Message ${it.message}")
+                SweetAlert.instance.showFailAlert(
+                    activity = requireActivity(),
+                    message = it.message ?: "",
+                    isJson = true,
+                )
+                it.printStackTrace()
+            }
         })
 
         signUpViewModel.signUpLiveData.observe(viewLifecycleOwner, {
@@ -98,15 +126,21 @@ class SignUpFragment : Fragment(), View.OnClickListener {
     private fun handleSignUpResponse(signUpResponse: SignUpResponse) {
         if (signUpResponse.status!!) {
             //Show Message to User With Activation Code
+            SweetAlert.instance.showSuccessAlert(
+                activity = requireActivity(),
+                message = "Register successfully, Please active your account"
+            )
             //Navigate to Verification Code UI
             findNavController().navigate(
                 SignUpFragmentDirections.actionSignUpFragmentToVerificationCodeFragment(
-                    phoneNumber = phoneNumber
+                    phoneNumber = phoneNumber,
+                    verifyType = VerificationCodeFragment.VERIFY_TYPE_ACTIVATION_CODE
                 )
             )
         } else {
             //Show Message to User With Error Message
-            val errorMessage = signUpResponse.msg ?: "Something error, Please try again later"
+            Timber.tag(TAG).e("handleSignUpResponse :signUpResponse $signUpResponse")
+            val errorMessage = signUpResponse.message ?: "Something error, Please try again later"
             signUpViewModel.changeErrorMessage(Throwable(errorMessage))
         }
     }
@@ -129,7 +163,7 @@ class SignUpFragment : Fragment(), View.OnClickListener {
         val phoneNumber = fragmentSignUpBinding?.etPhoneNumber?.text?.toString() ?: ""
         val password = fragmentSignUpBinding?.etPassword?.text?.toString() ?: ""
         val confirmedPassword = fragmentSignUpBinding?.etConfirmPassword?.text?.toString() ?: ""
-        val language = "ar"
+        val language = Locale.getDefault().language
 
         val acceptTermStatus = fragmentSignUpBinding?.cbAcceptTerms?.isChecked ?: false
 
@@ -158,6 +192,10 @@ class SignUpFragment : Fragment(), View.OnClickListener {
 
         if (!acceptTermStatus) {
             //Show Dialog to make user Accept the terms
+            SweetAlert.instance.showFailAlert(
+                activity = requireActivity(),
+                message = "Please accept term before sign up"
+            )
             return
         }
 
@@ -165,7 +203,6 @@ class SignUpFragment : Fragment(), View.OnClickListener {
         //Show Loading Dialog
         signUpViewModel.signUpRequest(userName, phoneNumber, password, language)
     }
-
 
     private fun onClickSignWithGoogle() {
 

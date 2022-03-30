@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "670969578747",
+    "project_id": "namlah-4d018",
+    "storage_bucket": "namlah-4d018.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:670969578747:android:16cafedd5813eecbbb5c5e",
+        "android_client_info": {
+          "package_name": "com.app.namllahprovider"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "670969578747-l0dfp6ljiop0eda27ti6jmidovdn2n5d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAieXu6v1AjRFw8vvchdvuKK5GuEekY1E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "670969578747-l0dfp6ljiop0eda27ti6jmidovdn2n5d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:670969578747:android:b99fb25f3550dae2bb5c5e",
+        "android_client_info": {
+          "package_name": "com.app.namllahuser"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "670969578747-l0dfp6ljiop0eda27ti6jmidovdn2n5d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAieXu6v1AjRFw8vvchdvuKK5GuEekY1E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "670969578747-l0dfp6ljiop0eda27ti6jmidovdn2n5d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

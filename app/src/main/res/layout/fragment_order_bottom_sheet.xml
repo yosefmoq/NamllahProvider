@@ -25,6 +25,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layout_behavior="com.app.namllahprovider.presentation.utils.LockableBottomSheetBehavior"
         android:paddingBottom="8dp"
         app:cardCornerRadius="@dimen/_8sdp"
         tools:context=".presentation.fragments.main.home.order_details.OrderBottomSheetFragment">

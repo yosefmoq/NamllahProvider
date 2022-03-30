@@ -7,6 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="gray">#707070</color>
 
     <color name="google_red">#ea5a4f</color>
     <color name="google_blue">#6099f5</color>
@@ -26,5 +27,12 @@
     <color name="colorDisable">#DCDCDC</color>
     <color name="colorWarning">#F0AD4E</color>
     <color name="colorInfo">#5BC0DE</color>
+
+    <color name="red">#f55252</color>
+    <color name="colorRed">#EF0606</color>
+    <color name="green_light">#33ce48</color>
+
+    <color name="view_unselected">#E6E6E6</color>
+    <color name="view_selected">#0080C6</color>
 
 </resources>

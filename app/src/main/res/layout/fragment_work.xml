@@ -5,20 +5,19 @@
 
     <data>
 
-        <import type="android.view.View" />
-
         <variable
             name="actionOnClick"
             type="android.view.View.OnClickListener" />
 
-
+        <variable
+            name="orderDto"
+            type="com.app.namllahprovider.data.model.OrderDto" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".presentation.fragments.main.home.work.WorkFragment">
-
 
         <include
             android:id="@+id/toolbar"
@@ -28,21 +27,23 @@
             android:id="@+id/tv_workTimer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/fake_time"
-            android:textSize="@dimen/_48ssp"
-            android:textStyle="bold"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:textSize="@dimen/_36ssp"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/textView34"
+            tools:text="@string/fake_time" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_startWork"
+            android:id="@+id/btn_startWorkTimer"
             style="@style/AppButton.AccentButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_8sdp"
             android:layout_marginHorizontal="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
             android:layout_weight="2"
+            android:onClick="@{actionOnClick::onClick}"
             android:text="@string/start_work"
             android:textAllCaps="false"
             app:layout_constraintBottom_toTopOf="@+id/ll_btnsContainer"
@@ -68,6 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/_4sdp"
                 android:layout_weight="1"
+                android:onClick="@{actionOnClick::onClick}"
                 android:text="@string/finish"
                 android:textAllCaps="false"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -76,11 +78,12 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_pauseResumeTime"
-                style="@style/AppButton.PrimaryButton"
+                style="@style/AppButton.AccentButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_4sdp"
                 android:layout_weight="1"
+                android:onClick="@{actionOnClick::onClick}"
                 android:text="@string/pause"
                 android:textAllCaps="false"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -88,6 +91,83 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/customer_name"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/textView36" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="20dp" />
+
+        <TextView
+            android:id="@+id/textView33"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{orderDto.user.name}"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView32"
+            app:layout_constraintStart_toEndOf="@+id/textView32"
+            app:layout_constraintTop_toTopOf="@+id/textView32" />
+
+        <TextView
+            android:id="@+id/textView34"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+
+            android:text="@string/estimate_hours_work"
+            app:layout_constraintStart_toStartOf="@+id/textView32"
+            app:layout_constraintTop_toBottomOf="@+id/textView32" />
+
+        <TextView
+            android:id="@+id/textView35"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@{orderDto.estimatedTime + ` ` + @string/hour}"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView34"
+            app:layout_constraintStart_toEndOf="@+id/textView34"
+            app:layout_constraintTop_toTopOf="@+id/textView34" />
+
+        <TextView
+            android:id="@+id/textView36"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/order_num"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+        <TextView
+            android:id="@+id/textView37"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{orderDto.id+` `}"
+            tools:text="189"
+
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView36"
+            app:layout_constraintStart_toEndOf="@+id/textView36"
+            app:layout_constraintTop_toTopOf="@+id/textView36" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

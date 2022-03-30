@@ -101,7 +101,7 @@ class OnBoardingFragment : Fragment(), View.OnClickListener {
             }
             fragmentOnBoardingBinding?.tvSkip, fragmentOnBoardingBinding?.btnGetStarted -> {
                 onBoardingViewModel.changeOnBoardingStatus(true)
-                findNavController().navigate(R.id.action_onBoardingFragment_to_signInFragment)
+                findNavController().navigate(OnBoardingFragmentDirections.actionOnBoardingFragmentToSignInFragment())
             }
         }
     }

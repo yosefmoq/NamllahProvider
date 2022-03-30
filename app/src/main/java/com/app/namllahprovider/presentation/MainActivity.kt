@@ -1,21 +1,38 @@
 package com.app.namllahprovider.presentation
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
+import android.content.ContextWrapper
 import android.os.Bundle
-import com.google.android.material.navigation.NavigationView
-import android.view.MenuItem
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
+import androidx.preference.PreferenceManager
 import com.app.namllahprovider.R
+import com.app.namllahprovider.databinding.ActivityMainBinding
+import com.app.namllahprovider.domain.SharedValueFlags
+import com.app.namllahprovider.presentation.base.ContextUtils
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(),
-    NavController.OnDestinationChangedListener {
+class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedListener {
+
+    override fun attachBaseContext(newBase: Context) {
+        val language = PreferenceManager.getDefaultSharedPreferences(newBase)
+            .getString(SharedValueFlags.LANGUAGE.name, "en")
+        val localeToSwitchTo = Locale(language ?: "en")
+        val localeUpdatedContext: ContextWrapper =
+            ContextUtils.updateLocale(newBase, localeToSwitchTo)
+        super.attachBaseContext(localeUpdatedContext)
+    }
+
+    private var activityMainBinding: ActivityMainBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(activityMainBinding?.root)
     }
 
     override fun onDestinationChanged(
@@ -27,6 +44,6 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
+        findNavController(R.id.main_nav).popBackStack()
     }
 }

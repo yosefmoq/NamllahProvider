@@ -180,7 +180,7 @@ class SharedVariables @Inject constructor(mContext: Context) {
     }
 
 
-    fun setObjectInSharedVariable(flag: SharedValueFlags, value: Any) {
+    fun setObjectInSharedVariable(flag: SharedValueFlags, value: Any?) {
         try {
             val gson = Gson()
             val stringValue = gson.toJson(value)
@@ -208,6 +208,17 @@ class SharedVariables @Inject constructor(mContext: Context) {
             e.printStackTrace()
         }
         return returnValue
+    }
+
+    fun clearConfigData(){
+        try {
+            mSemaphore.acquire()
+            mSharedPreferenceEditor.clear()
+            mSharedPreferenceEditor.commit()
+            mSemaphore.release()
+        } catch (e: InterruptedException) {
+            e.printStackTrace()
+        }
     }
 
     companion object DefaultSVValue {

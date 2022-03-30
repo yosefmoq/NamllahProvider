@@ -91,13 +91,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_64sdp"
-                android:text="Save"
-                app:layout_constraintEnd_toEndOf="@+id/til_workItemName"
-                app:layout_constraintStart_toStartOf="@+id/til_workItemName"
-                app:layout_constraintTop_toBottomOf="@+id/til_workItemName" />
+                android:text="@string/save"
+                android:onClick="@{(view)->actionOnClick.onClick(view)}"
+                app:layout_constraintEnd_toEndOf="@+id/rg_languages"
+                app:layout_constraintStart_toStartOf="@+id/rg_languages"
+                app:layout_constraintTop_toBottomOf="@+id/rg_languages" />
 
             <RadioGroup
-                android:id="@+id/til_workItemName"
+                android:id="@+id/rg_languages"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"

@@ -4,9 +4,15 @@
 
     <data>
 
+        <import type="com.app.namllahprovider.presentation.utils.GeocoderHelperKt" />
+
         <variable
             name="order"
-            type="com.app.namllahprovider.data.model.Order" />
+            type="com.app.namllahprovider.data.model.OrderDto" />
+
+        <variable
+            name="orderAddress"
+            type="String" />
 
         <variable
             name="onNewOrderListener"
@@ -21,6 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_4sdp"
+        android:onClick="@{(view)->onNewOrderListener.onClickSeeMore(position)}"
         android:elevation="@dimen/_4sdp"
         app:cardCornerRadius="@dimen/_8sdp">
 
@@ -29,11 +36,13 @@
             android:layout_height="match_parent">
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/button"
+                android:id="@+id/btn_orderSeeMore"
+                android:clickable="false"
                 style="@style/AppButton.AccentButton"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/_4sdp"
+                android:layout_marginBottom="8dp"
                 android:gravity="center"
                 android:onClick="@{(view)->onNewOrderListener.onClickSeeMore(position)}"
                 android:padding="@dimen/_2sdp"
@@ -42,62 +51,66 @@
                 android:text="@string/see_more"
                 android:textSize="@dimen/_10ssp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/textView11"
-                app:layout_constraintEnd_toEndOf="@+id/textView14"
-                app:layout_constraintTop_toBottomOf="@+id/textView12" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/tv_orderAddress"
+                app:layout_constraintTop_toBottomOf="@+id/tv_orderId" />
 
             <TextView
-                android:id="@+id/tv_notificationText"
+                android:id="@+id/tv_serviceName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_8sdp"
                 android:padding="@dimen/_8sdp"
-                android:text="@{order.title}"
+                android:text="@{order.service.title}"
                 android:textSize="@dimen/_14ssp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/imageView2"
-                app:layout_constraintTop_toTopOf="@+id/imageView2" />
+                app:layout_constraintStart_toEndOf="@+id/iv_serviceImage"
+                app:layout_constraintTop_toTopOf="@+id/iv_serviceImage" />
 
             <TextView
-                android:id="@+id/textView12"
+                android:id="@+id/tv_orderId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/_2sdp"
                 android:padding="@dimen/_8sdp"
-                android:text="@{order.title}"
+                android:text="@{String.valueOf(order.id)}"
                 android:textSize="@dimen/_12ssp"
                 android:textStyle="bold"
                 app:drawableStartCompat="@drawable/ic_loyalty_24px"
-                app:layout_constraintStart_toStartOf="@+id/tv_notificationText"
-                app:layout_constraintTop_toBottomOf="@+id/tv_notificationText" />
+                app:layout_constraintStart_toStartOf="@+id/tv_serviceName"
+                app:layout_constraintTop_toBottomOf="@+id/tv_serviceName" />
 
             <TextView
-                android:id="@+id/textView11"
+                android:id="@+id/tv_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/_2sdp"
                 android:padding="@dimen/_8sdp"
-                android:text="@{order.title}"
+                android:text="@{`order.checkAt`}"
+                android:visibility="gone"
                 android:textSize="@dimen/_12ssp"
                 app:drawableStartCompat="@drawable/ic_star"
-                app:layout_constraintStart_toStartOf="@+id/textView12"
-                app:layout_constraintTop_toBottomOf="@+id/textView12" />
+                app:layout_constraintStart_toStartOf="@+id/tv_orderId"
+                app:layout_constraintTop_toBottomOf="@+id/tv_orderId" />
 
             <TextView
-                android:id="@+id/textView14"
+                android:id="@+id/tv_orderAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/_8sdp"
                 android:drawablePadding="@dimen/_2sdp"
+                android:ellipsize="end"
+                android:maxLength="25"
                 android:padding="@dimen/_8sdp"
-                android:text="@{order.title}"
+                android:text="@{orderAddress}"
                 android:textSize="@dimen/_12ssp"
                 app:drawableStartCompat="@drawable/ic_baseline_place_24"
-                app:layout_constraintBaseline_toBaselineOf="@+id/textView12"
+                app:layout_constraintBaseline_toBaselineOf="@+id/tv_orderId"
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/iv_serviceImage"
+                imageUrl="@{order.user.image.original}"
                 android:layout_width="@dimen/_70sdp"
                 android:layout_height="@dimen/_100sdp"
                 android:layout_margin="@dimen/_4sdp"
@@ -105,7 +118,6 @@
                 android:contentDescription="@string/order_photo"
                 android:drawablePadding="@dimen/_2sdp"
                 android:scaleType="centerInside"
-                imageUrl="@{order.imageUrl}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

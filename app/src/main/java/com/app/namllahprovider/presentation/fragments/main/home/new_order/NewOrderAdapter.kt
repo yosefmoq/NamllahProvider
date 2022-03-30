@@ -1,15 +1,22 @@
 package com.app.namllahprovider.presentation.fragments.main.home.new_order
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.app.namllahprovider.data.model.Order
+import com.app.namllahprovider.data.model.OrderDto
 import com.app.namllahprovider.databinding.ItemNewOrderBinding
+import com.app.namllahprovider.presentation.utils.getAddressFromLatAndLng
 
 class NewOrderAdapter(
-    private val newOrderList: List<Order>,
+    private var newOrderList: List<OrderDto>,
     private val onNewOrderListener: OnNewOrderListener
 ) : RecyclerView.Adapter<NewOrderAdapter.NewOrderViewHolder>() {
+
+    fun updateData(newOrderList: List<OrderDto>) {
+        this.newOrderList = newOrderList
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewOrderViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -25,11 +32,19 @@ class NewOrderAdapter(
     override fun getItemCount(): Int = newOrderList.size
 
     class NewOrderViewHolder(val view: ItemNewOrderBinding) : RecyclerView.ViewHolder(view.root) {
-        fun bindView(position: Int, order: Order, onNewOrderListener: OnNewOrderListener) {
+        val context: Context = view.root.context
+        fun bindView(position: Int, order: OrderDto, onNewOrderListener: OnNewOrderListener) {
+            val address = try {
+                getAddressFromLatAndLng(context, order.lat ?: 0.0, order.lng ?: 0.0)
+            } catch (e: Exception) {
+                "Default Location"
+            }
             view.position = position
             view.order = order
+            view.orderAddress = address
             view.onNewOrderListener = onNewOrderListener
             view.executePendingBindings()
         }
+
     }
 }

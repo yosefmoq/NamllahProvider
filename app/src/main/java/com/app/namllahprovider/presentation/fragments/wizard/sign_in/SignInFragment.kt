@@ -1,5 +1,6 @@
 package com.app.namllahprovider.presentation.fragments.wizard.sign_in
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,11 +10,13 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.app.namllahprovider.R
 import com.app.namllahprovider.data.api.auth.sign_in.SignInResponse
 import com.app.namllahprovider.databinding.FragmentSignInBinding
+import com.app.namllahprovider.presentation.MainActivity
+import com.app.namllahprovider.presentation.utils.SweetAlert
+import com.app.namllahprovider.presentation.utils.SweetAlertType
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -37,8 +40,8 @@ class SignInFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initViews()
         initToolbar()
+        initViews()
         observeLiveData()
     }
 
@@ -71,13 +74,34 @@ class SignInFragment : Fragment(), View.OnClickListener {
     }
 
     private fun observeLiveData() {
+
         signInViewModel.loadingLiveData.observe(viewLifecycleOwner, {
-            Timber.tag(TAG).d("observeLiveData : Loading Status $it")
+            it?.let {
+                Timber.tag(TAG).d("observeLiveData : Loading Status $it")
+                if (it) {
+                    SweetAlert.instance.showAlertDialog(
+                        context = requireContext(),
+                        alertType = SweetAlertType.PROGRESS_TYPE,
+                        title = getString(R.string.loading),
+                        message = "",
+                        confirmText = "",
+                        confirmListener = {},
+                        cancelText = "",
+                        cancelListener = {},
+                        cancelable = false,
+                    )
+                } else {
+                    SweetAlert.instance.dismissAlertDialog(true)
+                }
+            }
         })
 
         signInViewModel.errorLiveData.observe(viewLifecycleOwner) {
-            Timber.tag(TAG).e("observeLiveData : Error Message ${it.message}")
-            it.printStackTrace()
+            it?.let {
+                Timber.tag(TAG).e("observeLiveData : Error Message ${it.message}")
+                SweetAlert.instance.showFailAlert(activity = requireActivity(), throwable = it)
+                it.printStackTrace()
+            }
         }
 
         signInViewModel.signInLiveData.observe(viewLifecycleOwner, {
@@ -90,14 +114,17 @@ class SignInFragment : Fragment(), View.OnClickListener {
     }
 
     private fun handleSignInResponse(signInResponse: SignInResponse) {
-        if (signInResponse.userDto != null) {
+        if (signInResponse.status!!) {
+            Timber.tag(TAG).d("handleSignInResponse : signInResponse $signInResponse")
             //Success Login
             //Save User data in SP
-            signInViewModel.saveUserDataLocal(signInResponse.userDto!!)
+//            signInViewModel.saveUserDataLocal(signInResponse.userDto!!)
+            signInViewModel.saveUserTokenLocal(signInResponse.userDto!!.token ?: "")
             signInViewModel.changeLoginStatus(true)
-            findNavController().navigate(R.id.action_signInFragment_to_mainFragment)
+            startActivity(Intent(context, MainActivity::class.java))
+            requireActivity().finish()
         } else {
-            val errorMessage = signInResponse.error ?: signInResponse.message
+            val errorMessage = signInResponse.error ?: signInResponse.msg
             ?: "Something error, Please try again later"
             signInViewModel.changeErrorMessage(Throwable(errorMessage))
         }
@@ -113,7 +140,7 @@ class SignInFragment : Fragment(), View.OnClickListener {
     }
 
     private fun onClickForgetPassword() {
-        findNavController().navigate(R.id.action_signInFragment_to_forgetPasswordFragment)
+        findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToForgetPasswordFragment())
     }
 
     private fun onClickSignIn() {
@@ -141,7 +168,7 @@ class SignInFragment : Fragment(), View.OnClickListener {
     }
 
     private fun onClickSignUp() {
-        findNavController().navigate(R.id.action_signInFragment_to_signUpFragment)
+        findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToSignUpFragment())
     }
 
     companion object {

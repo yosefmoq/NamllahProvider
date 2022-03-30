@@ -1,5 +1,6 @@
 package com.app.namllahprovider.data.api.auth
 
+import com.app.namllahprovider.data.api.auth.check_reset_password.CheckResetPasswordRequest
 import com.app.namllahprovider.data.api.auth.forget_password.ForgetPasswordRequest
 import com.app.namllahprovider.data.api.auth.reset_password.ResetPasswordRequest
 import com.app.namllahprovider.data.api.auth.sign_in.SignInRequest
@@ -8,7 +9,6 @@ import com.app.namllahprovider.data.api.auth.verification_code.VerificationCodeR
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
-import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface AuthApi {
@@ -19,7 +19,7 @@ interface AuthApi {
         @Body signInRequest: SignInRequest
     ): Call<ResponseBody>
 
-    @POST("auth/register")
+    @POST("auth/register-provider")
     fun signUp(
 //        @Header("Authorization") token: String,
         @Body signUpRequest: SignUpRequest
@@ -43,7 +43,14 @@ interface AuthApi {
         @Body forgetPasswordRequest: ForgetPasswordRequest
     ): Call<ResponseBody>
 
-    @POST("auth/forget-password")
+
+    @POST("auth/check-reset-password")
+    fun checkResetPassword(
+//        @Header("Authorization") token: String,
+        @Body checkResetPasswordRequest: CheckResetPasswordRequest
+    ): Call<ResponseBody>
+
+    @POST("auth/reset-password")
     fun resetPassword(
 //        @Header("Authorization") token: String,
         @Body resetPasswordRequest: ResetPasswordRequest

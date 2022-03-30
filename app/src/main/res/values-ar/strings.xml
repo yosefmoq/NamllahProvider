@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Namllah Provider</string>
+
+    <string name="skip">تخطي</string>
+    <string name="next">التالي</string>
+    <string name="get_started">إبدا</string>
+    <string name="contact_with_the_customer">تواصل مع العميل</string>
+    <string name="contact_the_customer_and_inform_him_about_your_services">تواصل مع العميل وأبلغه بخدماتك.</string>
+    <string name="get_a_return">احصل على عائد</string>
+    <string name="you_can_get_paid_for_the_tasks_you_do">يمكنك الحصول على أموال مقابل المهام التي تقوم بها.</string>
+    <string name="find_your_work">ابحث عن عملك</string>
+    <string name="we_provide_you_the_best_service_providers_and_technicians">نقدم لكم أفضل مزودي الخدمة والفنيين.</string>
+    <string name="create_new_account">انشاء حساب جديد</string>
+    <string name="login_to_your_account">تسجيل الدخول إلى حسابك</string>
+    <string name="order_details">تفاصيل الطلب</string>
+    <string name="client_location">موقع العميل</string>
+    <string name="verification_code">رمز التأكيد</string>
+    <string name="forget_password">هل نسيت كلمة السر</string>
+    <string name="name">الإسم</string>
+    <string name="phone_number">رقم الهاتف</string>
+    <string name="password">كلمه المرور</string>
+    <string name="confirm_password">تأكيد كلمة المرور</string>
+    <string name="accept_the_terms_amp_conditions">اقبل الشروط والأحكام</string>
+    <string name="sign_up">إنشاء حساب</string>
+    <string name="or">أو</string>
+    <string name="sign_in">تسجيل الدخول</string>
+    <string name="already_have_account">لديك حساب بالفعل؟</string>
+    <string name="user_forget_password">هل نسيت كلمة السر؟</string>
+    <string name="new_user">مستخدم جديد؟</string>
+    <string name="sign_in_with">تسجيل الدخول ب</string>
+    <string name="verify">تحقق</string>
+    <string name="otp_message">الرجاء إدخال رمز التحقق الرقمي الذي تم إرساله إلى الرقم:</string>
+    <string name="otp_hint">****</string>
+    <string name="resend_it">اعادة ارسال</string>
+    <string name="not_received">لم تستلم رمز تحقق؟</string>
+    <string name="fake_mobile_number">(+970) 599 123 456</string>
+    <string name="fake_image">https://i.picsum.photos/id/1049/200/300.jpg?hmac=IwgFpI60m03JoXBvIB_0oA12YR8cNaSel6lUvKhQvF0</string>
+    <string name="enter_your_phone_number_to_reset_the_password_and_then_click_send">أدخل رقم هاتفك لإعادة تعيين كلمة المرور ثم انقر فوق إرسال.</string>
+    <string name="send_code">أرسل الرمز</string>
+    <string name="new_password">كلمة السر الجديدة</string>
+    <string name="confirm_new_password">تأكيد كلمة المرور الجديدة</string>
+    <string name="reset_password">إعادة تعيين كلمة المرور</string>
+    <string name="notification">إشعارات</string>
+    <string name="profile">الملف الشخصي</string>
+    <string name="home">الصفحة الرئيسية</string>
+    <string name="order_photo">طلب صورة</string>
+    <string name="see_more">المزيد</string>
+    <string name="problem_description">وصف المشكلة</string>
+    <string name="location_details">تفاصيل الموقع</string>
+    <string name="lorem_text">أدخل رقم هاتفك لإعادة تعيين كلمة المرور ثم انقر فوق إرسال. أدخل رقم هاتفك لإعادة تعيين كلمة المرور ثم انقر فوق إرسال. أدخل رقم هاتفك لإعادة تعيين كلمة المرور ثم انقر فوق إرسال. أدخل رقم هاتفك لإعادة تعيين كلمة المرور ثم انقر فوق إرسال. أدخل رقم هاتفك لإعادة تعيين كلمة المرور ثم انقر فوق إرسال.</string>
+    <string name="accept">قبول</string>
+    <string name="edit_profile">تعديل الملف الشخصي</string>
+    <string name="fake_address">غزة ، فلسطين</string>
+    <string name="fake_name">إسماعيل العمصي</string>
+    <string name="fake_nationality">فلسطيني</string>
+    <string name="my_services">خدماتي</string>
+    <string name="add_new_services">أضف خدمات جديدة</string>
+    <string name="add_service">أضف خدمة</string>
+    <string name="language">لغة</string>
+    <string name="logout">تسجيل خروج</string>
+    <string name="settings">إعدادات</string>
+    <string name="address">عنوان</string>
+    <string name="nationality">جنسية</string>
+
+    <string name="change_phone_number_title">تغيير رقم الهاتف</string>
+    <string name="change_phone_number_message">سنقوم بإرسال رمز إلى رقم هاتفك المحمول الجديد</string>
+
+    <string name="change_username_title">تغيير الإسم</string>
+    <string name="change_username_message">أدخل اسم جديد</string>
+
+    <string name="change_password_title">تغيير كلمة المرور</string>
+    <string name="change_password_message">أدخل كلمة مرور جديدة</string>
+
+    <string name="change_address_title">تغيير العنوان</string>
+    <string name="change_address_message">أدخل العنوان الجديد</string>
+
+
+    <string name="change_language_title">تغيير اللغة</string>
+    <string name="change_language_message">اختر لغة جديدة</string>
+
+    <string name="current_password">كلمة السر الحالية</string>
+    <string name="save">حفظ</string>
+    <string name="arabic">العربية</string>
+    <string name="english">الإنجليزية</string>
+    <string name="start_work">بدأ العمل</string>
+    <string name="fake_time">02:13:08</string>
+    <string name="fake_date">18/4/2021</string>
+    <string name="fake_price">110 SR</string>
+    <string name="fake_service">Plumbing</string>
+    <string name="fake_number">3</string>
+    <string name="pause">إيقاف</string>
+    <string name="finish">إنهاء</string>
+    <string name="was_it_with_you_or_arrived_at_delivery">هل كان معك أم وصل عند التسليم؟</string>
+    <string name="with_me">معي</string>
+    <string name="delivery">توصيل</string>
+    <string name="item_name">اسم السلعة</string>
+    <string name="item_price">سعر السلعة</string>
+    <string name="select_service_you_provide">حدد الخدمة التي تقدمها</string>
+    <string name="select_areas_you_cover">حدد المناطق التي تقوم بتغطيتها</string>
+    <string name="add">إضافة</string>
+    <string name="click_here_to_select_areas_from_list">انقر هنا لتحديد المناطق من القائمة</string>
+    <string name="decline">رفض</string>
+    <string name="cancel">إلغاء</string>
+    <string name="in_way">في الطريق</string>
+    <string name="show_in_map">إظهار الخريطة</string>
+    <string name="start_checking">ابدأ الفحص</string>
+    <string name="client_not_in_location">العميل ليس في الموقع</string>
+    <string name="check_up">الفحص</string>
+    <string name="take_image">يحتاج هذا التطبيق إلى الوصول إلى التخزين حتى عند الحصول على الصور</string>
+    <string name="checking_sufficiency">الإكتفاء بالفحص</string>
+    <string name="finish_checking">إنهاء الفحص</string>
+    <string name="estimate_hours_work">تقدير ساعات العمل:</string>
+    <string name="write_what_you_will_use">اكتب ما ستستخدمه</string>
+    <string name="optional">اختياري</string>
+    <string name="increase_number">زيادة الرقم</string>
+    <string name="decrease_number">إنقاص الرقم</string>
+    <string name="resume">إستئناف</string>
+    <string name="check_out">الدفع</string>
+    <string name="bill">فاتورة</string>
+    <string name="work">عمل</string>
+    <string name="upload_bill">رفع فاتورة</string>
+    <string name="delivery_times">أوقات التوصيل</string>
+    <string name="total_items_price">إجمالي سعر العناصر</string>
+    <string name="order_num">رقم الطلب #:</string>
+    <string name="category">فئة</string>
+    <string name="date">تاريخ</string>
+    <string name="total_time_work">إجمالي وقت العمل</string>
+    <string name="total_summation">المجموع الكلي</string>
+    <string name="there_is_no_bills_yet">لا توجد فواتير بعد</string>
+    <string name="confirm_cancel">تأكيد إلغاء</string>
+    <string name="_new">جديد</string>
+    <string name="_in_progress">قيد العمل</string>
+    <string name="_finish">المنتهي</string>
+
+    <string name="your_are_online">متصل</string>
+    <string name="you_are_offline">غير متصل</string>
+    <string name="loading">جاري التحميل</string>
+    <string name="_continue">إستمرار</string>
+    <string name="arrive">تم الوصول</string>
+    <string name="created_at">"تاريخ:</string>
+    <string name="customer">إسم العميل:</string>
+    <string name="servicePrice">سعر شراء الأدوات</string>
+    <string name="completed">مكتملة</string>
+    <string name="canceled">ملغية</string>
+    <string name="waitingClient">بإنتظار التأكيد</string>
+    <string name="complete_at">إكتملت في: </string>
+    <string name="customer_name">إسم المستخدم:  </string>
+    <string name="hour">ساعة</string>
+
+    <string name="no_new_orders">لا يوجد طلبات جديدة</string>
+    <string name="no_in_progress_order">لا يوجد طلبات قيد العمل</string>
+    <string name="nothing_finished_yet">لا يوجد طلبات منتهية</string>
+    <string name="no_notifications">لا يوجد اشعارات</string>
+
+    <string name="currency">ر.س</string>
+</resources>

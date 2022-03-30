@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="com.app.namllahprovider.presentation.utils.ImageUtilsKt" />
+
         <variable
             name="userDto"
             type="com.app.namllahprovider.data.model.UserDto" />
@@ -25,13 +27,12 @@
 
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/order_image"
-            imageUrl="@{userDto.images}"
+            android:id="@+id/iv_serviceImage"
+            imageUrl="@{ImageUtilsKt.getImageUrl(userDto.images)}"
             android:layout_width="@dimen/_70sdp"
             android:layout_height="@dimen/_70sdp"
             android:layout_marginHorizontal="@dimen/_6sdp"
             android:layout_marginTop="@dimen/_16sdp"
-            android:src="@drawable/ic_on_boarding_1"
             app:civ_border_color="@color/primary_color"
             app:civ_border_width="2dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -49,15 +50,15 @@
             android:padding="@dimen/_4sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/order_image">
+            app:layout_constraintTop_toBottomOf="@+id/iv_serviceImage">
 
             <TextView
-                android:id="@+id/tv_userNameLabel"
+                android:id="@+id/tv_nameLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_4sdp"
                 android:drawablePadding="@dimen/_4sdp"
-                android:text="@string/username"
+                android:text="@string/name"
                 android:textSize="@dimen/_10ssp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -68,11 +69,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/_4sdp"
                 android:text="@{userDto.name}"
-                android:textSize="@dimen/_16ssp"
+                android:textSize="@dimen/_14ssp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/tv_userNameLabel"
-                app:layout_constraintStart_toStartOf="@+id/tv_userNameLabel"
-                app:layout_constraintTop_toBottomOf="@+id/tv_userNameLabel" />
+                app:layout_constraintEnd_toEndOf="@+id/tv_nameLabel"
+                app:layout_constraintStart_toStartOf="@+id/tv_nameLabel"
+                app:layout_constraintTop_toBottomOf="@+id/tv_nameLabel" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -81,7 +82,7 @@
                 android:contentDescription="@string/app_name"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_userName"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tv_userNameLabel"
+                app:layout_constraintTop_toTopOf="@+id/tv_nameLabel"
                 app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -116,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/_4sdp"
                 android:text="@{userDto.mobile}"
-                android:textSize="@dimen/_16ssp"
+                android:textSize="@dimen/_14ssp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/tv_phoneNumberLabel"
                 app:layout_constraintStart_toStartOf="@+id/tv_phoneNumberLabel"
@@ -164,7 +165,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/_4sdp"
                 android:text="@string/otp_hint"
-                android:textSize="@dimen/_16ssp"
+                android:textSize="@dimen/_14ssp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/tv_passwordLabel"
                 app:layout_constraintStart_toStartOf="@+id/tv_passwordLabel"
@@ -191,6 +192,7 @@
             android:background="@drawable/bg_round_edge_gray"
             android:onClick="@{(view)->actionOnCLick.onClick(view)}"
             android:padding="@dimen/_4sdp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cl_password">
@@ -260,7 +262,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/_4sdp"
                 android:text="@string/fake_nationality"
-                android:textSize="@dimen/_16ssp"
+                android:textSize="@dimen/_14ssp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/tv_nationalityLabel"
                 app:layout_constraintStart_toStartOf="@+id/tv_nationalityLabel"
@@ -279,16 +281,19 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_changeImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/app_name"
             android:foregroundGravity="center"
             android:src="@drawable/ic_camera"
-            app:fabSize="mini"
+            android:onClick="@{(view)->actionOnCLick.onClick(view)}"
             app:backgroundTint="@color/primary_color"
-            app:layout_constraintBottom_toBottomOf="@+id/order_image"
-            app:layout_constraintEnd_toEndOf="@+id/order_image"
-            app:layout_constraintStart_toEndOf="@+id/order_image"
-            app:layout_constraintTop_toTopOf="@+id/order_image"
+            app:fabSize="mini"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_serviceImage"
+            app:layout_constraintEnd_toEndOf="@+id/iv_serviceImage"
+            app:layout_constraintStart_toEndOf="@+id/iv_serviceImage"
+            app:layout_constraintTop_toTopOf="@+id/iv_serviceImage"
             app:layout_constraintVertical_bias="1.0"
             app:tint="@color/white" />
     </androidx.constraintlayout.widget.ConstraintLayout>

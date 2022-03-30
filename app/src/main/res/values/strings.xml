@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Namllah Provider</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="skip">SKIP</string>
     <string name="next">Next</string>
     <string name="get_started">Get started</string>
@@ -13,9 +12,10 @@
     <string name="create_new_account">Create New Account</string>
     <string name="login_to_your_account">Login to your account</string>
     <string name="order_details">Order details</string>
+    <string name="client_location">Client Location</string>
     <string name="verification_code">Verification code</string>
     <string name="forget_password">Forget password</string>
-    <string name="username">Username</string>
+    <string name="name">Name</string>
     <string name="phone_number">Phone Number</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
@@ -26,13 +26,14 @@
     <string name="already_have_account">Already have account?</string>
     <string name="user_forget_password">Forget Password?</string>
     <string name="new_user">New User?</string>
-    <string name="sign_in_with">Sign in w*ith</string>
+    <string name="sign_in_with">Sign in with</string>
     <string name="verify">Verify</string>
     <string name="otp_message">Please enter the 4 - digital verification code that was sent to the number:</string>
     <string name="otp_hint">****</string>
     <string name="resend_it">Resend it</string>
     <string name="not_received">Not Received?</string>
     <string name="fake_mobile_number">(+970) 599 123 456</string>
+    <string name="fake_image">https://i.picsum.photos/id/1049/200/300.jpg?hmac=IwgFpI60m03JoXBvIB_0oA12YR8cNaSel6lUvKhQvF0</string>
     <string name="enter_your_phone_number_to_reset_the_password_and_then_click_send">Enter your phone number to reset the password and then click send.</string>
     <string name="send_code">Send Code</string>
     <string name="new_password">New Password</string>
@@ -53,6 +54,7 @@
     <string name="fake_nationality">Palestinian</string>
     <string name="my_services">My Services</string>
     <string name="add_new_services">Add New Services</string>
+    <string name="add_service">Add Service</string>
     <string name="language">Language</string>
     <string name="logout">Logout</string>
     <string name="settings">Settings</string>
@@ -62,7 +64,7 @@
     <string name="change_phone_number_title">Change Phone Number</string>
     <string name="change_phone_number_message">We will sent a code to your new mobile number</string>
 
-    <string name="change_username_title">Change Username</string>
+    <string name="change_username_title">Change Name</string>
     <string name="change_username_message">Enter New Name</string>
 
     <string name="change_password_title">Change Password</string>
@@ -81,6 +83,10 @@
     <string name="english">English</string>
     <string name="start_work">Start Work</string>
     <string name="fake_time">02:13:08</string>
+    <string name="fake_date">18/4/2021</string>
+    <string name="fake_price">110 SR</string>
+    <string name="fake_service">Plumbing</string>
+    <string name="fake_number">3</string>
     <string name="pause">Pause</string>
     <string name="finish">Finish</string>
     <string name="was_it_with_you_or_arrived_at_delivery">Was It With You Or Arrived At Delivery?</string>
@@ -92,5 +98,61 @@
     <string name="select_areas_you_cover">Select Areas You Cover</string>
     <string name="add">ADD</string>
     <string name="click_here_to_select_areas_from_list">Click here to select areas from list</string>
+    <string name="decline">Decline</string>
+    <string name="cancel">Cancel</string>
+    <string name="in_way">In Way</string>
+    <string name="show_in_map">Show in map</string>
+    <string name="start_checking">Start Checking</string>
+    <string name="client_not_in_location">Client Not In Location</string>
+    <string name="check_up">Check Up</string>
+    <string name="take_image">This app needs access to the storage even when you are getting pictures</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="firebase_notification_topic" translatable="false">NamllahProvider</string>
+    <string name="checking_sufficiency">Checking Sufficiency</string>
+    <string name="finish_checking">Finish Checking</string>
+    <string name="estimate_hours_work">Estimate Hours Work:</string>
+    <string name="write_what_you_will_use">Write what you will use</string>
+    <string name="optional">Optional</string>
+    <string name="increase_number">Increase Number</string>
+    <string name="decrease_number">Decrease Number</string>
+    <string name="resume">Resume</string>
+    <string name="check_out">Check out</string>
+    <string name="bill">Bill</string>
+    <string name="work">Work</string>
+    <string name="upload_bill">Upload Bill</string>
+    <string name="delivery_times">Delivery Times</string>
+    <string name="total_items_price">Total Items Price</string>
+    <string name="category">Category</string>
+    <string name="date">Date</string>
+    <string name="total_time_work">Total Time Work</string>
+    <string name="total_summation">Total Price: </string>
+    <string name="there_is_no_bills_yet">There is no bills yet</string>
+    <string name="confirm_cancel">Confirm Cancel</string>
+    <string name="_new">New</string>
+    <string name="_in_progress">In Progress</string>
+    <string name="_finish">Finish</string>
+    <string name="your_are_online">You\'re online</string>
+    <string name="you_are_offline">You\'re offline</string>
+    <string name="loading">Loading</string>
+    <string name="arrive">Arrive</string>
+    <string name="_continue">Continue</string>
+    <string name="created_at">Created at: </string>
+    <string name="customer">Customer: </string>
+    <string name="currency">SR</string>
+
+    <string name="complete_at">Complete at: </string>
+    <string name="customer_name">Customer Name: </string>
+    <string name="order_num">Order Num#: </string>
+    <string name="completed">Completed</string>
+    <string name="waitingClient">Waiting Confirm</string>
+    <string name="canceled">Canceled</string>
+    <string name="hour">Hour</string>
+
+    <string name="no_new_orders">No New Orders</string>
+    <string name="no_in_progress_order">No In Progress Order</string>
+    <string name="nothing_finished_yet">Nothing finished yet</string>
+    <string name="no_notifications">No Notifications</string>
+
+    <string name="servicePrice">Bought price</string>
 
 </resources>

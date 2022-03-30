@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="actionOnClick"
+            type="android.view.View.OnClickListener" />
+
+
+        <variable
+            name="address"
+            type="String" />
+
+        <variable
+            name="orderDto"
+            type="com.app.namllahprovider.data.model.OrderDto" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.fragments.main.home.map_fragment.MapViewFragment">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            tools:context=".presentation.fragments.createOrder.SelectLocationFragment" />
+
+        <LinearLayout
+            android:id="@+id/ll_mapBtns"
+            android:visibility="gone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_16sdp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_clientNotInLocation"
+                style="@style/AppButton.PrimaryButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/_4sdp"
+                android:gravity="center"
+                android:onClick="@{actionOnClick::onClick}"
+                android:text="@string/client_not_in_location"
+                android:textAllCaps="false"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/textView11"
+                app:layout_constraintEnd_toEndOf="@+id/textView14"
+                app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_startChecking"
+                style="@style/AppButton.AccentButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/_4sdp"
+                android:gravity="center"
+                android:onClick="@{actionOnClick::onClick}"
+                android:text="@string/start_checking"
+                android:textAllCaps="false"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold"
+
+                app:layout_constraintBottom_toBottomOf="@+id/textView11"
+                app:layout_constraintEnd_toEndOf="@+id/textView14"
+                app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_directions"
+                style="@style/AppButton.AccentButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/_4sdp"
+                android:gravity="center"
+                android:onClick="@{actionOnClick::onClick}"
+                android:text="show directions"
+                android:textAllCaps="false"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/textView11"
+                app:layout_constraintEnd_toEndOf="@+id/textView14"
+                app:layout_constraintTop_toBottomOf="@+id/textView12" />
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

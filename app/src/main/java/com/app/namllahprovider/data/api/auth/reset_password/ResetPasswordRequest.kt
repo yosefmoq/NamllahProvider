@@ -8,5 +8,5 @@ data class ResetPasswordRequest(
     @SerializedName("password")
     val password: String,
     @SerializedName("code")
-    val code: Int,
+    val code: String,
 )

@@ -15,7 +15,8 @@
         android:layout_height="match_parent"
         android:paddingBottom="@dimen/_8sdp"
         app:cardCornerRadius="@dimen/_8sdp"
-        tools:context=".presentation.fragments.main.home.work.WorkItemBottomSheetFragment">
+        app:layout_behavior="com.your.package.LockableBottomSheetBehavior"
+        tools:context=".presentation.fragments.main.home.check_timer.WorkItemBottomSheetFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -52,18 +53,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_16sdp"
                 android:layout_marginTop="@dimen/_8sdp"
+                android:hint="@string/item_name"
                 app:boxStrokeColor="@color/primary_color"
                 app:hintTextColor="@color/primary_color"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:hint="@string/item_name"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ib_close">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_workItemName"
                     android:layout_width="match_parent"
-                    android:inputType="textPersonName"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -72,9 +73,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
+                android:hint="@string/item_price"
                 app:boxStrokeColor="@color/primary_color"
                 app:hintTextColor="@color/primary_color"
-                android:hint="@string/item_price"
                 app:layout_constraintEnd_toEndOf="@+id/til_workItemName"
                 app:layout_constraintStart_toStartOf="@+id/til_workItemName"
                 app:layout_constraintTop_toBottomOf="@+id/til_workItemName">
@@ -82,8 +83,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_workItemPrice"
                     android:layout_width="match_parent"
-                    android:inputType="numberDecimal"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView

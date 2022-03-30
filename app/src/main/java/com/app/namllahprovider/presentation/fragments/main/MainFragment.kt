@@ -6,12 +6,14 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
-import androidx.navigation.fragment.NavHostFragment
 import com.app.namllahprovider.R
 import com.app.namllahprovider.databinding.FragmentMainBinding
+import com.app.namllahprovider.presentation.fragments.main.home.HomeFragment
+import com.app.namllahprovider.presentation.fragments.main.notifiactions.NotificationFragment
+import com.app.namllahprovider.presentation.fragments.main.profile.profile.UserProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MainFragment : Fragment(), BottomNavigationView.OnNavigationItemSelectedListener {
@@ -30,32 +32,36 @@ class MainFragment : Fragment(), BottomNavigationView.OnNavigationItemSelectedLi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fragmentMainBinding?.navigation?.setOnNavigationItemSelectedListener(this)
+        loadFragment(currentFragmentType)
     }
 
-    private fun loadFragmentByNavigation(bottomNavType: BottomNavType) {
-        val destination = when (bottomNavType) {
-            BottomNavType.HOME -> R.id.action_global_homeFragment
-            BottomNavType.NOTIFICATION -> R.id.action_global_notificationFragment
-            BottomNavType.PROFILE -> R.id.action_global_profileFragment
+    private fun loadFragment(fragmentType: FragmentType) {
+        currentFragmentType = fragmentType
+        val destinationFragment = when (currentFragmentType) {
+            FragmentType.HOME -> HomeFragment.newInstance()
+            FragmentType.NOTIFICATION -> NotificationFragment.newInstance()
+            FragmentType.PROFILE -> UserProfileFragment.newInstance()
         }
-        val navHostFragment = childFragmentManager.findFragmentById(R.id.main_nav) as NavHostFragment
-        navHostFragment.navController.navigate(destination)
+        Timber.tag(TAG).d("loadFragment : fragment type : $currentFragmentType")
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(fragmentMainBinding?.frameContainer?.id!!, destinationFragment).commit()
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.mi_home -> loadFragmentByNavigation(BottomNavType.HOME)
-            R.id.mi_notification -> loadFragmentByNavigation(BottomNavType.NOTIFICATION)
-            R.id.mi_profile -> loadFragmentByNavigation(BottomNavType.PROFILE)
+            R.id.mi_home -> loadFragment(FragmentType.HOME)
+            R.id.mi_notification -> loadFragment(FragmentType.NOTIFICATION)
+            R.id.mi_profile -> loadFragment(FragmentType.PROFILE)
         }
         return true
     }
 
-    enum class BottomNavType {
+    enum class FragmentType {
         HOME, NOTIFICATION, PROFILE
     }
 
     companion object {
         private const val TAG = "MainFragment"
+        var currentFragmentType = FragmentType.HOME
     }
 }

@@ -2,4 +2,5 @@
 <resources>
 
     <dimen name="buttonRadius">@dimen/_6sdp</dimen>
+    <dimen name="appMarginHorizontal">@dimen/_20sdp</dimen>
 </resources>

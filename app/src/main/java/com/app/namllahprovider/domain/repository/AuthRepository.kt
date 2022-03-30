@@ -1,5 +1,6 @@
 package com.app.namllahprovider.domain.repository
 
+import com.app.namllahprovider.data.api.auth.check_reset_password.CheckResetPasswordResponse
 import com.app.namllahprovider.data.api.auth.forget_password.ForgetPasswordResponse
 import com.app.namllahprovider.data.api.auth.reset_password.ResetPasswordResponse
 import com.app.namllahprovider.data.api.auth.sign_in.SignInResponse
@@ -18,7 +19,9 @@ interface AuthRepository {
         language: String
     ): Maybe<SignUpResponse>
 
-    fun verifyOTPCode(phoneNumber: String, code: Int): Maybe<VerificationCodeResponse>
+    fun verifyOTPCode(phoneNumber: String, code: String): Maybe<VerificationCodeResponse>
+
+    fun checkResetPassword(phoneNumber: String, code: String): Maybe<CheckResetPasswordResponse>
 
     fun resendOTPCode(phoneNumber: String): Maybe<ForgetPasswordResponse>
 
@@ -27,6 +30,6 @@ interface AuthRepository {
     fun resetPassword(
         phoneNumber: String,
         password: String,
-        code: Int
+        code: String
     ): Maybe<ResetPasswordResponse>
 }

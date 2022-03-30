@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import com.app.namllahprovider.databinding.FragmentOrderBottomSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import timber.log.Timber
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 
 class OrderBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickListener {
 
@@ -36,6 +38,7 @@ class OrderBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickListen
         // Inflate the layout for this fragment
         fragmentOrderBottomSheetBinding =
             FragmentOrderBottomSheetBinding.inflate(inflater, container, false)
+
         return fragmentOrderBottomSheetBinding?.apply {
             actionOnClick = this@OrderBottomSheetFragment
             name = this@OrderBottomSheetFragment.name

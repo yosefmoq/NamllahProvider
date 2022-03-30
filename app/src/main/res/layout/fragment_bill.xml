@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.app.namllahprovider.presentation.utils.GereralUtilsKt" />
+
+        <import type="android.view.View"/>
+        <variable
+            name="actionOnClick"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="orderDto"
+            type="com.app.namllahprovider.data.model.OrderDto" />
+
+        <variable
+            name="servicePrice"
+            type="String" />
+        <variable
+            name="billAdapter"
+            type="com.app.namllahprovider.presentation.fragments.main.home.bill.BillAdapter" />
+
+        <variable
+            name="deliveryTimes"
+            type="Integer" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.fragments.main.home.bill.BillFragment">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_checkOut"
+            style="@style/AppButton.AccentButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_weight="2"
+            android:onClick="@{actionOnClick::onClick}"
+            android:text="@string/check_out"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/til_totalItemsPrice"
+            tools:visibility="visible" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_confirmPayment"
+            style="@style/AppButton.AccentButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:layout_marginTop="16dp"
+            android:layout_weight="2"
+            android:onClick="@{actionOnClick::onClick}"
+            android:text="Confirm Payment"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_checkOut"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/order_num"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+        <TextView
+            android:id="@+id/textView24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@{String.valueOf(orderDto.id)}"
+            android:textSize="@dimen/_14ssp"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView19"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="@string/fake_number" />
+
+        <TextView
+            android:id="@+id/textView25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@{orderDto.service.title}"
+            android:textSize="@dimen/_14ssp"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView20"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="@string/fake_service" />
+
+        <TextView
+            android:id="@+id/textView26"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@{orderDto.createdAt}"
+            android:textSize="@dimen/_14ssp"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView21"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="@string/fake_date" />
+
+        <TextView
+            android:id="@+id/textView28"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@{GereralUtilsKt.getTime(orderDto.duration)}"
+            android:textSize="@dimen/_14ssp"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView22"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="@string/fake_time" />
+
+        <TextView
+            android:id="@+id/textView29"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@{orderDto.totalPriceFloor +``+ @string/currency}"
+            android:textSize="@dimen/_14ssp"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView23"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="@string/fake_price" />
+        <TextView
+            android:id="@+id/textView300"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:textSize="@dimen/_14ssp"
+            android:text="@{orderDto.bringTimes+``}"
+            android:textStyle="bold"
+            android:visibility="@{orderDto.status.id == 7 ? View.VISIBLE: View.GONE}"
+
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView1"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="@string/fake_price" />
+
+        <TextView
+            android:id="@+id/textView30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:textSize="@dimen/_14ssp"
+            android:text="@{orderDto.boughtPrice+` `+ @string/currency}"
+            android:textStyle="bold"
+            android:visibility="@{orderDto.status.id == 7 ? View.VISIBLE: View.GONE}"
+
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView2"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="@string/fake_price" />
+
+
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:text="@string/category"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintStart_toStartOf="@+id/textView19"
+            app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:text="@string/date"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintStart_toStartOf="@+id/textView20"
+            app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:text="@string/total_time_work"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintStart_toStartOf="@+id/textView21"
+            app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+        <TextView
+            android:id="@+id/textView23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/total_summation"
+            android:textSize="@dimen/_14ssp"
+            android:layout_marginTop="@dimen/_4sdp"
+
+            app:layout_constraintStart_toStartOf="@+id/textView22"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:text="@string/delivery_times"
+            android:textSize="@dimen/_14ssp"
+            android:visibility="@{orderDto.status.id == 7 ? View.VISIBLE: View.GONE}"
+            app:layout_constraintStart_toStartOf="@+id/textView23"
+            app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:text="@string/servicePrice"
+            android:textSize="@dimen/_14ssp"
+            android:visibility="@{orderDto.status.id == 7 ? View.VISIBLE: View.GONE}"
+            app:layout_constraintStart_toStartOf="@+id/textView23"
+            app:layout_constraintTop_toBottomOf="@+id/textView1" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_bills"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="@+id/textView29"
+            app:layout_constraintStart_toStartOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/rv_billsUrl"
+            app:setAdapter="@{billAdapter}"
+            tools:itemCount="2"
+            tools:listitem="@layout/item_bill" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_billsUrl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_4sdp"
+
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="@+id/textView29"
+            app:layout_constraintStart_toStartOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/textView23"
+            tools:itemCount="1"
+            tools:listitem="@layout/item_bill" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_uploadBill"
+            style="@style/AppButton.PrimaryRoundButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:onClick="@{actionOnClick::onClick}"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:text="@string/upload_bill"
+            app:layout_constraintStart_toStartOf="@+id/rv_bills"
+            app:layout_constraintTop_toBottomOf="@+id/rv_bills" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:text="@string/delivery_times"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintStart_toStartOf="@+id/btn_uploadBill"
+            app:layout_constraintTop_toBottomOf="@+id/btn_uploadBill" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:orientation="horizontal"
+            android:weightSum="4"
+            app:layout_constraintBottom_toBottomOf="@+id/textView6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView6">
+
+            <ImageButton
+                android:id="@+id/ib_decreaseNumber"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:backgroundTint="@color/accent_color"
+                android:contentDescription="@string/decrease_number"
+                android:onClick="@{actionOnClick::onClick}"
+                android:padding="@dimen/_8sdp"
+                android:src="@drawable/ic_minus_sign"
+                app:tint="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_estimateHoursWork"
+                android:layout_width="@dimen/_48sdp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@{String.valueOf(deliveryTimes)}"
+                android:textAlignment="center"
+                android:textSize="@dimen/_18ssp"
+                android:textStyle="bold"
+                tools:text="@string/fake_number" />
+
+            <ImageButton
+                android:id="@+id/ib_increaseNumber"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:backgroundTint="@color/accent_color"
+                android:contentDescription="@string/increase_number"
+                android:onClick="@{actionOnClick::onClick}"
+                android:src="@drawable/ic_baseline_add_24"
+                app:tint="@color/white" />
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_totalItemsPrice"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:hint="@string/total_items_price"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+            app:layout_constraintStart_toStartOf="@+id/textView6"
+            app:layout_constraintTop_toBottomOf="@+id/textView6">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_totalItemsPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <FrameLayout
+            android:id="@+id/fl_noBills"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/rv_bills"
+            app:layout_constraintEnd_toEndOf="@+id/rv_bills"
+            app:layout_constraintStart_toStartOf="@+id/rv_bills"
+            app:layout_constraintTop_toTopOf="@+id/rv_bills">
+
+            <TextView
+                android:id="@+id/textView31"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/there_is_no_bills_yet"
+                android:textSize="@dimen/_14ssp" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_orderStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_confirmPayment" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

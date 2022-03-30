@@ -6,5 +6,5 @@ data class VerificationCodeRequest(
     @SerializedName("mobile")
     val phoneNumber: String,
     @SerializedName("code")
-    val code: Int,
+    val code: String,
 )

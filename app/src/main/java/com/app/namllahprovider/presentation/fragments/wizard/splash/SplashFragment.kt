@@ -1,5 +1,6 @@
 package com.app.namllahprovider.presentation.fragments.wizard.splash
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.app.namllahprovider.R
 import com.app.namllahprovider.databinding.FragmentSplashBinding
+import com.app.namllahprovider.presentation.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -34,35 +36,32 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Timber.tag(TAG).d("onViewCreated : printInLaunch")
         GlobalScope.launch(context = Dispatchers.Main) {
             delay(1500)
             moveToNextUI()
         }
-
-        GlobalScope.launch(context = Dispatchers.Main) {
-            //Do Other Action like check network and initial requests from server
-        }
-
     }
 
     private fun moveToNextUI() {
         Timber.tag(TAG).d("moveToNextUI : ")
         val isLogin = splashViewModel.isLogin()
+        Timber.tag(TAG).d("moveToNextUI : ")
         val isSeenOnBoarding = splashViewModel.isSeenOnBoarding()
-        val destination = if (isLogin) {
+        if (isLogin) {
             //Go to Main
-            R.id.action_splashFragment_to_mainFragment
+            startActivity(Intent(context, MainActivity::class.java))
+            requireActivity().finish()
         } else {
-            if (!isSeenOnBoarding) {
+            val destination = if (!isSeenOnBoarding) {
                 //Go to Boarding Screen
                 R.id.action_splashFragment_to_onBoardingFragment
             } else {
                 //Go to Login Screen
                 R.id.action_splashFragment_to_signInFragment
             }
+            findNavController().navigate(destination)
         }
-        findNavController().navigate(destination)
+
     }
 
     companion object {

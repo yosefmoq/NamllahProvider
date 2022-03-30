@@ -9,9 +9,14 @@ import com.app.namllahprovider.databinding.ItemNotificationBinding
 
 //String formattedText = "This <i>is</i> a <b>test</b> of <a href='http://foo.com'>html</a>";
 class NotificationAdapter(
-    var notificationDtoList: List<NotificationDto>,
+    var notificationList: List<NotificationDto>,
     var onNotificationListener: OnNotificationListener
 ) : RecyclerView.Adapter<NotificationAdapter.NotificationViewHolder>() {
+
+    fun updateData(notificationList: List<NotificationDto>) {
+        this.notificationList = notificationList
+        notifyDataSetChanged()
+    }
 
     class NotificationViewHolder(val view: ItemNotificationBinding) :
         RecyclerView.ViewHolder(view.root) {
@@ -24,10 +29,10 @@ class NotificationAdapter(
             view.notification = notificationDto
             view.onNotificationListener = onNotificationListener
             view.executePendingBindings()
-            view.tvNotificationText.text = HtmlCompat.fromHtml(
-                "<b>${notificationDto.name}</b> ${notificationDto.description}",
+            view.tvNotificationText.text = "${notificationDto.data.msg.ar}" /*HtmlCompat.fromHtml(
+                "<b>${notificationDto.id}</b> ${notificationDto.data.msg.ar}",
                 HtmlCompat.FROM_HTML_MODE_LEGACY
-            )
+            )*/
         }
     }
 
@@ -38,9 +43,9 @@ class NotificationAdapter(
     }
 
     override fun onBindViewHolder(holder: NotificationViewHolder, position: Int) {
-        val currentNotification = notificationDtoList[position]
+        val currentNotification = notificationList[position]
         holder.bindView(position, currentNotification, onNotificationListener)
     }
 
-    override fun getItemCount(): Int = notificationDtoList.size
+    override fun getItemCount(): Int = notificationList.size
 }

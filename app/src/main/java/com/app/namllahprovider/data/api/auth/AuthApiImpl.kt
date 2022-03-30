@@ -1,5 +1,7 @@
 package com.app.namllahprovider.data.api.auth
 
+import com.app.namllahprovider.data.api.auth.check_reset_password.CheckResetPasswordRequest
+import com.app.namllahprovider.data.api.auth.check_reset_password.CheckResetPasswordResponse
 import com.app.namllahprovider.data.api.auth.forget_password.ForgetPasswordRequest
 import com.app.namllahprovider.data.api.auth.forget_password.ForgetPasswordResponse
 import com.app.namllahprovider.data.api.auth.reset_password.ResetPasswordRequest
@@ -69,7 +71,7 @@ class AuthApiImpl @Inject constructor(
             }
         }
 
-    fun verifyOTPCode(phoneNumber: String, code: Int): Maybe<VerificationCodeResponse> =
+    fun verifyOTPCode(phoneNumber: String, code: String): Maybe<VerificationCodeResponse> =
         Maybe.create {
             val response = authApi.verifyOTPCode(
                 verificationCodeRequest = VerificationCodeRequest(
@@ -83,6 +85,27 @@ class AuthApiImpl @Inject constructor(
                 val verificationCodeResponse: VerificationCodeResponse = gson.fromJson(
                     str,
                     VerificationCodeResponse::class.java
+                )
+                it.onSuccess(verificationCodeResponse)
+            } else {
+                it.onError(Throwable(response.errorBody()?.string() ?: "Something went wrong!"))
+            }
+        }
+
+    fun checkResetPassword(phoneNumber: String, code: String): Maybe<CheckResetPasswordResponse> =
+        Maybe.create {
+            val response = authApi.checkResetPassword(
+                checkResetPasswordRequest = CheckResetPasswordRequest(
+                    phoneNumber = phoneNumber,
+                    code = code
+                )
+            ).execute()
+            if (response.isSuccessful) {
+                val gson = GsonBuilder().create()
+                val str = JSONObject(response.body()!!.string()).toString()
+                val verificationCodeResponse: CheckResetPasswordResponse = gson.fromJson(
+                    str,
+                    CheckResetPasswordResponse::class.java
                 )
                 it.onSuccess(verificationCodeResponse)
             } else {
@@ -133,7 +156,7 @@ class AuthApiImpl @Inject constructor(
     fun resetPassword(
         phoneNumber: String,
         password: String,
-        code: Int
+        code: String
     ): Maybe<ResetPasswordResponse> =
         Maybe.create {
             val response = authApi.resetPassword(

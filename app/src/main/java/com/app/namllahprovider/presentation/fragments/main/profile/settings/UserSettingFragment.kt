@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.app.namllahprovider.R
 import com.app.namllahprovider.data.model.UserDto
@@ -21,7 +21,7 @@ class UserSettingFragment : Fragment(), View.OnClickListener {
 
     private var fragmentUserSettingBinding: FragmentUserSettingBinding? = null
 
-    private val profileViewModel: ProfileViewModel by viewModels()
+    private val profileViewModel: ProfileViewModel by activityViewModels()
     private var userDto: UserDto? = null
 
     override fun onCreateView(
@@ -39,17 +39,25 @@ class UserSettingFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         initToolbar()
         getLoggedProfile()
+        initCurrentSettings()
+    }
+
+    private fun initCurrentSettings() {
+
     }
 
     private fun getLoggedProfile() {
-        profileViewModel.getLoggedUser()
-        profileViewModel.loggedUserLiveData.observe(viewLifecycleOwner, {
+        profileViewModel.getLoggedUserApi()
+        profileViewModel.getLoggedUserLiveData.observe(viewLifecycleOwner, {
             it?.let {
                 Timber.tag(TAG).d("getLoggedProfile : it $it")
                 userDto = it
                 fragmentUserSettingBinding?.notificationStatus =
-                    userDto?.settings?.notification ?: "0" == "1"
-                profileViewModel.loggedUserLiveData.postValue(null)
+                    userDto?.settings?.notification ?: "false" == "true"
+                fragmentUserSettingBinding?.switchUserNotification?.setOnCheckedChangeListener { _, isChecked ->
+                    profileViewModel.updateSettings("notification", isChecked)
+                }
+                profileViewModel.getLoggedUserLiveData.postValue(null)
             }
         })
     }
@@ -81,6 +89,7 @@ class UserSettingFragment : Fragment(), View.OnClickListener {
     }
 
     private fun onClickEditLanguage() {
+        Timber.tag(TAG).d("onClickEditLanguage : language $userDto")
         findNavController().navigate(
             UserSettingFragmentDirections.actionUserSettingFragmentToLanguageListBottomSheetFragment(
                 currentLanguage = (userDto?.language?.id ?: 1).toInt()
